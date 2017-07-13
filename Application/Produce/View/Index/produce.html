@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>生产信息管理</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <link rel="stylesheet" href="/resources/css/produce/produce.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="table">
+            <div class="top">
+                <h3>生产信息管理</h3>
+                <div class="search"></div>
+                <input id="search" type="text" />
+                <input type="button" class="topButton" value="新增生产信息" onclick="window.location.href='/Application/Produce/View/Add/addProduce.html'">
+            </div>
+            <div class="center"></div>
+            <div class="bottom">
+                <table id="produce">
+                    <thead>
+                        <tr>
+                            <th data-column-id="name">产品名称</th>
+                            <th data-column-id="spec">产品规格</th>
+                            <th data-formatter="produceName">生产信息名称</th>
+                            <th data-formatter="produce">生产信息</th>
+                            <th data-formatter="operation">操作</th>
+                            <th data-formatter="delete">删除</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script>
+    $(document).ready(function () {
+        var produceInfoList = {};
+        methods.ajax({
+            url: "/admin/profile/fetch",
+            async: false,
+            callback: function(data){
+                produceInfoList = data.result;
+            }
+        });
+        $("#produce").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: "json"
+            },
+            url: "/Produce/Profile/Fetch",
+            identifier: "_id",
+            responseHandler: function (response) {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters: {
+                produceName: function (column, row) {
+                    return row.list.name;
+                },
+                produce: function (column, row) {
+                    var str = "";
+                    for (var i in produceInfoList) {
+                        for (var j in row.list) {
+                            if (i == j) {
+                                str += produceInfoList[i] + "：" + row.list[j] + "；";
+                            }
+                        }
+                    }
+                    return "<p>" + str + "</p>";
+                },
+                operation: function (column, row)
+                {
+                    return "<a href='/Application/Produce/View/Edit/editProduce.html?id=" + row._id + "'><p class='operation' data-list='Produce/View/Edit' data-operation='editProduce'>修改</p></a>";
+                },
+                delete: function (column, row)
+                {
+                    return "<div class=\"delete\" data-id='" + row._id + "'>" + methods.getSvg() + "</div>"
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function()
+        {
+            $('.delete').click(function(){
+               var id=$(this).data("id");
+                $(this).parent().parent().attr("id",id);
+                new Delete({title:'删除通知',content:'是否确定删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id,'/Produce/Profile/remove');
+            });
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>评价商品</title>
+    <!--<base href="../.." />-->
+    <link rel="stylesheet" href="/resources/css/app/swiper.css">
+    <link rel="stylesheet" href="/resources/css/app/main.css">
+    <link rel="stylesheet" href="/resources/css/app/comment.css">
+    <link rel="stylesheet" href="/resources/css/message.css">
+</head>
+<body>
+<header>
+    <span class="backArrow"></span>评价商品</header>
+<article>
+    <div id="comment-box">
+        <section class="comment-stars">
+            <div class="underlined">
+                <h2>
+                    商品评价
+                </h2>
+            </div>
+            <div class="stars-box">
+                <div id="score-1-box">
+                    <span>商品的满意度</span>
+                    <span class="stars">
+                        <input type="hidden" id="score-1" name="score-1" value="" />
+                        <span class="star-off" data-val="1">.</span>
+                        <span class="star-off" data-val="2">.</span>
+                        <span class="star-off" data-val="3">.</span>
+                        <span class="star-off" data-val="4">.</span>
+                        <span class="star-off" data-val="5">.</span>
+                    </span>
+                </div>
+            </div>
+            <textarea id="comment-content" placeholder="您对这件商品的评价如何？" name="content"></textarea>
+            <div id="words-count"><span>字数:</span><span>0/150</span></div>
+        </section>
+        <button class="submit-btn" id="comment-submit">提交</button>
+    </div>
+</article>
+<!--这里是底部按钮栏-->
+<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+<script type="text/javascript" src="/resources/js/app/swiper.js"></script>
+<script type="text/javascript" src="/resources/js/app/comment.js"></script>
+<script type="text/javascript" src="/resources/js/methods.js"></script>
+<script type="text/javascript" src="/resources/js/message_test.js"></script>
+</body>
+</html>

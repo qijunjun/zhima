@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>修改经销商信息</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/company/agent.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>经销商信息</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="agent_name">经销商名称</label>
+                <input type="text" name="agent_name" id="agent_name" data-name="经销商名称" />
+            </div>
+            <div>
+                <label for="agent_address">经销商地址</label>
+                <input type="text" name="agent_address" id="agent_address" data-name="经销商地址" />
+            </div>
+            <div>
+                <label for="agent_legalperson">经销商负责人</label>
+                <input type="text" name="agent_legalperson" id="agent_legalperson" data-name="经销商负责人" />
+            </div>
+            <div>
+                <label for="agent_phone">经销商电话</label>
+                <input type="text" name="agent_phone" id="agent_phone" data-name="经销商电话" />
+            </div>
+            <div class="agent_products">
+                <label for="agent_products">经销商品</label>
+                <input type="text" name="agent_products" id="agent_products" data-name="经销商品" />
+            </div>
+        </div>
+    </section>
+    <div id="list" class="list">
+        <div class="title">
+            <h3>代理区域</h3>
+        </div>
+        <button type="button" id="add"></button>
+    </div>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/area.js"></script>
+<script src="/resources/js/company/editAgent.js"></script>
+<script></script>
+</body>

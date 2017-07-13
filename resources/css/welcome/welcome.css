@@ -1,0 +1,199 @@
+body{
+    font-family: "Microsoft YaHei" !important;
+}
+article{
+    margin-right:100px;
+}
+article section{
+    margin-top:20px;
+}
+article .basic{
+    width:40%;
+    float:left;
+    margin:0 10px 10px 20px;
+}
+article .basic div{
+    float:left;
+    margin-left:10px;
+}
+article .basic img{
+    width:160px;
+}
+article .basic .companyName{
+    margin-left:20px;
+}
+article .basic  h2{
+    color:#7fb4dc;
+    font-size:32px;
+}
+article .basic  p{
+    margin-top:20px;
+}
+article .basic  span{
+    display:inline-block;
+    width:97px;
+    height:50px;
+    color:#fff;
+    background:#7fb4dc;
+    padding:10px;
+    font-size:16px;
+}
+article .basic span b{
+    font-size:26px;
+}
+article .basic span:nth-child(2){
+    margin-left:10px;
+}
+article .num{
+    width:46%;
+    float:left;
+    border-left:2px solid rgba(74, 74, 74, 0.32);
+    padding-left:30px;
+}
+article .num > div > div:first-child{
+    margin-bottom: 10px;
+}
+article .num > div:first-child{
+    border-bottom: 2px solid rgba(132, 128, 128, 0.50);
+    padding-bottom: 20px;
+}
+article .num div img:first-child{
+    width:36px;
+    vertical-align: middle;
+}
+article .num #addProduct,article .num #searchProduct{
+    width:120px;
+    margin-left:10px;
+    vertical-align: middle;
+}
+article .num #checkinList,article .num #checkoutList{
+    margin-left:195px;
+    vertical-align: middle;
+}
+article .num div:first-child  span{
+    color: #8f81bc;
+    text-align:center;
+}
+article .num div:nth-child(2){
+    margin-top:10px;
+}
+article .num div{
+    display: block;
+}
+article .num div > div > span,
+article .num div > span{
+    font-size:24px;
+    margin-left:10px;
+    margin-right:20px;
+    color: #83cbc7;
+    display:inline-block;
+    vertical-align: middle;
+}
+article .num div > span #productNum{
+    width:16px;
+    display:inline-block;
+}
+article .num div > span #checkinNum,article .num p > span #checkoutNum{
+    display:inline-block;
+}
+article .map{
+    border-top:2px solid rgba(132, 128, 128, 0.50);
+    padding-top:20px;
+    margin:20px 100px 20px 20px;
+}
+article:after,article section:after,article .basic:after{
+    content:'\20';
+    display:block;
+    clear:both;
+}
+.num-btn {
+    display: inline-block;
+    width: 112px !important;
+    height: 26px;
+    line-height: 26px;
+    font-size: 21px !important;
+    border: 1px solid;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 30px !important;
+}
+.purpleBtn {
+    color: rgba(143,130,188,1);
+    border-color: rgba(143,130,188,1);
+    /*background: rgba(143,130,188,1);*/
+}
+.greenBtn {
+    color: #83cbc7;
+    border-color: #83cbc7;
+    margin-left: 199px !important;
+    /*background: #83cbc7;*/
+}
+.num-btn:hover {
+    color: #E40 !important;
+    background-color: rgba(249,249,249,1);
+    border-color: rgba(240, 175, 140, 1);
+}
+.num-btn:active {
+    /*color: #B20 !important;*/
+    background-color: rgba(190,190,190,1);
+    border-color: rgba(220, 150, 130, 1);
+}
+
+#checkinNum, #checkoutNum {
+    display: inline-block;
+    width: 28px;
+}
+.title h3 {
+    margin: 20px 0 10px 20px;
+    border-left: 10px solid #72A2C5;
+    padding: 0 0 0 15px;
+    font-size: 24px;
+    display: inline-block;
+}
+.grid label {
+    width: 32%;
+    text-align: center;
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+    margin-left:50px;
+}
+.grid label+select {
+    width: 56%;
+    font-size: 14px;
+    border: 0;
+    height: 30px;
+    margin: 10px 0 9px;
+    padding: 0 2%;
+}
+.grid > div{
+    float:left;
+}
+.grid:after{
+    content:"\20";
+    clear:both;
+    display:block;
+}
+.grid #cancel,.grid #search{
+    /*width: 110px;*/
+    /*height: 32px;*/
+    /*font-size: 18px;*/
+    border: 0;
+    color: #ffffff;
+    background-color: #72A2C5;
+    margin-top: 12px;
+    /*margin-left: 10px;*/
+    width: 90px;
+    height: 30px;
+    font-size: 13px;
+    margin-left: 16px
+}
+@media (min-width: 1444px) {
+     article .num > div > div:first-child {
+         display: inline-block;
+     }
+     .purpleBtn {
+         margin-left: 20px !important;
+         margin-right: 6px !important;
+     }
+ }

@@ -1,0 +1,56 @@
+article .grid label + textarea{
+    width:50%;
+    font-size: 14px;
+    resize: none;
+    margin: 0 0 10px;
+}
+.title h3 {
+    margin: 20px 0 10px 20px;
+    border-left: 10px solid #72A2C5;
+    padding: 0 0 0 15px;
+    font-size: 24px;
+}
+.grid >div{
+    margin:10px 50px;
+}
+.grid label {
+    width: 20%;
+    text-align: center;
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+}
+.grid label+button {
+    width: 15%;
+    font-size: 14px;
+    border: 0;
+    height: 30px;
+    margin: 10px 0 9px;
+    padding: 0 2%;
+    color: #FFFFFF;
+    background-color: #299BE4;
+}
+.grid label+input {
+    font-size: 14px;
+    border: 0;
+    height: 30px;
+    margin: 10px 0 9px;
+    padding: 0 2%;
+    border-bottom: 1px solid #4a4a4a;
+}
+.grid #title{
+    width:30%;
+}
+section:last-child button{
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    border: 0;
+    color: #ffffff;
+    background-color: #72A2C5;
+}
+article > section:last-child {
+    width:66%;
+    text-align: center;
+    padding: 0 0 20px 0;
+}

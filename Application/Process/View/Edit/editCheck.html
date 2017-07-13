@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>修改检测记录</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>检测记录</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="checkName"  style="width:100px;">检测记录名称</label>
+                <input type="text" id="checkName" name="checkName">
+            </div>
+            <div>
+                <label for="data_name">产品</label>
+                <select name="data_name" id="data_name">
+                    <option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+                </select>
+            </div>
+            <div>
+                <label for="checkItem">检测项</label>
+                <input type="text" id="checkItem" name="checkItem">
+            </div>
+            <div>
+                <label for="checkMechanism">检测机构</label>
+                <input type="text" id="checkMechanism" name="checkMechanism">
+            </div>
+            <div>
+                <label for="checkTime">检测时间</label>
+                <input type="text" onclick="laydate()" id="checkTime" name="checkTime">
+            </div>
+            <div>
+                <label for="check_image"  style="width:100px;">检测报告图片</label>
+                <button class="portrait" type="button" name="check_image" id="check_image">点击上传</button>
+            </div>
+            <div>
+                <label for="check_image1"  style="width:100px;">检测报告图片</label>
+                <button class="portrait" type="button" name="check_image1" id="check_image1">点击上传</button>
+            </div>
+            <div>
+                <label for="check_image2"  style="width:100px;">检测报告图片</label>
+                <button class="portrait" type="button" name="check_image2" id="check_image2">点击上传</button>
+            </div>
+            <div>
+                <label for="check_image3"  style="width:100px;">检测报告图片</label>
+                <button class="portrait" type="button" name="check_image3" id="check_image3">点击上传</button>
+            </div>
+            <div>
+                <label for="check_image4"  style="width:100px;">检测报告图片</label>
+                <button class="portrait" type="button" name="check_image4" id="check_image4">点击上传</button>
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/laydate.dev.js"></script>
+<script>
+    var imgSrc = {};
+    $(document).ready(function(){
+        var id= window.location.href.split("?")[1].substring(3);
+        var select = document.getElementById('data_name');
+        select.innerHTML = null;
+        var productid;
+        methods.ajax({
+            url : "/Process/CheckItem/edit",
+            data:{id:id},
+            callback:function(data){
+                data = data.result;
+                productid = data.productid;
+                methods.getId('checkName').value = data.inspectionname;
+                methods.getId('data_name').value = data.productid;
+                methods.getId('checkItem').value = data.inspectionitem;
+                methods.getId('checkMechanism').value = data.institution;
+                var time = new Date(data.create_time+"000"-0);
+                methods.getId("checkTime").value = time.getFullYear()+"-"+((time.getMonth()+1) < 10 ? "0"+ (time.getMonth()+1) : (time.getMonth()+1))+"-"+(time.getDate() < 10 ? "0"+ time.getDate() : time.getDate());
+                if (data.attachment1) {
+                    $("#check_image").val(data.attachment1).addClass("getImg").html("已上传");
+                }
+                if (data.attachment2) {
+                    $("#check_image1").val(data.attachment2).addClass("getImg").html("已上传");
+                }
+                if (data.attachment3) {
+                    $("#check_image2").val(data.attachment3).addClass("getImg").html("已上传");
+                }
+                if (data.attachment4) {
+                    $("#check_image3").val(data.attachment4).addClass("getImg").html("已上传");
+                }
+                if (data.attachment5) {
+                    $("#check_image4").val(data.attachment5).addClass("getImg").html("已上传");
+                }
+                $(".portrait").click(function () {
+                    new ImgUpload({title: '上传图片', name: $(this).attr('name')}, $(this).val()).alert();
+                });
+            }
+        });
+        //产品列表显示
+        methods.ajax({
+            url: "/Product/api/fieldsList",
+            callback : function(data){
+                data = data.result;
+                var str = "<option value='0' disabled='disabled' selected='selected'>--请选择产品--</option>";
+                for(var i = 0;i < data.length;i++){
+                    str +="<option value='"+data[i].productid+"'>"+data[i].productname + "-" + data[i].guige+"</option>";
+                }
+                select.innerHTML += str;
+                $("#data_name").val(productid);
+            }
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            var data = new Data();
+            if(!data.getInput()){
+                new Inform({title:'通知',content:'数据项不完整<br><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            var checkTime = parseInt(new Date($("#checkTime").val()).getTime()/1000);
+            var _data = {
+                id:id,
+                productid:$("#data_name").val(),
+                checkName : $("#checkName").val(),
+                checkItem : $("#checkItem").val(),
+                checkMechanism : $("#checkMechanism").val(),
+                checkTime: checkTime,
+                check_image : $("#check_image").val(),
+                check_image1 : $("#check_image1").val(),
+                check_image2 : $("#check_image2").val(),
+                check_image3 : $("#check_image3").val(),
+                check_image4 : $("#check_image4").val()
+            };
+            methods.ajax({
+                url:"/Process/CheckItem/update",
+                data:_data,
+                callback:function(data){
+                    new Inform({title:'通知',content:'修改成功'}).alert(function(){
+                        window.location.href = "/Application/Process/View/Index/check.html";
+                    })
+                }
+            })
+        })
+    });
+    var getImgUpload = function (data) {
+        for (var i in data.result) {
+            imgSrc[i] = data.result[i].savepath + data.result[i].savename;
+            $("#" + i).val(imgSrc[i]).addClass("getImg").html("已上传");
+        }
+        $(".popMsg").remove();
+    };
+</script>
+</body>
+</html>

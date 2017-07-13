@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>农业后台管理系统</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/product/addproduct.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>产品数据</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="productimage">图片</label>
+                <button class="portrait" type="button" name="productimage" id="productimage">点击上传</button>
+            </div>
+            <div>
+                <label for="productimage1">图片</label>
+                <button class="portrait" type="button" name="productimage1" id="productimage1">点击上传</button>
+            </div>
+            <div>
+                <label for="productimage2">图片</label>
+                <button class="portrait" type="button" name="productimage2" id="productimage2">点击上传</button>
+            </div>
+            <div>
+                <label for="productimage3">图片</label>
+                <button class="portrait" type="button" name="productimage3" id="productimage3">点击上传</button>
+            </div>
+            <div>
+                <label for="productimage4">图片</label>
+                <button class="portrait" type="button" name="productimage4" id="productimage4">点击上传</button>
+            </div>
+            <div>
+                <label for="productname">产品名称</label>
+                <input type="text" name="productname" id="productname" />
+            </div>
+            <div>
+                <label for="guige">产品规格</label>
+                <input type="text" name="guige" id="guige" />
+            </div>
+            <div>
+                <label for="price">产品价格</label>
+                <input type="text" name="price" id="price" />
+            </div>
+            <div>
+                <label for="wdadr">网店链接</label>
+                <input type="text" name="wdadr" id="wdadr"  data-noCheck="noCheck" />
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="title">
+            <h3>产品介绍</h3>
+        </div>
+        <div class="grid">
+            <div class="textareawidth">
+                <label for="productinfo"></label>
+                <textarea name="productinfo" id="productinfo" cols="30" rows="6"></textarea>
+            </div>
+            <!--<div class="w-qiyema">-->
+                <!--<label for="qiyema">产品码</label>-->
+                <!--<div id="qiyema">-->
+                    <!--<img src="../../../../resources/images/QR.jpg" alt="二维码">-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </section>
+    <section>
+        <div class="title">
+            <h3>配置生产信息 </h3>
+        </div>
+        <div class="grid peizhi" id="produceInfo">
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+</body>
+<script>
+    /**
+     * 上传图片的保存
+     */
+    var imgSrc = {};
+
+    $(document).ready(function () {
+        /**
+         * 获取url里面的id
+         */
+        var id = getParameterByName("id");
+
+        /**
+         * 获取生产信息,使用methods的单例方法getProduce,
+         * @param url 获取生产信息的地址(通常为"/admin/profile/fetch")
+         * @param target 生产信息填充的目标(**dom对象**)
+         */
+        methods.getProduce("/admin/profile/fetch", document.getElementById('produceInfo'));
+
+        /**
+         * 调用methods的ajax方法
+         * @param url 编辑提交地址
+         * @param data 提交的数据
+         * @param callback 回调函数
+         */
+        methods.ajax({
+            url: "/Product/api/edit",
+            data: {
+                id: id
+            },
+            callback: function (data) {
+                /**
+                 * 设置数据
+                 */
+                setData(data.result[0]);
+
+                /**
+                 * 如果有图片数据,显示已上传
+                 */
+                if (data.result[0].productimage && data.result[0].productimage != "0") {
+                    $("#productimage").addClass("getImg").html("已上传");
+                    imgSrc.productimage = data.result[0].productimage;
+                }
+                if (data.result[0].productimage1 && data.result[0].productimage1 != "0") {
+                    $("#productimage1").addClass("getImg").html("已上传");
+                    imgSrc.productimage1 = data.result[0].productimage1;
+                }
+                if (data.result[0].productimage2 && data.result[0].productimage2 != "0") {
+                    $("#productimage2").addClass("getImg").html("已上传");
+                    imgSrc.productimage2 = data.result[0].productimage2;
+                }
+                if (data.result[0].productimage3 && data.result[0].productimage3 != "0") {
+                    $("#productimage3").addClass("getImg").html("已上传");
+                    imgSrc.productimage3 = data.result[0].productimage3;
+                }
+                if (data.result[0].productimage4 && data.result[0].productimage4 != "0") {
+                    $("#productimage4").addClass("getImg").html("已上传");
+                    imgSrc.productimage4 = data.result[0].productimage4;
+                }
+
+                /**
+                 * 如果生产信息已经勾选,则显示勾选
+                 */
+                var config = data.result[0].config.split(",");
+                for (var i = 0; i < config.length; i ++) {
+                    $("#produceInfo" + config[i]).prop("checked", true);
+                }
+
+                /**
+                 * 给上传图片绑定点击事件
+                 */
+                $(".portrait").click(function () {
+                    new ImgUpload({title: '上传图片', name: $(this).attr('name')}, $(this).val()).alert();
+                });
+            }
+        });
+
+        /**
+         * 绑定事件
+         * @param dom 绑定目标(**dom对象**)
+         * @param type 绑定方法(click,change...)
+         * @param callback 回调函数
+         */
+        methods.addEvent(document.getElementById('submit'), 'click', function () {
+            /**
+             * 创建一个Data的对象
+             * @type {Data} 包含getInput方法,获取页面所有的input数据
+             */
+            var data = new Data();
+
+            /**
+             * 调用getInput方法,返回值有两个:
+             * 1、false 表示数据项不完整
+             * 2、Data.data 表示返回的data数据
+             * ----------------------------
+             * getInput方法如果发现有checkbox则会给Data.data生成一个新属性checkBox
+             */
+            if (!data.getInput()) {
+                new Inform({title: '通知', content: '数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+
+            /**
+             * 给Data.data加其他参数,调用common方法
+             * 如果有checkBox则用config获取之后需要使用delete删除
+             */
+            data.common("id", id)
+                .common("productinfo", $("#productinfo").val())
+                .common(imgSrc)
+                .common("config", data.common("checkBox").substr(0, data.common("checkBox").length-1));
+            delete data.data.checkBox;
+
+            /**
+             * 调用methods的ajax方法
+             * @param url 提交的网址
+             * @param data 提交的数据
+             * @param callback 回调函数
+             */
+            methods.ajax({
+                url: "/Product/api/update",
+                data: data.data,
+                callback: function (data) {
+                    new Inform({title: '通知', content: '修改产品成功'}).alert(function () {
+                        window.location.href = '/Application/Product/View/Index/product.html';
+                    });
+                }
+            });
+        });
+    });
+
+    /**
+     * 图片上传完成之后的callback
+     * @param data 图片地址
+     */
+    var getImgUpload = function (data) {
+        for (var i in data.result) {
+            imgSrc[i] = data.result[i].savepath + data.result[i].savename;
+            $("#" + i).val(imgSrc[i]).addClass("getImg").html("已上传");
+        }
+        $(".popMsg").remove();
+    };
+
+    /**
+     * 获取url里的参数数据
+     * @param name
+     * @param url
+     * @returns {*}
+     */
+    var getParameterByName = function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
+</script>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>召回监管</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/code/scancode.css" />
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>召回监管</h3>
+            <div class="search"></div>
+            <input type="text" id="search">
+            <!--<div  class="date">-->
+                <!--<label for="companyName">企业名称</label>-->
+                <!--<select name="companyName" id="companyName">-->
+                    <!--<option value="0" disabled="disabled" selected="selected">&#45;&#45;请选择名称&#45;&#45;</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="recallManage">
+                <thead>
+                    <tr>
+                        <th data-column-id="companyname">企业名称</th>
+                        <th data-column-id="productname">产品名称</th>
+                        <th data-column-id="guige">产品规格</th>
+                        <th data-column-id="qrcode_range_s">起始码号</th>
+                        <th data-column-id="qrcode_range_e">终止码号</th>
+                        <th data-column-id="reason">提示文字</th>
+                        <th data-column-id="create_time" data-converter="datetime">召回时间</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#recallManage").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: "json"
+            },
+            url: "/Government/Supervise/showRecall",
+            identifier: "id",
+            responseHandler: function (response) {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            }
+        });
+        //列出所有的企业
+//        var companyName = document.getElementById('companyName');
+//        companyName.innerHTML = null;
+//        var tablepage;
+//        methods.ajax({
+//            url : "/Government/Supervise/getCompanyname",
+//            callback:function(data){
+//                data =data.result;
+//                var str = "<option value='0' disabled='disabled' selected='selected'>--请选择名称--</option>";
+//                for(var i=0;i<data.length;i++){
+//                    str += "<option value='"+data[i].companyid+"'>"+data[i].companyname+"</option>";
+//                }
+//                str +="<option value='1'>显示全部</option>";
+//                companyName.innerHTML = str;
+//            }
+//        });
+//        methods.addEvent(companyName,'change',function(){
+//            $("#recallManage tbody").remove();
+//            var str = "";
+//            var tr;
+//            var td =[];
+//            if(companyName.value === "1"){
+//                $.ajax({
+//                    url : "/Government/Supervise/showRecall",
+//                    method:"post",
+//                    data:{},
+//                    dataType:"json",
+//                    success:function(data){
+//                        if(data.code === "001"){
+//                            data = data.result;
+//                            tablepage = data.result;
+//                            for(var i = 0 ;i<data.length;i++){
+//                                var time = new Date(data[i].create_time+"000"-0);
+//                                var creatTime = time.getFullYear() + "年" + ((time.getMonth() + 1) < 10 ? ('0' + (time.getMonth() + 1)) : (time.getMonth() + 1)) + "月" + (time.getDate() < 10 ? ('0' + time.getDate()) : time.getDate())+"日"+(time.getHours() < 10 ? ('0' + time.getHours()) : time.getHours())+":"+(time.getMinutes() < 10 ? ('0' + time.getMinutes()) : time.getMinutes())+":"+(time.getSeconds() < 10 ? ('0' + time.getSeconds()) : time.getSeconds());
+//                                td[0] = "<td>"+data[i].companyname+"</td>";
+//                                td[1] = "<td>"+data[i].productname+"</td>";
+//                                td[2] = "<td>"+data[i].guige+"</td>";
+//                                td[3] = "<td>"+data[i].qrcode_range_s+"</td>";
+//                                td[4] = "<td>"+data[i].qrcode_range_e+"</td>";
+//                                td[5] = "<td>"+data[i].reason+"</td>";
+//                                td[6] = "<td>"+creatTime+"</td>";
+//                                tr = $("<tr></tr>");
+//                                tr.append(td[0]).append(td[1]).append(td[2]).append(td[3]).append(td[4]).append(td[5]).append(td[6]);
+//                                $("#recallManage").append(tr);
+//                            }
+//                        }
+//                    },
+//                    error:function(err){
+//                        console.log(err);
+//                    }
+//                });
+//            }else{
+//                $.ajax({
+//                    url : "/Government/Supervise/getComRecall",
+//                    method:"post",
+//                    data:{companyid:companyName.value},
+//                    dataType:"json",
+//                    success:function(data){
+//                        if(data.code === "001"){
+//                            data = data.result;
+//                            for(var i = 0 ;i<data.length;i++){
+//                                var time = new Date(data[i].create_time+"000"-0);
+//                                var creatTime = time.getFullYear() + "年" + ((time.getMonth() + 1) < 10 ? ('0' + (time.getMonth() + 1)) : (time.getMonth() + 1)) + "月" + (time.getDate() < 10 ? ('0' + time.getDate()) : time.getDate())+"日"+(time.getHours() < 10 ? ('0' + time.getHours()) : time.getHours())+":"+(time.getMinutes() < 10 ? ('0' + time.getMinutes()) : time.getMinutes())+":"+(time.getSeconds() < 10 ? ('0' + time.getSeconds()) : time.getSeconds());
+//                                td[0] = "<td>"+data[i].companyname+"</td>";
+//                                td[1] = "<td>"+data[i].productname+"</td>";
+//                                td[2] = "<td>"+data[i].guige+"</td>";
+//                                td[3] = "<td>"+data[i].qrcode_range_s+"</td>";
+//                                td[4] = "<td>"+data[i].qrcode_range_e+"</td>";
+//                                td[5] = "<td>"+data[i].reason+"</td>";
+//                                td[6] = "<td>"+creatTime+"</td>";
+//                                tr = $("<tr></tr>");
+//                                tr.append(td[0]).append(td[1]).append(td[2]).append(td[3]).append(td[4]).append(td[5]).append(td[6]);
+//                                $("#recallManage").append(tr);
+//                            }
+//                        }else{
+//                            td[0] = "<td></td>";
+//                            td[1] = "<td></td>";
+//                            td[2] = "<td></td>";
+//                            td[3] = "<td>未查到数据</td>";
+//                            td[4] = "<td></td>";
+//                            td[5] = "<td></td>";
+//                            td[6] = "<td></td>";
+//                            tr = $("<tr></tr>");
+//                            tr.append(td[0]).append(td[1]).append(td[2]).append(td[3]).append(td[4]).append(td[5]).append(td[6]);
+//                            $("#recallManage").append(tr);
+//                        }
+//                    },
+//                    error:function(err){
+//                        console.log(err);
+//                    }
+//                });
+//            }
+//        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>快消平台管理系统</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <link rel="stylesheet" href="/resources/css/enlarge.css" />
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>通知公告管理</h3>
+            <div class="search"></div>
+            <input type="text" id="search">
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="inform">
+                <thead>
+                <tr>
+                    <th data-column-id="title">标题</th>
+                    <th data-column-id="create_time" data-converter="date">发布时间</th>
+                    <th data-formatter="show">查看详情</th>
+                    <th data-formatter="operation" data-sortable="false">操作</th>
+                    <th data-formatter="delete" data-sortable="false">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#inform").bootgrid({
+            ajax:true,
+            ajaxSettings:{
+                dataType:"json"
+            },
+            url:"/Government/Message/listInfo",
+            identifier:"id",
+            responseHandler:function(response){
+                var rows;
+                rows = {
+                    total:response.result.length,
+                    current:1,
+                    rows:response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters:{
+               show: function (column, row)
+                {
+                    return "<a href='/Application/Government/View/ZQT/govInfo.html?id=" + row.id + "'><p class='operation'>查看详情</p></a>";
+                },
+                operation:function(column,row){
+                    return "<a href='/Application/Government/View/ZQT/editInform.html?id="+row.id+"'><p class='operation'>修改</p></a>"
+                },
+                delete:function(column,row){
+                    return "<div class='delete' data-id='"+row.id+"'>"+methods.getSvg()+"</div>"
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid",function(){
+            $(".delete").click(function(){
+                var id= $(this).data("id");
+                $(this).parent().parent().attr("id",id);
+                new Delete({title:"通知",content:"是否确认删除?<br><span class='red'>一旦删除将不可恢复</span>"}).alert(id,"/Government/Message/delInfo");
+            });
+        })
+    })
+</script>
+</body>
+</html>

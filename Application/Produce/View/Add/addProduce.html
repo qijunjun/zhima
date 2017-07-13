@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>新增生产信息</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>新增生产信息</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="data_name">产品</label>
+                <select name="data_name" id="data_name">
+                    <option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid produce" id="produceList"></div>
+        <!--<div class="title">-->
+            <!--<h3>生产信息</h3>-->
+        <!--</div>-->
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    $(document).ready(function () {
+        var produceInfo = {};
+        var produceInfoList = {};
+        methods.ajax({
+            url: "/admin/profile/fetch",
+            callback: function(data){
+                produceInfoList = data.result;
+            }
+        });
+        methods.ajax({
+            url: "/Product/api/fieldsList",
+            callback: function(data){
+                data = data.result;
+                var select = methods.getId('data_name');
+                select.innerHTML = null;
+                select.innerHTML += "<option value='0' disabled='disabled' selected='selected'>--请选择产品--</option>";
+                for(var i=0;i<data.length;i++){
+                    select.innerHTML +="<option value='"+data[i].productid+"'>"+data[i].productname + "-" + data[i].guige+"</option>";
+                    produceInfo[data[i].productid] = data[i].config.split(",");
+                    produceList.innerHTML = null;
+                        str = "<div>" +
+                                "<label for='name'>生产信息名称</label>" +
+                                "<input type='text' name='name' id='name' data-name='生产信息名称' />" +
+                                "</div>";
+                }
+                var str = "";
+                methods.addEvent(select,'change',function(e){
+                    var produceList = methods.getId('produceList');
+                    produceList.innerHTML = null;
+                    str = "<div>" +
+                                "<label for='name'>生产信息名称</label>" +
+                                "<input type='text' name='name' id='name' data-name='生产信息名称' />" +
+                                "</div>";
+                    var id = e.target.value;
+                    for (var i in produceInfoList) {
+                        for (var j = 0; j < produceInfo[id].length; j ++) {
+                            if (i == produceInfo[id][j]) {
+                                str += "<div>" +
+                                        "<label for='" + i + "'>" + produceInfoList[i] + "</label>" +
+                                        "<input type='text' name='" + i + "' id='" + i + "' data-name='" + produceInfoList[i] + "' />" +
+                                        "</div>";
+                            }
+                        }
+                    }
+                    produceList.innerHTML = str;
+                })
+            }
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+           var data = new Data();
+            data.getInput(false);
+            var _data = {
+                productId: $("#data_name").val(),
+                list: data.data
+            };
+            methods.ajax({
+                url: "/Produce/Profile/add",
+                data: _data,
+                callback:function(data){
+                    new Inform({title:'通知',content:'新增成功'}).alert(function(){
+                        window.location.href='/Application/Produce/View/Index/produce.html';
+                    })
+                }
+            })
+        });
+        });
+</script>
+</html>

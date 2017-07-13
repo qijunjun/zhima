@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>新增物流信息</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>添加物流信息</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="qrcode_pack_s" style="width:100px;">箱码起始编号</label>
+                <input type="text" name="qrcode_pack_s" id="qrcode_pack_s" />
+            </div>
+            <div>
+                <label for="qrcode_pack_e" style="width:100px;">箱码结束编号</label>
+                <input type="text" name="qrcode_pack_e" id="qrcode_pack_e" />
+            </div>
+            <div>
+                <label for="logistics">物流公司</label>
+                <input type="text" name="logistics" id="logistics" />
+            </div>
+            <div>
+                <label for="expresslist">物流单号</label>
+                <input type="text" name="expresslist" id="expresslist" />
+            </div>
+            <div>
+                <label for="logistics_time">发货时间</label>
+                <input type="text" onclick="laydate()" name="logistics_time" id="logistics_time" data-name="发货时间" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>物流信息</h3>
+            <div class="search"></div>
+            <input id="search" type="text" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="Logistics">
+                <thead>
+                <tr>
+                    <!--<th data-formatter="productimage" data-sortable="false">产品图片</th>-->
+                    <!--<th data-column-id="productname">产品名称</th>-->
+                    <!--<th data-column-id="guige">产品规格</th>-->
+                    <th data-column-id="qrcode_pack_s">起始箱码</th>
+                    <th data-column-id="qrcode_pack_e">终止箱码</th>
+                    <th data-column-id="logistics">物流公司</th>
+                    <th data-column-id="expresslist">物流单号</th>
+                    <th data-column-id="logistics_time" data-converter="date">发货时间</th>
+                    <th data-formatter="operation" data-sortable="false">操作</th>
+                    <th data-formatter="delete" data-sortable="false">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/laydate.dev.js"></script>
+<script>
+    $(document).ready(function(){
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            var data = new Data();
+            if(!data.getInput()){
+                new Inform({title:'通知',content:'数据项不完整<br><span style="color: red;">请检查</span>'}).alert();
+                return ;
+            }
+            data = data.data;
+            data["logistics_time"] = parseInt(new Date(data["logistics_time"]).getTime() / 1000);
+
+             methods.ajax({
+                url : "/Logistics/Logistics/add",
+                data:data,
+                callback : function(data){
+                    new Inform({title:'通知',content:'新增成功'}).alert(function(){
+                        window.location.reload();
+                    });
+                }
+            })
+        });
+        $("#Logistics").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: "json"
+            },
+            url: "/Logistics/Logistics/index",
+            identifier: "id",
+            responseHandler: function (response)
+            {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters: {
+//                productimage: function (column, row) {
+//                    return "<img src='" + row.productimage + "' />";
+//                },
+//                logistics_time: function(column,row){
+//                    var time = new Date(parseInt(row.logistics_time) * 1000);
+//                    var logtime = time.getFullYear() + "年" + (time.getMonth() + 1) + "月" + time.getDate() + "日";
+//                    return logtime;
+//                },
+                operation: function (column, row)
+                {
+                    return "<a href='/Application/Logistics/View/Edit/editLogistics.html?id=" + row.id + "'><p class='operation'>修改</p></a>";
+                },
+                delete: function (column, row)
+                {
+                    return "<div class=\"delete\" data-id='" + row.id + "'>" + methods.getSvg() + "</div>"
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function()
+        {
+            $(".delete").click(function () {
+                var id = $(this).data("id");
+                $(this).parent().parent().attr("id", id);
+                new Delete({title: '删除提示', content: '是否确认删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id, "/Logistics/Logistics/del");
+            });
+        });
+    })
+</script>
+</body>
+</html>

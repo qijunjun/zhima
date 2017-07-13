@@ -1,0 +1,54 @@
+.underlined {
+    border-bottom: 1px solid grey;
+}
+#comment-box {
+    /*width: 100%;*/
+    max-height: 400px;
+    padding: 10px;
+    /*border: 1px solid grey;*/
+}
+.comment-stars textarea {
+    width: 99%;
+    height: 200px;
+}
+.stars-box {
+    margin: 12px 0 12px 0;
+}
+.stars-box>div {
+    height: 24px;
+    padding: 0 4px 0 4px;
+    margin: 0 0 5px 0;
+}
+.stars-box>div>span {
+    display: inline-block;
+}
+.stars-box>div>span:first-child {
+    width: 40%;
+}
+.stars>span {
+    display: inline-block;
+    text-indent: -2000px;
+    width: 20px;
+    height: 20px;
+}
+.star-on {
+    background: url("../../images/star-on-big.png") no-repeat 0 0/20px 20px;
+}
+.star-off {
+    background: url("../../images/star-off-big.png") no-repeat 0 0/20px 20px;
+}
+#words-count {
+    text-align: right;
+    margin: 5px 0 10px 0;
+}
+.overLimit {
+    color: red;
+}
+.backArrow {
+    float: left;
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url("../../images/back.png") no-repeat 0 0/20px 20px;
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--浏览器内核控制-->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--强制让ie使用edge渲染,如果使用chrome则使用chrome内容渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <!--禁止百度进行手机转码-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--禁止浏览器从本地计算机的缓存中访问页面内容-->
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+        搜索引擎索引方式
+        all：文件将被检索，且页面上的链接可以被查询；
+        none：文件将不被检索，且页面上的链接不可以被查询；
+        index：文件将被检索；
+        follow：页面上的链接可以被查询；
+        noindex：文件将不被检索；
+        nofollow：页面上的链接不可以被查询。
+     -->
+    <meta name="robots" content="index,follow" />
+    <!--忽略数字自动识别为电话号码-->
+    <meta content="telephone=no" name="format-detection" />
+    <!--忽略识别邮箱-->
+    <meta content="email=no" name="format-detection" />
+    <title>测土配肥申请</title>
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/reset.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/common.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/soilApply/index.css" />
+</head>
+<body>
+<header>
+    <a href="javascript:window.history.back(-1);"><img src="__PUBLIC__/mobileApp/img/back.png" alt="后退" /></a>
+    <span>测土配肥申请</span>
+</header>
+<div class="tip">
+    <p>
+        <img id="loading" src="__PUBLIC__/mobileApp/img/loading.png" alt="loading" />
+        <img id="access" src="__PUBLIC__/mobileApp/img/access.png" alt="access" />
+        <img id="wrong" src="__PUBLIC__/mobileApp/img/wrong.png" alt="wrong" />
+        <span id="word">正在提交</span>
+    </p>
+</div>
+<article id="loginFirst">
+	<div>
+		<h4>尚未登录，请先登录！</h4>
+		<a href="http://nongye.zmade.cn/MobileApp/my/register.html">
+            <p>注&nbsp;册</p>
+        </a>
+        <a href="http://nongye.zmade.cn/MobileApp/my/login.html">
+            <p>登&nbsp;录</p>
+        </a>
+	</div>
+</article>
+
+<article id="dataShow">
+    <section>
+        <ul>
+            <li>
+                <label for="type"><span class="need">*</span>测土方式</label>
+                <select name="type" id="type">
+                    <option value="0">请选择类型</option>
+                    <option value="1">自助取土</option>
+                    <option value="2">专家上门</option>
+                    <option value="3">代理商</option>
+                </select>
+            </li>
+            <li>
+                <label for="name"><span class="need">*</span>姓名</label>
+                <input name="name" id="name" type="text" />
+            </li>
+            <li>
+                <label for="phone"><span class="need">*</span>电话</label>
+                <input name="phone" id="phone" type="number" />
+            </li>
+            <li>
+                <label for="address"><span class="need">*</span>地址</label>
+                <input name="address" id="address" type="text" />
+            </li>
+            <li>
+                <label for="content"><span class="need">*</span>测土说明:</label>
+            </li>
+            <li>
+                <textarea name="content" id="content" type="text"></textarea>
+                <span><span class="need">*</span>为必填项</span>
+            </li>
+        </ul>
+    </section>
+    <a href="javascript:submitInfo();">
+        <div class="submitInfo">
+            <span>提交测土配肥申请</span>
+        </div>
+    </a>
+</article>
+<script src="__PUBLIC__/mobileApp/js/jquery-2.1.4.min.js"></script>
+<script src="__PUBLIC__/mobileApp/js/common.js"></script>
+<script src="__PUBLIC__/mobileApp/js/soilApply/index.js"></script>
+</body>
+</html>

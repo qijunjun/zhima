@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/reset.css" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/message.css" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/styles.css" />
+    <script src="/resources/js/scantemplate/jquery-1.11.0.min.js"></script>
+    <script src="/resources/js/scantemplate/e-smart-zoom-jquery.min.js"></script>
+    <script src="http://libs.useso.com/js/html5shiv/3.6/html5shiv.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.img').smartZoom({'containerClass':'zoomableContainer'});
+            $('.img1').smartZoom({'containerClass':'zoomableContainer'});
+            $('#zoomInButton,#zoomOutButton').bind("click", zoomButtonClickHandler);
+            function zoomButtonClickHandler(e){
+                var scaleToAdd = 0.3;
+                if(e.target.id == 'zoomOutButton')
+                    scaleToAdd = -scaleToAdd;
+                $('.img').smartZoom('zoom', scaleToAdd);
+                $('.img1').smartZoom('zoom', scaleToAdd);
+            }
+        });
+    </script>
+    <title>扫码模板选择</title>
+</head>
+<body>
+    <article>
+        <section>
+            <div class="title">
+                <h3>扫码页面模板配置</h3>
+            </div>
+            <div class="grid">
+                <div class="one">
+                    <input type="radio" name="template">
+                    <label for="">模板一 (包括：防伪信息、微信营销、电商引流、溯源信息(生产信息、生产过程信息、出入库信息)
+                        、企业信息)</label>
+                    <div>
+                        <img src="/resources/images/scanone.png" class="img" alt="">
+                    </div>
+                </div>
+                <div class="one">
+                    <input type="radio"  name="template">
+                    <label for="">模板二 (包括：防伪信息、产品信息、出入库信息)</label>
+                    <div>
+                        <img src="/resources/images/scantwo.png" class="img1" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+</body>
+</html>

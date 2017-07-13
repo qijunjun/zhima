@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>快消平台管理系统</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/marketing/marketing.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>微信红包信息</h3>
+        </div>
+        <div class="grid">
+            <!--<div>
+                <label for="support_name">红包提供方名称</label>
+                <input type="text" name="support_name" id="support_name" data-name="红包提供方名称" placeholder="陕西鼎澄信息技术有限公司">
+            </div>-->
+            <div style="display: none">
+                <label for="promotionid"></label>
+                <input name="promotionid" id="promotionid" data-name="活动id" type="hidden">
+            </div>
+            <div style="display: none">
+                <label for="id"></label>
+                <input name="id" id="id" data-name="红包关联码段id" type="hidden">
+            </div>
+            <div>
+                <label for="send_name">红包发送方名称</label>
+                <input type="text" name="send_name" id="send_name" data-name="红包发送方名称">
+            </div>
+            <!--<div>-->
+                <!--<input type="checkbox" name="is_random" id="is_random" value="1" />-->
+                <!--<label for="is_random">随机红包</label>-->
+            <!--</div>-->
+            <div>
+                <label for="min_value">最小金额</label>
+                <input type="text" name="min_value" id="min_value"  data-name="最小金额" placeholder="最小为0">元
+                <label for="max_value">最大金额</label>
+                <input type="text" name="max_value" id="max_value" data-name="最大金额" placeholder="最大为200">元
+            </div>
+            <!--<div>-->
+                <!--<label for="fix_value">固定金额</label>-->
+                <!--<input type="text" name="fix_value" id="fix_value" data-name="固定金额">元-->
+            <!--</div>-->
+            <div class="time">
+                <label for="start_time">起始时间</label>
+                <input type="text" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"  name="start_time" id="start_time" data-name="起始时间" />
+                <label for="end_time">终止时间</label>
+                <input type="text" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"  name="end_time" id="end_time" data-name="终止时间" />
+            </div>
+            <div>
+                <label for="qrcode_range_s">起始码</label>
+                <input type="text" name="qrcode_range_s" id="qrcode_range_s" data-name="起始码">
+                <label for="qrcode_range_e">终止码</label>
+                <input type="text" name="qrcode_range_e" id="qrcode_range_e" data-name="终止码">
+            </div>
+            <div>
+                <label for="promotion_wishing">红包祝福语</label>
+                <input type="text" name="promotion_wishing" id="promotion_wishing" data-name="红包祝福语">
+            </div>
+            <div>
+                <label for="promotion_name">活动名称</label>
+                <input type="text" name="promotion_name" id="promotion_name" data-name="活动名称">
+            </div>
+            <div>
+                <label for="promotion_remark">备注信息</label>
+                <input type="text" name="promotion_remark" id="promotion_remark" data-name="备注信息">
+            </div>
+        </div>
+        <div class="explain">
+            <h3>微信红包设置填写图片说明</h3>
+            <img src="/resources/images/explain.png" alt="微信红包设置说明">
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/laydate.dev.js"></script>
+<script src="/resources/js/marketing/listConfig.js"></script>
+</body>
+</html>

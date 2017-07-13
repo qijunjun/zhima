@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>注册</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>基础数据</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="username">用户名</label>
+                <input type="text" name="username" id="username" data-name="用户名" />
+            </div>
+            <div>
+                <label for="password">密码</label>
+                <input type="password" name="password" id="password" data-name="密码" />
+            </div>
+            <div>
+                <label for="rePassword">重复密码</label>
+                <input type="password" name="rePassword" id="rePassword" data-name="重复密码" />
+            </div>
+            <div>
+                <label for="phone">手机号</label>
+                <input type="number" name="phone" id="phone" data-name="手机号" />
+            </div>
+            <div>
+                <label for="company">企业名称</label>
+                <input type="text" name="company" id="company" data-name="企业名称" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/getData.js"></script>
+<script src="/resources/js/admin/register.js"></script>
+</body>
+</html>

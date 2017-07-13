@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>扫描结果</title>
+    <link rel="stylesheet" href="/resources/css/app/swiper.css">
+    <link rel="stylesheet" href="/resources/css/app/main.css">
+    <link rel="stylesheet" href="/resources/css/message.css">
+</head>
+<body>
+<header>查看产品溯源信息</header>
+<article>
+    <div class="productName">
+        <section>
+            <h2 id="productName">&nbsp;查询中...&nbsp;</h2>
+        </section>
+        <section>
+            <p>您所查询的防伪码为：<span id="code">&nbsp;查询中...&nbsp;</span></p>
+            <p>请核对防伪码数字是否与标签一致。</p>
+            <p><a id="report">我要举报&gt;&gt;</a></p>
+        </section>
+        <section id="message">
+            <p>该防伪码已于<span id="time">&nbsp;查询中...&nbsp;</span>第一次查询</p>
+            <h3>本次为第<span id="nowTimes">&nbsp;查询中...&nbsp;</span>次查询</h3>
+        </section>
+    </div>
+    <div id="productArea" class="productinform hidden">
+        <section>
+            <h2>产品溯源信息</h2>
+            <p id="product">&nbsp;查询中...&nbsp;</p>
+        </section>
+        <section class="swiper-container">
+            <div id="pImg" class="swiper-wrapper">
+            </div>
+            <div class="swiper-pagination"></div>
+        </section>
+        <section>
+            <p><b>产品规格</b>：<span id="spec">&nbsp;查询中...&nbsp;</span></p>
+            <div>
+                <p><b>零售价格</b>：¥<span id="price">&nbsp;查询中...&nbsp;</span></p>
+            </div>
+            <p><b>产品简介</b>：<span id="productIntroduct">&nbsp;查询中...&nbsp;</span></p>
+        </section>
+        <section id="checkIOArea" class="checkIO hidden">
+            <p>出入库信息</p>
+            <ul>
+                <li>
+                    <b>产地：</b>
+                    <span>韩国</span>
+                </li>
+            </ul>
+            <ul class="ul1" id="checkIO"></ul>
+        </section>
+    </div>
+</article>
+<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2"></script>
+<script type="text/javascript" src="/resources/js/app/swiper.js"></script>
+<script type="text/javascript" src="/resources/js/app/static_scanCode.js"></script>
+<script type="text/javascript" src="/resources/js/methods.js"></script>
+<script type="text/javascript" src="/resources/js/message_test.js"></script>
+</body>
+</html>

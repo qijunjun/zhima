@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>生产信息码段关联</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <link rel="stylesheet" href="/resources/css/produce/produceCode.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>新增质量码与生产信息关联</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="data_name">产品</label>
+                <select name="data_name" id="data_name">
+                    <option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+                </select>
+            </div>
+            <div>
+                <label for="produceInfo">生产信息</label>
+                <select name="produceInfo" id="produceInfo">
+                    <option value="0">请选择生产信息</option>
+                </select>
+            </div>
+            <div>
+                <label for="startCode">起始质量码</label>
+                <input type="text" name="startCode" id="startCode" placeholder="请输入起始质量码" />
+            </div>
+            <div>
+                <label for="endCode">结束质量码</label>
+                <input type="text" name="endCode" id="endCode" placeholder="请输入结束质量码" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">关联</button>
+    </section>
+</article>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>质量码与生产信息关联管理</h3>
+            <div class="search"></div>
+            <input id="search" type="text" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="produceConnect">
+                <thead>
+                    <tr>
+                        <th data-column-id="product_name">产品名称</th>
+                        <th data-column-id="spec">产品规格</th>
+                        <th data-column-id="qrcode_range_s">起始码号</th>
+                        <th data-column-id="qrcode_range_e">结束码号</th>
+                        <th data-column-id="profile_name">生产信息名称</th>
+                        <th data-column-id="create_time" data-converter="datetime">关联时间</th>
+                        <th data-formatter="delete">删除</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    $(document).ready(function () {
+        var produceInfo = {};
+        var select = methods.getId('data_name');
+        select.innerHTML = null;
+        methods.ajax({
+            url: "/Product/api/fieldsList",
+            async: false,
+            callback: function(data){
+                data = data.result;
+                select.innerHTML += "<option value='0' disabled='disabled' selected='selected'>请选择产品</option>";
+                for(var i=0;i<data.length;i++) {
+                    select.innerHTML += "<option value='" + data[i].productid + "'>" + data[i].productname + "-" + data[i].guige + "</option>";
+                }
+            }
+        });
+        methods.addEvent(select,'change',function(e){
+           methods.ajax({
+               url: "/Produce/Connect/Select",
+               data: {productId: select.value},
+               callback: function(data){
+                   data =data.result;
+                   if(data !=null){
+                       var str="<option value='0'>请选择生产信息</option>";
+                       for (var i = 0; i < data.length; i ++) {
+                           str += "<option value='" + data[i]._id + "'>" + data[i].name + "</option>";
+                       }
+                       methods.getId('produceInfo').innerHTML = str;
+                   }else{
+                       str="<option value='-1' selected>无生产信息</option>";
+                       methods.getId('produceInfo').innerHTML = str;
+                   }
+               }
+           })
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            if(methods.getId('data_name').value == "0" ||methods.getId('produceInfo').value == "0" || methods.getId('startCode').value == "" || methods.getId('endCode').value == ""){
+                new Inform({title:'通知',content:'数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            if(methods.getId('produceInfo').value == "-1"){
+                new Inform({title:'通知',content:'该产品尚无生产信息'}).alert();
+                return ;
+            }
+            methods.ajax({
+                url: "/Produce/Connect/Bind",
+                data: {
+                    productId: select.value,
+                    profileId: methods.getId('produceInfo').value,
+                    bStart: methods.getId('startCode').value,
+                    bEnd: methods.getId('endCode').value
+                },
+                callback: function(data){
+                    new Inform({title:'通知',content:'关联成功'}).alert(function(){
+                        window.location.reload();
+                    })
+                }
+            })
+        });
+        $("#produceConnect").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: "json"
+            },
+            url: "/Produce/Connect/Fetch",
+            identifier: "id",
+            responseHandler: function (response) {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters: {
+                delete: function (column, row)
+                {
+                    return "<div class=\"delete\" data-id='" + row.id + "'>" + methods.getSvg() + "</div>"
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function()
+        {
+            $('.delete').click(function () {
+                var id = $(this).data("id");
+                $(this).parent().parent().attr("id", id);
+                new Delete({title: '删除提示', content: '是否确认删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id, '/Produce/Connect/remove');
+            });
+        });
+    });
+</script>
+</html>

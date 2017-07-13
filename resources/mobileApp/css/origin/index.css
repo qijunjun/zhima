@@ -1,0 +1,88 @@
+header img {
+    display: none;
+}
+
+article {
+    margin-top: 44px;
+}
+
+article section {
+    margin-bottom: 15px;
+}
+article .content > span {
+    display: block;
+    text-align: center;
+    line-height: 100px;
+    font-size: 16px;
+    color: #979797;
+}
+article #productInfo div {
+    float: left;
+    width: 30%;
+    margin: 0 5% 0 0;
+    height: 90px;
+    background: #979797;
+    border-radius: 5px;
+}
+#productInfo div img {
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+}
+article #productInfo a:last-child div {
+    margin: 0;
+}
+article #agrInfo > div {
+    width: 95%;
+    padding: 0 0 0 5%;
+}
+article #agrInfo .circle {
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin: 5px 10px 5px 0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: rgba(176, 206, 135, 1);
+}
+article #agrInfo p {
+    font-size: 13px;
+    line-height: 25px;
+}
+article #agrInfo p:last-child {
+    margin: 0 0 0 25px;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    overflow: hidden;
+}
+article #videoInfo div {
+    float: left;
+    width: 44%;
+    margin: 0 4% 15px 0;
+    padding: 5px 2%;
+    height: 100px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: url("../../img/video.png") 70% 70%/30px 16px no-repeat #cccccc;
+}
+article #videoInfo div:nth-child(2n) {
+    margin: 0;
+}
+article #videoInfo video {
+    width: 100%;
+    height: 80px;
+}
+article #videoInfo span {
+    display: block;
+    text-align: center;
+}
+article #productInfo:after, article #agrInfo div:after, article #videoInfo:after {
+    content: '\20';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}

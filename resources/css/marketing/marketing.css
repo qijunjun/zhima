@@ -1,0 +1,99 @@
+body,input,div,label,section,article{
+    margin:0;
+    padding:0;
+}
+article section div{
+    margin:20px 10px 10px;
+}
+article section div h3{
+    margin: 20px 0 10px 20px;
+    border-left: 10px solid #72A2C5;
+    padding: 0 0 0 15px;
+    font-size: 24px;
+}
+article section .explain h3{
+    color:#72A2C5;
+    border:none;
+}
+article section .explain{
+    width:35%;
+    float:left;
+    /*margin-left:100px;*/
+}
+article section .explain img{
+    width:100%;
+    margin-left:20px;
+}
+article label{
+    padding-left:10px;
+}
+article section .grid{
+    float:left;
+    width:58%;
+}
+article input{
+    margin-left:10px;
+}
+article .grid label+input {
+    font-size: 14px;
+    border: 0;
+    height: 30px;
+    margin: 10px 0 9px;
+    padding: 0 2%;
+    border-bottom: 1px solid #4a4a4a;
+}
+article section .time input{
+    border:1px solid #4a4a4a;
+}
+article input #is_random{
+    border:1px solid #4a4a4a;
+}
+article .grid label {
+    width: 32%;
+    text-align: center;
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+}
+article > section:last-child {
+    text-align: center;
+    padding: 0 0 20px 0;
+}
+section:last-child button {
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    border: 0;
+    color: #ffffff;
+    background-color: #72A2C5;
+}
+article section:after{
+    clear:both;
+    content:'\20';
+    display:block;
+}
+@media screen and (min-width: 1584px) {
+    .grid {
+        width: 1584px;
+        margin: 0 auto;
+    }
+    .grid div {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 550px) and (max-width: 960px) {
+    .grid div {
+        width:100%;
+    }
+}
+@media screen and (min-width: 100px) and (max-width: 550px) {
+    .grid div {
+        width: 100%;
+    }
+    .grid div:nth-child(3){
+        width:90%;
+    }
+    .grid div:nth-child(5){
+        width:88%;
+    }
+}

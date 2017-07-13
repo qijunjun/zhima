@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>领取红包</title>
+    <link rel="stylesheet" href="/resources/css/app/redPocket.css">
+</head>
+<body>
+<article>
+    <section>
+        <h2 id="result">恭喜您!</h2>
+        <p id="p1">获得一次抢红包的机会!</p>
+        <p id="p2">请输入手机号码拆红包</p>
+        <input type="text" name="mobile" id="mobile" class="text" data-name="手机号" placeholder="">
+        <input  name="qrcode" id="qrcode"  value="{$qrcode}" type="hidden">
+
+        <input  name="openid" id="openid"  value="{$openid}" type="hidden">
+
+        <input  name="nickname" id="nickname"  value="{$nickname}" type="hidden">
+
+        <input  name="sex" id="sex"  value="{$sex}" type="hidden">
+
+        <input  name="country" id="country"  value="{$country}" type="hidden">
+
+        <input  name="province" id="province"  value="{$province}" type="hidden">
+
+        <input  name="city" id="city"  value="{$city}" type="hidden">
+
+        <input  name="headimgurl" id="headimgurl"  value="{$headimgurl}" type="hidden">
+
+        <input  name="longitude" id="longitude"  value="{$longitude}" type="hidden">
+
+        <input  name="latitude" id="latitude"  value="{$latitude}" type="hidden">
+        <input type="button" class="btn"  id="submit">
+        <p id="show"></p>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/message.js"></script>
+<script src="/resources/js/getData.js"></script>
+<script src="/resources/js/marketing/getWXInfo.js"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>农事信息关联</title>
+    <link rel="stylesheet" href="__PUBLIC__/css/reset.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/common/table.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/agriculture/agriculture.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/css/bootstrap-3.3.6.min.css" />
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/css/jquery.bootgrid-1.3.1.min.css" />
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/bootstrap-3.3.6.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.bootgrid-1.3.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/common.js"></script>
+</head>
+<body>
+
+<!--侧边栏-->
+<include file="./Application/Common/Tpl/header.html" />
+<include file="./Application/Common/Tpl/aside.html" />
+
+<!--正文-->
+<article class="fLeft">
+    <section>
+        <div class="contentHeader">
+            <label for="product">产品名称:&nbsp;</label>
+            <select name="product" id="product">
+                <option value="0">请选择产品名称</option>
+            </select>
+            <label for="batch">批次名称</label>
+            <select name="batch" id="batch">
+                <option value="0">请选择批次名称</option>
+            </select>
+            <button class="fRight" type="submit" id="submitContentBatch">关联批次</button>
+        </div>
+        <!--表格-->
+        <div class="contentBody">
+            <div class="tableHead">
+                <label for="time">时间</label>
+                <input type="date" name="time" id="time" />
+                <button type="submit" name="add" id="add" onclick="window.location.href='{'Agriculture/Index/add'}'">新增</button>
+                <button type="submit" name="submit" id="submit">查询</button>
+                <input type="text" name="search" id="search" />
+            </div>
+            <div class="tableBody">
+                <table id="w-table" class="table table-condensed table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th data-column-id="productname">产品名称</th>
+                            <!--<th data-column-id="productimage">批次名称</th>-->
+                            <th data-column-id="operatorname">农事操作</th>
+                            <th data-column-id="operator" data-matchable="false" data-converter="image">操作者</th>
+                            <th data-column-id="eventtime" data-matchable="false" data-converter="datetime">时间</th>
+                            <th data-column-id="userlocation">地点</th>
+                            <th data-column-id="imagepath" data-matchable="false" data-converter="images">内容</th>
+                            <th data-column-id="datadetails">备注</th>
+                            <th data-column-id="commands" data-matchable="false" data-formatter="commands" data-header-css-class="commands" data-css-class="commands">操作</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </section>
+</article>
+<include file="./Application/Common/Tpl/footer.html" />
+</body>
+
+<script>
+  function adduser(){
+    $.ajax({
+        url:"http://nongye.zmade.cn/API/Company/fetchdata",
+        method: "post",
+        dataType: "json",
+        data:{},
+        success: function(data){
+            if(data){
+              typeof data == "string" && (data = eval("(" + data + ")"));
+              console.log(data);
+              if (data.code === "001") {
+                var table = $("#w-table");
+                var th = document.getElementsByTagName("th");
+                var tr = [];
+                var td = [];
+                for (var i = 0; i < data.result.length; i ++) {
+                  tr[i] = $("<tr></tr>");
+                  for (var j = 0; j < th.length; j ++)
+                    td[j] = $("<td></td>");
+                  td[0].html("<input type=\"checkbox\" name=\"key\">");
+                  td[1].html(data.result[i].productname);
+                  td[2].html();
+                  td[3].html(data.result[i].operatorname);
+                  td[4].append($("<img/>").attr("src", data.result[i].operator));
+                  td[5].html(new Date(data.result[i].eventtime-0).toLocaleString());
+                  td[6].html(data.result[i].userlocation);
+                  for(var k = 0; k < data.result[i].imagepath.length; k++) {
+                    td[7].append($("<img/>").attr("src", data.result[i].imagepath[k]));
+                    td[7].attr("onclick", "");
+                  }
+                  td[8].html(data.result[i].datadetails);
+                  td[9].html("<a href=\"\"><span>修改</span></a><a href=\"\"><span>删除</span></a>");
+                  table.append(tr[i].append(td[0]).append(td[1]).append(td[2]).append(td[3]).append(td[4]).append(td[5]).append(td[6]).append(td[7]).append(td[8]).append(td[9]));
+                  td = [];
+                }
+              } else {
+                console.error(data.code, data.msg);
+              }
+            }
+            else{
+                console.error(data.code, data.msg);
+            }
+        },
+        error: function (err) {
+            console.error(err);
+        }
+    });
+  }
+  // adduser();
+</script>
+<script type="text/javascript">
+    $("#w-table").bootgrid({
+        ajax: true,
+        ajaxSettings: {
+            dataType: "json"
+        },
+        responseHandler: function (response)
+        {
+            var list;
+            var count;
+            list = response.result;
+            count = list.length;
+            response.result = {};
+            response.result.current = 1;
+            response.result.rows = list;
+            response.result.total = count;
+            return response;
+        },
+        url: "http://nongye.zmade.cn/API/Company/fetchdata",
+        converters: {
+            image: {
+                to: function (value)
+                {
+                    return "<img src=\"" + value + "\" />";
+                }
+            },
+            images: {
+                to: function (value)
+                {
+                    var count;
+                    var path;
+                    var result;
+                    var i;
+                    count = value.length;
+                    result = "";
+                    for (i = 0; i < count; i++)
+                    {
+                        path = value[i];
+                        result += "<img src=\"" + path + "\" />";
+                        if (i > 1)
+                        {
+                            result += "<br />";
+                        }
+                    }
+                    return result;
+                }
+            },
+            datetime: {
+                to: function (value)
+                {
+                    var date;
+                    var year, month, day;
+                    var hour, minute, second;
+                    date = new Date(parseInt(value));
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                    hour = date.getHours();
+                    minute = date.getMinutes();
+                    second = date.getSeconds();
+                    month = month < 10 ? "0" + month : month;
+                    day = day < 10 ? "0" + day : day;
+                    hour = hour < 10 ? "0" + hour : hour;
+                    minute = minute < 10 ? "0" + minute : minute;
+                    second = second < 10 ? "0" + second : second;
+                    return year + "-" + month + "-" + day + "<br />" + hour + ":" + minute + ":" + second;
+                }
+            }
+        },
+        formatters: {
+            commands: function (column, row)
+            {
+                return "<a href=\"#" + row.productid + "\"><span class='edit'>修改</span></a> <a href=\"#" + row.productid + "\"><span class='delete'>删除</span></a>";
+            }
+        }
+    })
+</script>
+<style type="text/css">
+    .table-condensed>thead>tr>th.commands
+    {
+        width: 125px;
+    }
+    .table-condensed>tbody>tr>td.commands
+    {
+        padding: 3px 5px;
+        width: 125px;
+    }
+    .table-condensed>tbody>tr>td
+    {
+        vertical-align: middle;
+    }
+    .table-condensed>tbody>tr>td>img
+    {
+        margin: 0px;
+    }
+</style>
+</html>

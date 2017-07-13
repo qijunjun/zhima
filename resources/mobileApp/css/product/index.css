@@ -1,0 +1,58 @@
+header img {
+    display: block;
+}
+
+article {
+    margin-top: 44px;
+}
+article section {
+    border-bottom: 1px solid #979797;
+    padding: 10px 5%;
+    width: 90%;
+}
+article section img {
+    float: left;
+    height: 80px;
+    width: 30%;
+    margin: 0 5% 0 0;
+}
+article section p {
+    height: 56px;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    overflow: hidden;
+}
+article section:after {
+    content: '\20';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}
+
+#loginFirst {
+	display: none;
+}
+#loginFirst h4 {
+    font-size: 13px;
+    font-weight: normal;
+    color: #A4A4A4;
+    text-align: center;
+    margin: 250px 0 30px;
+}
+#loginFirst p {
+    width: 90px;
+    line-height: 35px;
+    font-size: 15px;
+    text-align: center;
+    color: #B0CE87;
+    border: 1px solid #a4a4a4;
+    border-radius: 5px;
+    margin: 0 0 0 20%;
+    display: inline-block;
+}
+#loginFirst a:last-child p {
+    float: right;
+    color: #7C7C7C;
+    margin: 0 20% 0 0;
+}

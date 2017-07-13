@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>批次关联</title>
+    <link rel="stylesheet" href="../../../../resources/css/reset.css" />
+    <link rel="stylesheet" href="../../../../resources/css/message.css" />
+    <link rel="stylesheet" href="../../../../resources/css/add.css" />
+</head>
+<body>
+    <article>
+        <section>
+            <div class="title">
+                <h3>关联数据</h3>
+            </div>
+            <div class="grid">
+                <div>
+                    <label for="data-1">批次名称1</label>
+                    <select name="data-5" id="data-1">
+                        <option value="0">请选择数据</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="data-2">批次名称2</label>
+                    <select name="data-6" id="data-2">
+                        <option value="0">请选择数据</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="J-xl">开始时间</label>
+                    <input type="text" name="data-timestrat" id="J-xl" />
+                </div>
+                <div>
+                    <label for="J-xled">结束时间</label>
+                    <input type="text" name="data-2" id="J-xled" />
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title">
+                <h3>详细描述</h3>
+            </div>
+            <div class="grid">
+                <div>
+                    <label for="area-1">区域数据</label>
+                    <textarea name="area-1" id="area-1" cols="30" rows="5"></textarea>
+                </div>
+                <div>
+                    <label for="area-2">区域数据</label>
+                    <textarea name="area-2" id="area-2" cols="30" rows="5"></textarea>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="title">
+                <h3>图片上传</h3>
+            </div>
+            <div class="grid">
+                <div>
+                    <img src="../../../../resources/images/nophoto.jpg" alt="default-photo" />
+                    <img src="../../../../resources/images/nophoto.jpg" alt="default-photo" />
+                    <img src="../../../../resources/images/nophoto.jpg" alt="default-photo" />
+                    <img src="../../../../resources/images/nophoto.jpg" alt="default-photo" />
+                </div>
+            </div>
+        </section>
+        <section>
+            <button>关联</button>
+        </section>
+    </article>
+</body>
+<script src="../../../../resources/js/jquery.min.js"></script>
+<script src="../../../../resources/js/message.js"></script>
+<script type="text/javascript" src="../../../../resources/js/laydate.dev.js"></script>
+<script type="text/javascript">
+    laydate({
+        elem: '#J-xl'
+    });
+    laydate({
+        elem: '#J-xled'
+    });
+</script>
+</html>

@@ -1,0 +1,48 @@
+#nodes
+{
+	width: 300px;
+	height: 300px;
+	border: 1px solid black;
+	overflow-x: hidden;
+	overflow-y: auto;
+	float: left;
+	margin-right: 15px;
+}
+#menus
+{
+	width: 250px;
+	height: 300px;
+	border: 1px solid black;
+	overflow-x: hidden;
+	overflow-y: auto;
+	float: left;
+	margin-left: 15px;
+}
+.ztree li span.button.add
+{
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0px;
+	vertical-align: top;
+	*vertical-align: middle;
+}
+.ztree li span.button.okay
+{
+	margin-left: 2px;
+	margin-right: -1px;
+	background-image: url("../../images/silk/tick.png");
+	vertical-align: top;
+	*vertical-align: middle;
+}
+.ztree li span.button.cancel
+{
+	margin-left: 2px;
+	margin-right: -1px;
+	background-image: url("../../images/silk/cross.png");
+	vertical-align: top;
+	*vertical-align: middle;
+}
+.hide
+{
+	display: none;
+}

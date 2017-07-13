@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=Edge,chrome=1" />
+    <title>修改召回质量码</title>
+    <link rel="stylesheet" href="/resources/css/reset.css">
+    <link rel="stylesheet" href="/resources/css/edit.css">
+</head>
+<body>
+    <article>
+        <section>
+            <div class="title">
+                <h3>召回质量码信息</h3>
+            </div>
+            <div class="grid">
+                <label for="promptText">提示文字</label>
+                <input type="text" name="promptText" id="promptText" data-name="提示文字">
+            </div>
+        </section>
+        <section>
+            <button id="submit">提交</button>
+        </section>
+    </article>
+</body>
+<script src="/resources/js/jquery.min.j/s"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script>
+    $(document).ready(function(){
+        var id = getParameterByName("id");
+        methods.ajax({
+            url : "修改的接口",
+            data:{id:id},
+            callback:function(data){
+                setData(data.result);
+            }
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            var data = new Data();
+            if(!data.getInput()){
+                new Inform({title:'通知',content:'数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            data.common("id",id);
+            methods.ajax({
+                url: "更新的接口",
+                data:data.data,
+                callback:function(){
+                    new Inform({title:'通知',content:'修改成功'}).alert();
+                    window.location.href = "/Application/Faker/View/Index/recallManage.html";
+
+                }
+            })
+        });
+    });
+    var getParameterByName = function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
+</script>
+</html>

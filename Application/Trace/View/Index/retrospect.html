@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>追踪查询</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <style>
+        .span{
+            width:30%;
+            display:inline-block;
+            padding:20px 0 20px 20px;
+            /*border-left:1px solid #000;*/
+            font-size:14px;
+            background: #F4F4F4;
+        }
+        .span:nth-child(5),.span:nth-child(6),.span:nth-child(7),.span:nth-child(8),.span:nth-child(13),.span:nth-child(14),.span:nth-child(15),.span:nth-child(20),.span:nth-child(21),.span:nth-child(22),.span:nth-child(23){
+            background-color: #FAFAFA;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>追踪查询</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="data_name">产品</label>
+                <select name="data_name" id="data_name">
+                    <option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+                </select>
+            </div>
+            <div>
+                <label for="produceInfo">生产信息名称</label>
+                <select name="produceInfo" id="produceInfo">
+                    <option value="0">请选择生产信息</option>
+                </select>
+            </div>
+            <div>
+                <label for="checkName" style="width: 100px;">检测记录名称</label>
+                <select name="checkName" id="checkName">
+                    <option value="0">请选择检测记录名称</option>
+                </select>
+            </div>
+            <!--<div>-->
+                <!--<label for="checkTime">检测时间</label>-->
+                <!--<input type="date" id="checkTime" name="checkTime">-->
+            <!--</div>-->
+        </div>
+    </section>
+    <section>
+        <button id="submit">查询</button>
+    </section>
+</article>
+<article>
+    <section class="table">
+        <div class="title">
+            <h3>质量码段</h3>
+        </div>
+        <div class="grid" id="code"></div>
+    </section>
+    <section></section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script>
+    $(document).ready(function(){
+        var select = methods.getId('data_name');
+        select.innerHTML = null;
+        methods.ajax({
+            url: "/Product/api/fieldsList",
+            async: false,
+            callback: function(data){
+                data = data.result;
+                select.innerHTML += "<option value='0' disabled='disabled' selected='selected'>请选择产品</option>";
+                for(var i=0;i<data.length;i++) {
+                    select.innerHTML += "<option value='" + data[i].productid + "'>" + data[i].productname + "-" + data[i].guige + "</option>";
+                }
+            }
+        });
+        methods.addEvent(select,'change',function(e){
+            methods.ajax({
+                url: "/Produce/Connect/Select",
+                data: {productId: select.value},
+                callback: function(data){
+                    data =data.result;
+                    if(data !=null){
+                        var str="<option value='0'>请选择生产信息</option>";
+                        for (var i = 0; i < data.length; i ++) {
+                            str += "<option value='" + data[i]._id + "'>" + data[i].name + "</option>";
+                        }
+                        methods.getId('produceInfo').innerHTML = str;
+                    }else{
+                        str="<option value='0' selected>无生产信息</option>";
+                        methods.getId('produceInfo').innerHTML = str;
+                    }
+
+                }
+            });
+            methods.ajax({
+                url: "/Trace/Track/checkItem",
+                data: {productid: select.value},
+                callback: function(data){
+                    data = data.result;
+                    if(data !=null){
+                        var str="<option value='0'>请选择检测记录名称</option>";
+                        for (var i = 0; i < data.length; i ++) {
+                            str += "<option value='" + data[i].id + "'>" + data[i].inspectionname + "</option>";
+                        }
+                        methods.getId('checkName').innerHTML = str;
+                    }else{
+                        str="<option value='0' selected>无检测记录名称</option>";
+                        methods.getId('checkName').innerHTML = str;
+                    }
+
+                }
+            })
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+//            var checkTime = parseInt(new Date($("#checkTime").val()).getTime()/1000);
+            methods.ajax({
+                url:"/Trace/Track/SearchAll",
+                data:{
+                    productid:$("#data_name").val(),
+                    profileid: methods.getId('produceInfo').value,
+//                    productname:$("#data_name").find("option:selected").text(),
+//                    inspectionname:$("#produceInfo").find("option:selected").text(),
+//                    name:$("#checkName").find("option:selected").text(),
+                    checknameid: methods.getId('checkName').value
+                },
+                callback:function(data){
+                    var code = $("#code");
+                    code.empty();
+                    data = data.result;
+                    var str="<span class='span' style='display: none'></span>";
+                    for(var i=0;i<data.length;i++){
+                        str +="<span class='span'>"+data[i].qrcode_range_s+"—"+data[i].qrcode_range_e+"</span>";
+                    }
+                    code.append(str);
+                }
+            })
+        });
+    });
+</script>
+</body>
+</html>

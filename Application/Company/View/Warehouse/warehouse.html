@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>生产信息管理</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>仓库管理</h3>
+            <div class="search"></div>
+            <input id="search" name="search" type="text" />
+            <input type="button" class="topButton" value="新增仓库" onclick="$(window.parent.document.getElementById('article')).attr('src', '/Application/Company/View/Warehouse/addWarehouse.html');" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="warehouse">
+                <thead>
+                    <tr>
+                        <th data-column-id="warehouse_name">仓库名称</th>
+                        <th data-column-id="warehouse_address">仓库地址</th>
+                        <th data-column-id="warehouse_manager">仓库负责人</th>
+                        <th data-column-id="warehouse_phone">仓库电话</th>
+                        <th data-formatter="operation" data-sortable="false">操作</th>
+                        <th data-formatter="delete" data-sortable="false">删除</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/company/warehouse.js"></script>
+</html>

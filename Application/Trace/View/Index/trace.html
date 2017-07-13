@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>溯源管理</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/trace/trace.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>箱码/质量码溯源信息查询</h3>
+        </div>
+        <div class="x-zcode">
+            <div>
+                <label for="code" style="width:120px;">输入箱码/质量码</label>
+                <input type="number" id="code" name="code" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">查询</button>
+    </section>
+</article>
+<article id="article2">
+    <section>
+        <div id="xcode"></div>
+        <div class="title">
+            <h3>产品信息</h3>
+        </div>
+        <div class="grid" id= "product">
+            <!--<div>-->
+                <!--<label for="name">产品名称</label>-->
+                <!--<input type="text" id="name" name="name" readonly="readonly" />-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<label for="spec">产品规格</label>-->
+                <!--<input type="text" id="spec" name="spec" readonly="readonly" />-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<label for="price">产品价格</label>-->
+                <!--<input type="text" id="price" name="price" readonly="readonly" />-->
+            <!--</div>-->
+        </div>
+        <div class="title">
+            <h3>生产信息</h3>
+        </div>
+        <div class="grid produceInfo" id="produceInfo"></div>
+        <div class="title">
+            <h3>出入库记录</h3>
+        </div>
+        <div class="warehouse"></div>
+        <div class="title">
+            <h3>经销商信息</h3>
+        </div>
+        <div class="grid" id="agent">
+            <!--<div>-->
+                <!--<label for="agent_name">经销商名称</label>-->
+                <!--<input type="text" name="agent_name" id="agent_name" data-name="经销商名称" readonly="readonly" />-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<label for="agent_legalperson">经销商负责人</label>-->
+                <!--<input type="text" name="agent_legalperson" id="agent_legalperson" data-name="经销商负责人" readonly="readonly" />-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<label for="agent_phone">经销商电话</label>-->
+                <!--<input type="text" name="agent_phone" id="agent_phone" data-name="经销商电话" readonly="readonly" />-->
+            <!--</div>-->
+        </div>
+        <div class="title">
+            <h3>物流信息</h3>
+        </div>
+        <div class="grid" id="logistics">
+
+        </div>
+    </section>
+    <section></section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message.js"></script>
+<script src="/resources/js/getData.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/trace/trace.js"></script>
+</body>
+</html>

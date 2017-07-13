@@ -1,0 +1,80 @@
+@charset "UTF-8";
+body	{
+	background-color: #DDD;
+	overflow: hidden;
+}
+a, a:link, a:hover, a:active, a:visited	{
+	text-decoration: none;
+	color: black;
+}
+#background	{
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 1100px;
+	background: url("../images/back.webp") no-repeat fixed center top transparent;
+	background-size: cover;
+}
+#body	{
+	margin-top: 1100px;
+	background-color: #DDD;
+}
+#title	{
+	background-color: rgb(83, 150, 81);
+	line-height: 115px;
+	font-size: 48px;
+	color: white;
+	font-family: 黑体;
+}
+#select	{
+	margin-top: 145px;
+}
+#select > div	{
+	float: left;
+	margin-left: 11%;
+}
+#select:after	{
+	content: '.';
+	clear: both;
+	height: 0;
+	visibility: hidden;
+	display: block;
+}
+.picture	{
+	width: 215px;
+}
+.picture img	{
+	width: 90%;
+	height: 90%;
+    -moz-border-radius:50%;
+	     border-radius:50%;
+	border:8px solid rgb(83, 150, 81);
+	margin-left: -4px;
+}
+.name	{
+	margin-top: 30px;
+	font-size: 48px;
+	font-family: "微软雅黑";
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.h-bottom {
+	width: 100%;
+	text-align: center;
+	font-family: "微软雅黑";
+}
+.h-back-button {
+	width: 75%;
+	margin: 10px;
+	padding: 10px 0 10px 0;
+	margin-left: auto;
+	margin-right: auto;
+	border: 0;
+	border-radius: 5px;
+	color: white;
+	background-color: rgb(67, 71, 72);
+}

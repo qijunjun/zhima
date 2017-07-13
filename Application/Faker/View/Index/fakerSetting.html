@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>设置</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/faker/fakerSetting.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>防伪设置</h3>
+        </div>
+        <div>
+            <div class="alarmValue">
+                <label for="alarmValue">扫码次数过多报警阈值</label>
+                <input type="number" name="alarm_value" id="alarmValue" placeholder="只允许输入数字">
+            </div>
+            <div class="alarmWord">
+                <label for="alarmWord">扫码次数过多报警文字</label>
+                <input type="text" name="alarm_word" id="alarmWord" value="您扫的码有异常,请联系厂家">
+            </div>
+            <div class="fakerContent">
+                <label for="fakerContent">假冒防伪码报警文字&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" name="fakerContent" id="fakerContent" value="您扫的码有异常,请联系厂家">
+            </div>
+        </div>
+        <!--<div class="grid">-->
+            <!--<div>-->
+                <!--<label class="checkboxLabel" for="sendEmail">-->
+                    <!--<input type="checkbox" id="sendEmail" name="sendEmail" />-->
+                    <!--发邮件-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<label class="checkboxLabel" for="sendWeChat">-->
+                    <!--<input type="checkbox" id="sendWeChat" name="sendWeChat" />-->
+                    <!--发微信-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<label class="checkboxLabel" for="sendMail">-->
+                    <!--<input type="checkbox" id="sendMail" name="sendMail" />-->
+                    <!--发短信-->
+                <!--</label>-->
+            <!--</div>-->
+        <!--</div>-->
+    </section>
+    <!--<section>-->
+        <!--<div class="title">-->
+            <!--<h3>报警文字设置</h3>-->
+        <!--</div>-->
+        <!--<div class="grid">-->
+            <!--<div>-->
+                <!--<label for="fakerContent">仿冒质量码提示文字</label>-->
+                <!--<textarea name="fakerContent" id="fakerContent" cols="30" rows="5"></textarea>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</section>-->
+    <section class="submit">
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/faker/fakerSetting.js"></script>
+</body>
+</html>

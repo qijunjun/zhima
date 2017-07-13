@@ -1,0 +1,142 @@
+header img {
+    display: block;
+}
+
+article {
+    margin: 44px 0 0 0;
+}
+article section ul {
+    padding: 10px 0 0 0;
+    width: 100%;
+}
+article section ul li {
+    width: 100%;
+}
+article section ul li label {
+    display: inline-block;
+    font-size: 16px;
+    text-align: right;
+    padding: 10px 10px 10px 0;
+    border-right: 1px solid #eeeeee;
+    width: 30%;
+}
+article section ul li:nth-last-child(2) label {
+    border: 0;
+}
+article section ul li input,
+article section ul li select,
+article section ul li option,
+article section ul li textarea {
+    width: 50%;
+    font-size: 16px;
+    line-height: 26px;
+    margin: -2px 0 0 3%;
+    border: 0;
+    border-bottom: 1px solid #eeeeee;
+}
+article section ul li:last-child {
+    text-align: right;
+    width: 80%;
+    padding: 0 10%;
+}
+article section ul li textarea {
+    min-height: 100px;
+    width: 100%;
+    /*margin: 0 10%;*/
+    border: 1px solid #eeeeee;
+}
+article .submitInfo {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background: rgba(176, 206, 135, 1);
+}
+article .submitInfo span {
+    font-size: 18px;
+    line-height: 50px;
+    color: #4A4A4A;
+}
+.need {
+    color: red;
+}
+
+.tip {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.3);
+}
+.tip p {
+    margin: 200px 20% 0;
+    display: inline-block;
+    width: 60%;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 20px;
+    line-height: 50px;
+    padding: 10px 0 0 0;
+    background: rgba(112, 112, 112, 0.5);
+}
+.tip p img {
+    display: none;
+    width: 30%;
+}
+.tip p #loading {
+    display: inline-block;
+    -webkit-animation: wait 2s infinite linear;
+    -o-animation: wait 2s infinite linear;
+    animation: wait 2s infinite linear;
+}
+.tip p span {
+    display: block;
+}
+@keyframes wait {
+    from {
+        -webkit-transform: Rotate(0deg);
+        -moz-transform: Rotate(0deg);
+        -ms-transform: Rotate(0deg);
+        -o-transform: Rotate(0deg);
+        transform: Rotate(0deg);
+    }
+    to {
+        -webkit-transform: Rotate(360deg);
+        -moz-transform: Rotate(360deg);
+        -ms-transform: Rotate(360deg);
+        -o-transform: Rotate(360deg);
+        transform: Rotate(360deg);
+    }
+}
+
+#dataShow, #loginFirst {
+	display: none;
+}
+#loginFirst h4 {
+    font-size: 13px;
+    font-weight: normal;
+    color: #A4A4A4;
+    text-align: center;
+    margin: 250px 0 30px;
+}
+#loginFirst p {
+    width: 90px;
+    line-height: 35px;
+    font-size: 15px;
+    text-align: center;
+    color: #B0CE87;
+    border: 1px solid #a4a4a4;
+    border-radius: 5px;
+    margin: 0 0 0 20%;
+    display: inline-block;
+}
+#loginFirst a:last-child p {
+    float: right;
+    color: #7C7C7C;
+    margin: 0 20% 0 0;
+}

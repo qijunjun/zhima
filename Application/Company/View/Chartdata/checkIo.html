@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="/resources/css/reset.css" />
+<link type="text/css" rel="stylesheet" href="/resources/css/message.css" />
+<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/methods.js"></script>
+<script type="text/javascript" src="/resources/js/message_test.js"></script>
+<script type="text/javascript" src="/resources/js/common.js"></script>
+<script type="text/javascript" src="/resources/js/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="/resources/js/echarts/theme/shine.js"></script>
+<script type="text/javascript" src="/resources/js/echarts/dist/china.js"></script>
+<title>图表分析</title>
+    <style>
+        .title h3{
+            margin: 20px 0 10px 20px;
+            border-left: 10px solid #72A2C5;
+            padding: 0 0 0 15px;
+            font-size: 24px;
+            text-align: left;
+        }
+        .bigdata{
+            width: 90%;
+            height: 400px;
+            padding: 20px 0 0 50px;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <section>
+        <div>
+            <div class="title">
+                <h3>出入库量统计</h3>
+            </div>
+            <div id="checkBar"  class="bigdata">
+            </div>
+        </div>
+    </section>
+    <section>
+        <div>
+            <div class="title">
+                <h3>出库去向统计</h3>
+            </div>
+            <div id="productCheckIO"  class="bigdata">
+            </div>
+        </div>
+    </section>
+</article>
+<script>
+    var myBar = echarts.init(document.getElementById('checkBar'), 'shine');
+    myBar.showLoading();
+    getBarData("/Company/Chartdata/check", null, 'GET', 5000, bar, myBar);
+    function bar(data, Bar) {
+        //隐藏loading动画
+        Bar.hideLoading();
+        Bar.setOption(data.result);
+    }
+    function getBarData(url, senddata, type, timeout, Func, Chart) {
+        var returnstring = "";
+        $.ajax({
+            timeout: timeout,
+            type: type,
+            url: url,
+            data: senddata,
+            success: function (data) {
+                Func(data, Chart);
+            },
+            complete: function (XMLHttpRequest, status) {   //请求完成后最终执行参数
+                if (status != "success") {
+                    if (status == 'timeout')//超时,status还有success,error等值的情况
+                    {
+                        returnstring = "err|timeout";//连接超时
+                        toast("连接超时，操作失败！");
+                    }
+                    else if (status == 'error') {
+                        returnstring = "err|error";//连接错误
+                        toast("连接错误，操作失败！");
+                    }
+                    else if (status == 'abort') {
+                        returnstring = "err|abort";//连接失败
+                        toast("连接失败，操作失败！");
+                    }
+                    else {
+                        returnstring = "err|unknown";//未知原因
+                        toast("未知原因，操作失败！");
+                    }
+                    Func(returnstring, Chart);
+                }
+            }
+        });
+    }
+    function toast(data) {
+        new Toast({context: $('body'), message: data}).show();
+    }
+    //地图迁移
+    var productCheckIO = echarts.init(document.getElementById('productCheckIO'),'shine');
+    var geoCoordMap = {};
+    var agentData = [];
+    var tempArr =[];
+    var geoIdMap = {};
+    var max;
+    var companyName,companyLongitude,companyLatitude;
+    var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+
+    var convertData = function (data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var dataItem = data[i];
+            var fromCoord = geoCoordMap[dataItem[0].name];
+            var toCoord = geoCoordMap[dataItem[1].name];
+            if (fromCoord && toCoord) {
+                res.push({
+                    fromName: dataItem[0].name,
+                    toName: dataItem[1].name,
+                    coords: [fromCoord, toCoord]
+                });
+            }
+        }
+        return res;
+    };
+
+    var color = ['#a6c84c', '#ffa022', '#46bee9'];
+    var series = [];
+
+    productCheckIO.showLoading();
+    //地图迁移数据加载
+    $.ajax({
+        url: '/Company/Chartdata/checkoutArea',
+        method: 'get',
+        dataType: 'json',
+        success: function(data){
+            var i = 0;
+            if(data.code=='001'&&data.result!=null) {
+                data = data.result;
+                companyName = data[0].company_name;
+                companyLongitude = data[0].company_longitude;
+                companyLatitude = data[0].company_latitude;
+                for (i = 0; i < data.length; i++) {
+                    geoCoordMap[companyName] = [companyLongitude, companyLatitude];
+                    geoCoordMap[data[i].agent_name] = [];
+                    geoCoordMap[data[i].agent_name] = [data[i].center_longitude, data[i].center_latitude];
+                    geoIdMap[data[i].agent_name] = data[i].agent_id;
+                    agentData[i] = [{name: companyName}, {
+                        name: data[i].agent_name,
+                        value: data[i].count,
+                        id: data[i].agent_id
+                    }];
+                    tempArr[i] = data[i].count;
+                }
+                checkOption.visualMap.max = parseInt(Math.max.apply(null,tempArr)*2);
+            }
+        },
+        complete: function(data) {
+            mapSeriesSet([companyName, agentData],0);
+            checkOption.series = series;
+            productCheckIO.hideLoading();
+            productCheckIO.setOption(checkOption);
+        }
+    });
+    function mapSeriesSet(item, i) {
+        series.push({
+                    name: item[0],
+                    type: 'lines',
+                    zlevel: 1,
+                    effect: {
+                        show: true,
+                        period: 6,
+                        trailLength: 0.7,
+                        color: '#fff',
+                        symbolSize: 3
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: color[i],
+                            width: 0,
+                            curveness: 0.2
+                        }
+                    },
+                    data: convertData(item[1])
+                },
+                {
+                    name: '',
+                    type: 'lines',
+                    zlevel: 2,
+                    effect: {
+                        show: true,
+                        period: 6,
+                        trailLength: 0,
+                        symbol: planePath,
+                        symbolSize: 15
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: color[i],
+                            width: 1,
+                            opacity: 0.4,
+                            curveness: 0.2
+                        }
+                    },
+                    data: convertData(item[1])
+                },
+                {
+                    name: item[0],
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    zlevel: 2,
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'left',
+                            formatter: '{b}'
+                        }
+                    },
+                    tooltip: {
+
+                    },
+                    symbolSize: function (val) {
+                        return val[2]*2;
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: color[i]
+                        }
+                    },
+                    data: item[1].map(function (dataItem) {
+                        return {
+                            name: dataItem[1].name,
+                            value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+                        };
+                    })
+                },
+                {
+                    name: '出库公司',
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    zlevel: 2,
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'right',
+                            formatter: '{b}'
+                        }
+                    },
+                    tooltip: {
+
+                    },
+                    symbolSize: 6,
+                    itemStyle: {
+                        normal: {
+                            color: color[i]
+                        }
+                    },
+                    data: [
+                        {
+                            name:companyName,
+                            value:geoCoordMap[companyName]
+                        }
+                    ]
+                }
+        );
+    }
+    var checkOption = {
+        title : {
+            text: '出库去向统计',
+            left: 'center'
+        },
+        tooltip : {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            top: 'bottom',
+            left: 'right',
+            data:[{companyName}],
+            textStyle: {
+                color: '#f00'
+            },
+            selectedMode: 'single'
+        },
+        visualMap: {
+            min : 0,
+            max : 100,
+            left: '33px',
+            calculable : true,
+            color: ['#ff3333', 'orange', 'yellow','lime','aqua']
+        },
+        geo: {
+            map: 'china',
+            label: {
+                emphasis: {
+                    show: false
+                }
+            },
+            roam: true,
+            itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#404a59'
+                },
+                emphasis: {
+                    areaColor: '#2a333d'
+                }
+            }
+        },
+        series: series
+    };
+</script>
+</body>
+</html>

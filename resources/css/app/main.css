@@ -1,0 +1,344 @@
+body,p,span,div,img,ul,li,h2,article,section,h3,header,table, tr, td,a{margin:0; padding:0;}
+*{font-family:"Microsoft YaHei" !important;}
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+body{
+    background:#f5f5f5;
+    color:#535353;
+}
+header{
+    margin:20px 10px;
+    font-size:18px;
+    text-align:center;
+}
+article{
+    margin:10px 10px;
+}
+article > div{
+    background: #fff;
+    margin-top:10px;
+}
+article .productName section{
+    margin-left:20px;
+    padding-right:10px;
+}
+article .productName section:first-child,
+article .productinform section:first-child,
+article .productinform section:nth-child(n+3),
+article .companyinform section:first-child,
+article .companyinform section:nth-child(n+3){
+    margin-left:20px;
+    padding-top:20px;
+    padding-right:10px;
+}
+article  section:first-child h2{
+    font-size:25px;
+    color:#119ae1;
+    margin-bottom:13px;
+}
+article  section:first-child p{
+    font-size:14px;
+    color:#919191;
+}
+article .productName section:first-child p{
+    border-bottom:1px solid #d2d2d2;
+    padding-bottom:22px;
+}
+article .productName section:nth-child(n+2) p{
+    font-size:14px;
+    margin-top:9px;
+}
+article .productName section:nth-child(n+2) p:nth-child(3) a{
+    color:#119ae1;
+    font-size:16px;
+}
+article .productName section p span{
+    color:#119ae1;
+}
+article .productName section:nth-child(3) h3{
+    font-weight:normal;
+    font-size:19px;
+    margin-top:9px;
+}
+article .productName section:nth-child(4) img{
+    width:60%;
+    display: block;
+    margin: 0 auto;
+}
+/*article .productinform section:first-child h2{*/
+    /*color:#535353;*/
+/*}*/
+/*article .productName section:nth-child(4),*/
+article .productinform img,
+article .companyinform section:nth-child(2) img,
+article .companyinform section:nth-child(4) p:nth-child(2) img{
+    width:100%;
+    height: 100%;
+}
+article .productinform section:nth-child(3) p,
+article .productinform section:nth-child(3) div,
+article .productinform section:nth-child(4) table,
+article .companyinform section:nth-child(3) p{
+    border-bottom:1px solid #d2d2d2;
+    padding:10px 0;
+}
+article .productinform section:nth-child(4) table{
+    word-break: break-all;
+    width:100%;
+}
+article .productinform section:nth-child(2),
+article .companyinform section:nth-child(2){
+    margin-top:20px;
+}
+article .productinform section:nth-child(3){
+    font-size:13px;
+    line-height: 20px;
+}
+article .productinform section:nth-child(3) div p{
+    display:inline-block;
+    border:0;
+    padding-left:0;
+}
+article .productinform p h5{
+    display:inline-block;
+}
+#price {
+    display: inline-block;
+}
+article .productinform a span{
+    /*width:72px;*/
+    /*float:right;*/
+    /*height:25px;*/
+    /*line-height:25px;*/
+    margin-top:10px;
+}
+article .productinform #process p{
+    border-bottom:1px solid #d2d2d2;
+}
+article .productinform .checkIO .ul1{
+    /*background:url("/resources/images/app/border.png" )repeat-y 4px 22px/1px 46px;*/
+    padding-bottom: 20px;
+}
+article .productinform .checkIO ul li{
+    /*background:url("/resources/images/app/circle.png" )no-repeat left center/8px 8px;*/
+    font-size:14px;
+    margin-top:10px;
+}
+/*article .productinform .checkIO li b{*/
+    /*padding-left:22px;*/
+/*}*/
+article .productinform .checkIO li span{
+    font-size:13px;
+    padding-left:5px;
+}
+article .productinform section:nth-child(n+4) p{
+    padding-bottom:10px;
+    color:#119ae1;
+    font-weight: bold;
+}
+article .productinform section:nth-child(4) td:first-child{
+    width:25%;
+    padding:5px 0 5px 10px;
+}
+article .productinform section:nth-child(4) table tr td:last-child{
+    width:50%;
+    padding-right:10px;
+}
+article .productinform section:nth-child(4) table tr{
+ background: rgba(204, 204, 204, 0.28);
+    font-size:13px;
+}
+article .productinform section:nth-child(5){
+    padding-bottom:15px;
+}
+/*article .productinform section:nth-child(5) ul{*/
+    /*background:url("/resources/images/app/border.png" )repeat-y 4px 22px/1px 46px;*/
+/*}*/
+/*article .productinform section:nth-child(5) ul li{*/
+    /*background:url("/resources/images/app/circle.png" )no-repeat left center/9px 9px;*/
+    /*font-size:14px;*/
+    /*margin-top:10px;*/
+    /*padding-left:20px;*/
+/*}*/
+/*article .productinform section:nth-child(5) ul li b{*/
+    /*padding-right:5px;*/
+/*}*/
+/*article .productinform section:nth-child(5) ul li span {*/
+    /*font-size: 13px;*/
+    /*padding-left:8px;*/
+/*}*/
+article .companyinform section:first-child div:first-child{
+    float:left;
+    width:65%;
+}
+article .companyinform section:first-child div:nth-child(2){
+    float:right;
+    width:35%;
+    height: 65px;
+}
+article .companyinform section:first-child img{
+    width: 100%;
+    height: 100%;
+}
+article .companyinform section:nth-child(n+3) {
+    font-size: 13px;
+    line-height: 20px;
+}
+article .companyinform section:nth-child(4) p:first-child{
+    float:left;
+    padding-bottom:20px;
+    width:70%;
+}
+article .companyinform section:nth-child(4) p:nth-child(2){
+    float:right;
+    height:100%;
+    width:30%;
+}
+article .companyinform #companyPhone img{
+    width:72px;
+    float:right;
+}
+article .productinform  div span:before,
+article .companyinform section:first-child:before,
+article .companyinform section:nth-child(4):before{
+    content: '\20';
+    display:block;
+}
+article .productinform  div span:after,
+article .companyinform section:first-child:after,
+article .companyinform section:nth-child(4):after{
+    content: '\20';
+    clear:both;
+    display:block;
+}
+textarea {
+    text-wrap: normal;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+#redPocket {
+    min-height: 55px;
+}
+#process p a{
+    color:#119ae1;
+}
+#productImage,
+#companyImage {
+    /*min-height: 200px;*/
+    width:100%;
+    height:56%;
+    /*max-height:230px;*/
+}
+.swiper-container {
+    height: 280px;
+}
+.hidden {
+    display: none;
+}
+.padding{
+    padding-bottom: 25px;
+}
+.submit-btn {
+    width: 100%;
+    height: 40px;
+    color: rgba(255,255,255,1);
+    font-size: 18px;
+    text-indent: 20px;
+    letter-spacing: 20px;
+    margin: 0;
+    background: rgba(248,150,139,1);
+    border: 1px solid rgba(220,143,109,1);
+    /*border: 1px solid rgba(17,154,255,1);*/
+    cursor: pointer;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.bottom-bar-box:after {
+    display: block;
+    content:"/20";
+    height: 45px;
+    visibility: hidden;
+}
+.bottom-bar {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    align-self: center;
+    text-align: center;
+    background: #f5f5f5;
+    margin: 10px 0 0 0;
+    z-index: 2;
+}
+.bottom-btn {
+    display: inline-block;
+    background: rgba(255,255,255,1);
+    width: 22%;
+    height: 37px;
+    line-height: 37px;
+    margin: 5px 2% 0 0;
+    border: 1px solid rgba(224,224,224,1);
+    cursor: pointer;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.bottom-btn:first-child {
+    margin: 5px 2% 0 2%;
+}
+.blue-btn {
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    width: 72px;
+    font-size: 13px;
+    color: rgba(77,179,233,1);
+    border: 1px solid rgba(17,154,255,1);
+    border-radius: 5px;
+    text-align: center;
+    line-height: 19px;
+}
+#product {
+    display: inline-block;
+}
+.checkin{
+    background: #E26359;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+    line-height: 22px;
+}
+.checkout{
+    background:#119ae1;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+    line-height: 22px;
+}
+.process{
+    width: auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 0;
+    letter-spacing: 1px;
+    color: #ffffff;
+    background-color: rgba(38, 183, 9, 0.68);
+    border-radius: 10px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}

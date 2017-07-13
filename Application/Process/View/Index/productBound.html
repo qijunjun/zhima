@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>产品生产环节绑定</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/product/addproduct.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>配置产品生产环节</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="data_name">产品</label>
+                <select name="data_name" id="data_name">
+                    <option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="grid peizhi" id="processInfo"></div>
+    <!--</section>-->
+    <!--<section>-->
+        <!--<div class="title">-->
+            <!--<h3>配置产品生产环节</h3>-->
+        <!--</div>-->
+      <!---->
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>产品生产环节管理</h3>
+            <div class="search"></div>
+            <input id="search" type="text" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="processBound">
+                <thead>
+                <tr>
+                    <th data-column-id="productname">产品名称</th>
+                    <th data-column-id="function_name">生产环节名称</th>
+                    <th data-formatter="function_image" data-sortable="false">生产环节图片</th>
+                    <!--<th data-formatter="delete" data-sortable="false">删除</th>-->
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+</body>
+<script>
+    $(document).ready(function () {
+        var select = document.getElementById('data_name');
+        var processInfo = document.getElementById('processInfo');
+        select.innerHTML = null;
+        methods.ajax({
+            url: "/Product/api/fieldsList",
+            callback : function(data){
+                data = data.result;
+                var str = "<option value='0' disabled='disabled' selected='selected'>--请选择产品--</option>";
+                for(var i = 0;i < data.length;i++){
+                    str +="<option value='"+data[i].productid+"'>"+data[i].productname + "-" + data[i].guige+"</option>";
+                }
+                select.innerHTML += str;
+            }
+        });
+        methods.addEvent(select,'change',function(){
+            $("input[type='checkbox']").prop("checked", false);
+            methods.ajax({
+                url: "/Process/Index/getConfig",
+                data: {productid: methods.getId('data_name').value},
+                callback : function(data){
+                    /**
+                     * 如果生产环节已经勾选,则显示勾选
+                     */
+                    for (var i = 0; i < data.result.length; i++) {
+                        $("#processInfo" + (data.result[i])).prop("checked", true);
+                    }
+                }
+            });
+        });
+        /**
+         * 获取生产环节,使用methods的单例方法getProcess,
+         * @param url 获取生产信息的地址(通常为"列出所有生产环节接口")
+         * @param target 生产信息填充的目标(**dom对象**)
+         */
+        methods.getProcess("/Process/Config/listFunction", document.getElementById('processInfo'));
+        methods.addEvent(document.getElementById('submit'), 'click', function () {
+            var data = new Data();
+            if (!data.getInput()) {
+                new Inform({title: '通知', content: '数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+
+            /**
+             * 给Data.data加其他参数,调用common方法
+             * 如果有checkBox则用functions获取之后需要使用delete删除
+             */
+            data.common("productid", $("#data_name").val())
+                .common("functions", data.common("checkBox").substr(0, data.common("checkBox").length-1));
+            delete data.data.checkBox;
+            methods.ajax({
+                url: "/Process/Config/addCorrFunction",
+                data: data.data,
+                callback: function () {
+                    new Inform({title: '通知', content: '产品生产环节绑定成功'}).alert(function () {
+                        window.location.reload();
+                    });
+                }
+            });
+        });
+        $("#processBound").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: "json"
+            },
+            url: "/Process/Config/showCorrFunction",
+            identifier: "id",
+            responseHandler: function (response)
+            {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters: {
+                function_image: function (column, row) {
+                    return "<img src='" + row.function_image + "' />";
+                }
+            }
+        });
+//        .on("loaded.rs.jquery.bootgrid", function()
+//        {
+//            $('.delete').click(function(){
+//                var id = $(this).data("id");
+//                $(this).parent().parent().attr("id",id);
+//                new Delete({title:'删除提示',content:'是否确认删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id,'/Product/Correlation/remove');
+//            })
+//        });
+    });
+</script>
+</html>

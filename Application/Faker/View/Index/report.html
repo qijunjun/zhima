@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>举报数据</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <!--<link rel="stylesheet" href="/resources/css/table.css" />-->
+    <link rel="stylesheet" href="/resources/css/code/scancode.css" />
+    <style>
+        th:nth-child(4), td:nth-child(4) {
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>举报数据管理</h3>
+            <input type="button" id="export" class="topButton" value="导出全部">
+            <div class="search"></div>
+            <input id="search" type="text" />
+            <!--<div class="date">-->
+                <!--<label for="endDate">终止时间</label>-->
+                <!--<input type="date" id="endDate" name="endDate">-->
+            <!--</div>-->
+            <!--<div  class="date">-->
+                <!--<label for="startDate">起始时间</label>-->
+                <!--<input type="date" id="startDate" name="startDate">-->
+            <!--</div>-->
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="report">
+                <thead>
+                    <tr>
+                        <th data-column-id="ipaddr">IP区域</th>
+                        <th data-column-id="create_time" data-converter="datetime">时间</th>
+                        <th data-column-id="tel">联系方式</th>
+                        <th data-column-id="content">举报内容</th>
+                        <th data-formatter="delete" data-sortable="false">删除</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#report").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: 'json'
+            },
+            url: "/Faker/Report/getReport",
+            identifier: "id",
+            responseHandler: function (response) {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters: {
+                delete: function (column, row) {
+                    return "<div class=\"delete\" data-id='" + row.id + "'>" + methods.getSvg() + "</div>"
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function() {
+            $('.delete').click(function(){
+                var id = $(this).data("id");
+                $(this).parent().parent().attr("id",id);
+                new Delete({title:'删除提示',content:'是否确认删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id,"/Faker/Report/deleteReport");
+            });
+        });
+        methods.addEvent(methods.getId('export'),'click',function(){
+//            var startDate = $("#startDate").val();
+//            var endDate = $("#endDate").val();
+//            var start = parseInt(new Date(startDate).getTime() / 1000);
+//            var end = parseInt(new Date(endDate).getTime() / 1000);
+//            if(start > end){
+//                new Inform({title:'通知',content:'起始时间不能大于终止时间！'}).alert();
+//                return ;
+//            }else{
+//                window.location.href="/Exportexcel/Exportexcel/index/name/scanreport/startdate/"+startDate+ "/enddate/" + endDate;
+//            }
+            window.location.href="/Exportexcel/Exportexcel/index/name/scanreport";
+        })
+    });
+</script>
+</html>

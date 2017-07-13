@@ -1,0 +1,212 @@
+header img {
+    display: none;
+}
+
+/* special */
+#push {
+	display: none;
+    position: fixed;
+    top: 44px;
+    left: 0;
+    width: 100%;
+    line-height: 40px;
+    /*padding: 11px 0;*/
+    background: rgba(176, 206, 135, 0.8);
+    z-index: 100;
+}
+#push span {
+    margin: 0 0 0 5%;
+}
+#push p {
+    float: right;
+    margin: 8px 15px 8px 0;
+    padding: 0 23px;
+    border-radius: 10px;
+    background: #e8e8e8;
+    line-height: 24px;
+}
+header .reportPush span {
+    font-size: 12px;
+}
+
+article section {
+    width: 100%;
+}
+
+article section:first-child img {
+    display: block;
+    width: 100%;
+    margin: -20px 0 0 0;
+}
+article section:first-child hgroup {
+    margin: -30px 0 0 0;
+    padding: 0 5%;
+    line-height: 30px;
+    color: #ffffff;
+    position: absolute;
+    width: 90%;
+    background: rgba(0, 0, 0, 0.4);
+}
+article section:first-child h4 {
+    font-weight: normal;
+    float: left;
+}
+article section:first-child h4:last-child {
+    float: right;
+}
+article .func {
+    float: left;
+    padding: 5px 0;
+    width: 24.75%;
+    min-height: 77px;
+    text-align: center;
+    border-bottom: 1px solid #979797;
+    border-right: 1px solid #979797;
+}
+article a:nth-child(4n) .func {
+    border-right: 0px;
+}
+article .func img {
+    display: block;
+    width: 30%;
+    margin: 15px 35%;
+}
+article .func span {
+    font-size: 13px;
+}
+article #teamBuy {
+    float: left;
+    background: rgba(176, 206, 135, 0.3);
+    border-right: 1px solid #c2c2c2;
+    width: 45%;
+    height: 110px;
+    padding: 10px 0 0 5%;
+}
+article #teamBuy img {
+	width: 15%;
+	margin: 4px 0 0 0;
+	float: left;
+}
+article #teamBuy span {
+	font-size: 20px;
+	margin: 0 0 0 5px;
+	color: rgba(176, 206, 135, 1);
+}
+article #teamBuy span:last-child {
+	font-size: 14px;
+	float: right;
+	margin: 5px 5% 0 0;
+}
+article #teamBuy p, article #hotBuy p {
+	font-size: 10px;
+	color: #9b9b9b;
+}
+#teamBuy .timeSurplus div, #teamBuy .timeSurplus span {
+	float: left;
+}
+#teamBuy .timeSurplus span {
+	display: inline-block;
+	margin: 3px 5px;
+	color: #4a4a4a;
+}
+#teamBuy .timeSurplus div {
+	margin: 5px 0 0 0;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 20px;
+	color: #ffffff;
+	background: #4a4a4a;
+}
+article #hotBuy {
+    float: left;
+    background: rgba(226, 99, 89, 0.3);
+    border-bottom: 1px solid #c2c2c2;
+    width: 46.4%;
+    height: 50px;
+    padding: 10px 0 0 3%;
+}
+article #hotBuy img {
+	width: 12%;
+	float: left;	
+	margin: -5px 0 0 0;
+}
+article #hotBuy span {
+	font-size: 16px;
+	color: rgba(226, 99, 89, 1);
+	margin: 0 0 0 5px;
+}
+article #brand {
+    float: left;
+    background: rgba(255, 214, 71, 0.3);
+    border-right: 1px solid #c2c2c2;
+    width: 25%;
+    height: 59px;
+}
+article #brand span, article #shop span {
+	float: right;
+	margin: 20px 10% 0 0;
+	font-size: 18px;
+}
+article #brand span {
+	color: rgba(255, 214, 71, 1);
+}
+article #shop {
+    float: left;
+    background: rgba(74, 144, 226, 0.3);
+    width: 24%;
+    height: 59px;
+}
+article #shop span {
+	color: rgba(74, 144, 226, 1);
+}
+article .chatArea {
+    margin: 10px 0 0 0;
+    border-bottom: 1px solid #c2c2c2;
+}
+article .isFinish, article .isGet, article .isIng {
+    float: left;
+    width: 35px;
+    height: 20px;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin: 0 10px 0 0;
+}
+article .isFinish {
+    background: url('../img/right-white.png') 5px 0/25px 100% no-repeat rgba(176, 206, 135, 1);
+}
+article .isIng {
+    background: url('../img/ing-white.png') 5px 0/25px 100% no-repeat rgba(105, 186, 238, 1);
+}
+article .isGet {
+    background: 5px 0/25px 100% no-repeat rgba(176, 206, 135, 0.8);
+}
+article .chatArea h5 {
+    font-weight: normal;
+    line-height: 20px;
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+article .icon {
+    float: right;
+    width: 42px;
+}
+article .icon img {
+    float: left;
+    width: 21px;
+}
+article .icon span {
+    line-height: 21px;
+}
+
+article section:after, .chatArea:after, .icon:after, article #teamBuy:after, article #teamBuy .timeSurplus:after, article #hotBuy:after, article #brand:after, article #shop:after {
+    content: '\20';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}

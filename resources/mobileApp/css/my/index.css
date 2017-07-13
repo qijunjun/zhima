@@ -1,0 +1,88 @@
+header img {
+    display: none;
+}
+.display {
+    display: block;
+}
+
+article {
+    margin-top: 44px;
+}
+article .myInfo {
+    width: 88%;
+    padding: 20px 6%;
+}
+article .myPhoto {
+    float: left;
+    width: 90px;
+    height: 90px;
+    background: #d2d2d2;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+article .myPhoto img {
+    width: 60px;
+    height: 60px;
+    margin: 15px;
+}
+article .myInfo hgroup {
+    float: left;
+    margin: 10px 0 0 15px;
+    max-width: 200px;
+}
+article hgroup h4, article hgroup h5 {
+    font-weight: normal;
+}
+article hgroup h4 {
+    font-size: 18px;
+}
+article hgroup h5 {
+    font-size: 12px;
+}
+article hgroup span {
+    display: block;
+    margin: 0 20px 0 0;
+}
+article hgroup span:last-child {
+    margin: 0;
+}
+article section {
+    margin: 0 0 10px 0;
+}
+article section ul {
+    margin: 0;
+}
+article section li {
+    line-height: 50px;
+    padding: 0 0 0 6%;
+    width: 94%;
+    border-bottom: 1px solid #d2d2d2;
+}
+article section ul a:first-child li {
+    border-top: 1px solid #d2d2d2;
+}
+article li span {
+    font-size: 14px;
+}
+
+article .logout {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background: #E26359;
+}
+article .logout span {
+    font-size: 18px;
+    line-height: 50px;
+    color: #4A4A4A;
+}
+article .myInfo:after {
+    content: '\20';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}

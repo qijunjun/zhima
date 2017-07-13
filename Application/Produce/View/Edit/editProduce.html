@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>新增生产信息</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>生产信息</h3>
+        </div>
+        <div class="grid" id="produceInfo">
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    $(document).ready(function () {
+        var produceInfoList = {};
+        methods.ajax({
+            url: "/admin/profile/fetch",
+            async: false,
+            callback: function(data){
+                produceInfoList = data.result;
+            }
+        });
+        var id = getParameterByName("id");
+        methods.ajax({
+            url: "/produce/profile/get",
+            data: {
+                id: id
+            },
+            callback:function(data){
+                var str = "<div>" +
+                        "<label for='name'>生产信息名称</label>" +
+                        "<input type='text' name='name' id='name' value='" + data.result.name + "' />" +
+                        "</div>";
+                for (var i in data.result) {
+                    for (var j in produceInfoList) {
+                        if (i == j) {
+                            str += "<div>" +
+                                    "<label for='" + i + "'>" + produceInfoList[j] + "</label>" +
+                                    "<input type='text' name='" + i + "' id='" + i + "' data-name='" + produceInfoList[j] + "' value='" + data.result[i] + "' />" +
+                                    "</div>"
+                        }
+                    }
+                }
+                methods.getId('produceInfo').innerHTML = str;
+            }
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            var data = new Data();
+            data.getInput(false);
+            methods.ajax({
+                url: "/Produce/Profile/edit",
+                data: {
+                    id: id,
+                    list: data.data
+                },
+                callback:function(data){
+                    new Inform({title: '通知', content: '修改生产信息成功'}).alert(function () {
+                        window.location.href = "/Application/Produce/View/Index/produce.html";
+                    });
+                }
+            })
+        })
+    });
+    function getParameterByName (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+</script>
+</html>

@@ -1,0 +1,96 @@
+header img {
+    display: block;
+}
+#search {
+    float: right;
+    margin: 0 5% 0 0;
+}
+
+article {
+    margin-top: 54px;
+    padding: 0 0 10px 0;
+}
+article section {
+    margin: 15px 5%;
+    padding: 10px;
+    background: #f4f4f4;
+    border-radius: 5px;
+}
+article section div:first-child {
+    float: left;
+    margin: 0 5% 0 0;
+}
+article section p {
+    font-size: 14px;
+    line-height: 31px;
+}
+article section .process {
+    max-width: 100%;
+    float: left;
+    height: 28px;
+    margin: -28px 0 0 0;
+    border-radius: 5px;
+    background: 0 0/100% 100% repeat-x;
+}
+article section .wrongProcess {
+    width: 33.33%;
+    background-image: url("../../img/progress-red.png");
+    /*-webkit-animation: processMove 3s infinite linear;*/
+    /*-o-animation: processMove 3s infinite linear;*/
+    /*animation: processMove 3s infinite linear;*/
+}
+article section .dealProcess {
+    width: 66.66%;
+    background-image: url("../../img/progress-orange.png");
+    /*-webkit-animation: processMove 3s infinite linear;*/
+    /*-o-animation: processMove 3s infinite linear;*/
+    /*animation: processMove 3s infinite linear;*/
+}
+article section .finishProcess {
+    width: 100%;
+    background-image: url("../../img/progress.png");
+    /*-webkit-animation: processMove 3s infinite linear;*/
+    /*-o-animation: processMove 3s infinite linear;*/
+    /*animation: processMove 3s infinite linear;*/
+}
+article section .bgProcess {
+    width: 100%;
+    height: 28px;
+    border-radius: 5px;
+    background: #ffffff;
+}
+/*@keyframes processMove {*/
+    /*from {*/
+        /*background-position: 0 0;*/
+    /*}*/
+    /*to {*/
+        /*background-position: 270px 0;*/
+    /*}*/
+/*}*/
+article .wrong, article .deal, article .report, article .finish, article .else {
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+article .wrong {
+    background: #E26359;
+}
+article .deal {
+    background: #F5A623;
+}
+article .report, article .finish {
+    background: #B0CE87;
+}
+article .else {
+    background: #4A90E2;
+}
+article .status span {
+    font-size: 14px;
+    color: #ffffff;
+}
+article section:after, article .content:after, article section div:after:first-child {
+    content: '\20';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}

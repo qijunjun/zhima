@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>修改企业资质项</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/date/laydate.css" />
+    <style>
+        article .grid label + textarea{
+            width:50%;
+            font-size: 14px;
+            resize: none;
+            margin: 0 5% 10px;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <section>
+            <div class="title">
+                <h3>资质认证信息</h3>
+            </div>
+            <div class="grid">
+                <div>
+                    <label for="aptitudename" style="width:100px;">企业资质名称</label>
+                    <input type="text" name="aptitudename" id="aptitudename" data-name="企业资质名称">
+                </div>
+                <div>
+                    <label for="aptitudecode" style="width:100px;">企业资质编码</label>
+                    <input type="text" name="aptitudecode" id="aptitudecode" data-name="企业资质编码">
+                </div>
+                <!--<div>-->
+                    <!--<label for="aptitudeType" style="width:100px;">企业资质类型</label>-->
+                    <!--<input type="text" name="aptitudeType" id="aptitudeType" data-name="企业资质类型">-->
+                <!--</div>-->
+                <div>
+                    <label for="authorizer">发证单位</label>
+                    <input type="text" name="authorizer" id="authorizer" data-name="发证单位">
+                </div>
+                <div>
+                    <label for="releaseTime">发证时间</label>
+                    <input type="text" onclick="laydate()" id="releaseTime" name="releaseTime" data-name="发证时间">
+                </div>
+                <div>
+                    <label for="indate">有效期</label>
+                    <input type="text" onclick="laydate()" id="indate" data-name="有效期">
+                </div>
+                <div>
+                    <label for="aptitudeimage1">资质证书</label>
+                    <button class="portrait" type="button" name="aptitudeimage1" id="aptitudeimage1">点击上传</button>
+                </div>
+                <div style="width: 1000px;">
+                    <label for="range" style="width:90px;">许可范围</label>
+                    <textarea name="range" id="range" data-name="许可范围" cols="30" rows="6"></textarea>
+                </div>
+            </div>
+        </section>
+        <section>
+            <button id="submit">提交</button>
+        </section>
+    </article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/laydate.dev.js"></script>
+<script>
+    var imgSrc = {};
+    $(document).ready(function(){
+        var id= window.location.href.split("?")[1].substring(3);
+        methods.ajax({
+            url :"/Company/Aptitude/edit",
+            data:{id:id},
+            callback:function(data){
+                data = data.result;
+                setData(data);
+                var time = new Date(data.create_time+"000"-0);
+                methods.getId('releaseTime').value = time.getFullYear() + "-" + ((time.getMonth() + 1) < 10 ? ('0' + (time.getMonth() + 1)) : (time.getMonth() + 1)) + "-" + (time.getDate() < 10 ? ('0' + time.getDate()) : time.getDate());
+                var time1 = new Date(data.validity_time+"000"-0);
+                methods.getId('indate').value = time1.getFullYear() + "-" + ((time1.getMonth() + 1) < 10 ? ('0' + (time1.getMonth() + 1)) : (time1.getMonth() + 1)) + "-" + (time1.getDate() < 10 ? ('0' + time1.getDate()) : time1.getDate());
+                if (data.aptitudeimage1) {
+                    $("#aptitudeimage1").addClass("getImg").html("已上传");
+                    imgSrc.aptitudeimage1 = data.aptitudeimage1;
+                }
+                $(".portrait").click(function () {
+                    new ImgUpload({title: '上传图片', name: $(this).attr('name')}, $(this).val()).alert();
+                });
+            }
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            var data = new Data();
+            if(!data.getInput()){
+                new Inform({title:"通知",content:"数据项不完整<br><span class='red'>请检查</span>"}).alert();
+                return ;
+            }
+            var releaseTime = parseInt(new Date($("#releaseTime").val()).getTime()/1000);
+            var indate = parseInt(new Date($("#indate").val()).getTime()/1000);
+            if(releaseTime>indate){
+                new Inform({title:'通知',content:'发证时间不能超过有效期！'}).alert();
+                return ;
+            }
+            var _data = {
+                id:id,
+                aptitudeName:$("#aptitudename").val(),
+                aptitudeCode:$("#aptitudecode").val(),
+                license:$("#authorizer").val(),
+                releaseTime:releaseTime,
+                indate:indate,
+                permissionScope:$("#range").val(),
+                certificate:$("#aptitudeimage1").val()
+            };
+            methods.ajax({
+                url:"/Company/Aptitude/update",
+                data:_data,
+                callback: function(data){
+                    new Inform({title:"通知",content:"修改成功"}).alert(function(){
+                        window.location.href="/Application/Company/View/Aptitude/Aptitude.html";
+                    })
+                }
+            })
+        });
+    });
+    var getImgUpload = function (data) {
+        for (var i in data.result) {
+            imgSrc[i] = data.result[i].savepath + data.result[i].savename;
+            $("#" + i).val(imgSrc[i]).addClass("getImg").html("已上传");
+        }
+        $(".popMsg").remove();
+    };
+
+</script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>扫码记录</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/code/scancode.css" />
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>扫码记录管理</h3>
+            <input type="button" id="export" class="topButton" value="导出全部">
+            <div class="search"></div>
+            <input id="search" type="text" />
+            <button  class="topButton" id="searchResult">查询</button>
+            <div class="date">
+                <label for="endDate">终止时间</label>
+                <input type="text"  onclick="laydate()" id="endDate" name="endDate">
+            </div>
+            <div  class="date">
+                <label for="startDate">起始时间</label>
+                <input type="text"  onclick="laydate()" id="startDate" name="startDate">
+            </div>
+        </div>
+        <div class="center">
+
+        </div>
+        <div class="bottom">
+            <table id="scanCode">
+                <thead>
+                <tr>
+                    <!--<th data-column-id="recent_ip">ip</th>-->
+                    <th data-formatter="productImage">产品图片</th>
+                    <th data-column-id="productname">产品名称</th>
+                    <th data-column-id="guige">产品规格</th>
+                    <th data-column-id="b">质量码</th>
+                    <th data-column-id="first_time"  data-converter="datetime">首次扫码时间</th>
+                    <th data-column-id="first_address">首次扫码地点</th>
+                    <th data-column-id="recent_time"  data-converter="datetime">最近扫码时间</th>
+                    <th data-column-id="recent_address">最近扫码地点</th>
+                    <th data-column-id="scan_count">扫码次数</th>
+                </tr>
+                </thead>
+            </table>
+            <table id="switchCode" style="display: none">
+                <thead>
+                <tr>
+                    <th data-formatter="productImage">产品图片</th>
+                    <th data-column-id="productname">产品名称</th>
+                    <th data-column-id="guige">产品规格</th>
+                    <th data-column-id="b">质量码</th>
+                    <th data-column-id="first_time"  data-converter="datetime">首次扫码时间</th>
+                    <th data-column-id="first_address">首次扫码地点</th>
+                    <th data-column-id="recent_time"  data-converter="datetime">最近扫码时间</th>
+                    <th data-column-id="recent_address">最近扫码地点</th>
+                    <th data-column-id="scan_count">扫码次数</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/laydate.dev.js"></script>
+<script src="/resources/js/code/scanCode.js"></script>
+</body>
+</html>

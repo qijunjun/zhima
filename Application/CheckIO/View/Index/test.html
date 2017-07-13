@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>测试</title>
+    <link rel="stylesheet" href="/resources/css/reset.css">
+    <link rel="stylesheet" href="/resources/css/message.css">
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>产品管理</h3>
+            <div class="search"></div>
+            <input id="search" type="text">
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table>
+                <thead>
+                <tr>
+                    <th>图片</th>
+                    <th>产品名称</th>
+                    <th>规格</th>
+                    <th>价格(元)</th>
+                    <th>录入时间</th>
+                    <th>网店链接</th>
+                </tr>
+                </thead>
+                <tbody id="product"></tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <div>
+                            <span class="pageTip">共<span class="listLength"></span>条，每页显示：10条</span>
+                            <ul class="pagination">
+                                <li class="pageBefore">‹</li>
+                                <li class="pageNext">›</li>
+                            </ul>
+                            <input class="pageTarget" type="text" name="pageTarget">
+                            <span class="pageGo">GO</span>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/paginate.js"></script>
+<script src="/resources/js/table.js"></script>
+<script>
+    var table = Table();
+    var useful = [];
+    var paginate;
+    paginate = table.paginate({
+        article:useful,
+        search:true
+    });
+    table.ajaxData('/Product/api/info',useful,function(_useful,_data){
+        for (var i = 0; i < _data.length; i ++) {
+            var time = new Date(_data[i].create_time.length==10?_data[i].create_time+"000"-0 : _data[i].create_time-0);
+            _useful[i] = {
+                id: _data[i].productid,
+                productImage: "<img src='" + _data[i].productimage + "' />",
+                productName: _data[i].productname,
+                spec: _data[i].guige,
+                price: _data[i].price,
+                createTime: time.getFullYear()+"."+(time.getMonth()+1)+"."+time.getDate()+" "+time.getHours()+":"+time.getMinutes()+":"+time.getSeconds(),
+                netShopAddress: "<a href='" + _data[i].wdadr + "'>" + _data[i].wdadr + "</a>"
+            }
+        }
+
+        paginate.setData(_useful);
+    })
+</script>
+</body>
+</html>

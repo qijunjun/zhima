@@ -1,0 +1,119 @@
+html {
+    background: #3f95b6;
+}
+.bg {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url("/resources/images/bg.png");
+}
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+
+    background-image: -webkit-linear-gradient(to top right, #3f95b6, #b9d8c2);
+    background-image: linear-gradient(to top right, #3f95b6, #b9d8c2);
+
+    font-family: "Microsoft YaHei UI";
+    -moz-user-select:none;/*火狐*/
+    -webkit-user-select:none;/*webkit浏览器*/
+    -ms-user-select:none;/*IE10*/
+    -khtml-user-select:none;/*早期浏览器*/
+    user-select:none;
+}
+a {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+article {
+    z-index: 100;
+    background-color: #FFFFFF;
+    width: 500px;
+    text-align: center;
+}
+article > section > h2 {
+    color: #58adeb;
+    padding: 8% 2% 0 2%;
+    font-size: 26px;
+}
+article > section:nth-child(3) > div {
+    width: 85%;
+    margin: 0 auto;
+    border-bottom: 1px solid #CCC;
+}
+article > section > div{
+    content: '\20';
+    display: block;
+    clear: both;
+}
+article > section:nth-child(2) {
+    margin: 5% 0;
+}
+article > section:nth-child(2) > button {
+    width: 10%;
+    font-size: 16px;
+    font-family: "Microsoft JhengHei UI";
+    margin: 0 5%;
+    padding: 5px 5px;
+    border: 0;
+    background-color: transparent;
+}
+.active {
+    border-bottom: 2px solid #58adeb !important;
+}
+article > section:nth-child(3) {
+    text-align: left;
+}
+article > section:nth-child(3) button {
+    height: 30px;
+    font-size: 14px;
+    color: #CCC;
+    border: 0;
+    border-left: 1px solid #CCCCCC;
+    background-color: transparent;
+}
+article > section:nth-child(3) > div > label {
+    float: left;
+}
+article > section:nth-child(3) > div > input {
+    width: 80%;
+    border: 0;
+    margin: 5px;
+    padding: 10px;
+    font-family: "Microsoft JhengHei UI";
+}
+
+article > section:last-child > button {
+    width: 200px;
+    font-family: "Microsoft YaHei UI";
+    font-size: 16px;
+    color: #FFFFFF;
+    margin: 20px 0;
+    padding: 5px 0;
+    border: 0;
+    background-color: #4f4d4d;
+}
+
+article > div {
+    font-size: 20px;
+}
+.logotitile{
+    font-family: "Microsoft YaHei";
+    color:#4f4d4d;
+}
+.logotitile img{
+    vertical-align: middle;
+    width:20%;
+    padding-right:15px;
+}

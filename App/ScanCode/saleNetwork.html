@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>销售网店</title>
+    <link rel="stylesheet" href="../../resources/css/message.css" />
+    <link rel="stylesheet" href="../../resources/css/app/productexplain.css">
+    <script src="/resources/js/app/jquery.js"></script>
+    <style>
+        /*增加的*/
+
+        .popmask {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .4);
+            display: none;
+        }
+        .popCnt {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 9999;
+            width: 90%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .bigImg {
+            max-width: 100%;
+        }
+
+        body.hasPop {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<header>销售网点</header>
+<article>
+    <section id="Process" class="process">
+        <div>
+            <img src="../../resources/images/app/companyImage.png" alt="">
+            <img src="../../resources/images/app/companyImage.png" alt="">
+            <img src="../../resources/images/app/companyImage.png" alt="">
+            <img src="../../resources/images/app/companyImage.png" alt="">
+        </div>
+    </section>
+</article>
+<div class="popmask">
+</div>
+<div class="popCnt">
+    <img class="bigImg" src="" alt="">
+</div>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/message.js"></script>
+<script src="/resources/js/app/productExplain.js"></script>
+</body>
+</html>

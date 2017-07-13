@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		<title>快消后台管理系统</title>
+		<link rel="stylesheet" href="/resources/css/reset.css" />
+		<link rel="stylesheet" href="/resources/css/message.css" />
+		<link rel="stylesheet" href="/resources/css/table.css" />
+	</head>
+	<body>
+		<article>
+			<section>
+				<div class="table">
+					<div class="top">
+						<h3>箱码与质量码关联管理</h3>
+						<div class="search"></div>
+						<input id="search" type="text" />
+						<input type="button" class="topButton" value="新增箱码质量码关联" onclick="window.location.href = '/Produce/Connect/codeConnect';" />
+					</div>
+					<div class="center"></div>
+					<div class="bottom">
+						<table id="connectManage">
+							<thead>
+								<tr>
+									<th data-column-id="product_name">产品名称</th>
+									<th data-column-id="spec">产品规格</th>
+									<th data-column-id="qrcode_pack">箱码</th>
+									<th data-column-id="qrcode_range_s">起始质量码</th>
+									<th data-column-id="qrcode_range_e">结束质量码</th>
+									<th data-column-id="time" data-converter="datetime">关联时间</th>
+									<th data-formatter="delete" data-sortable="false">删除</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</section>
+		</article>
+		<script src="/resources/js/jquery.min.js"></script>
+		<script src="/resources/js/jquery.bootgrid.min.js"></script>
+		<script src="/resources/js/methods.js"></script>
+		<script src="/resources/js/message_test.js"></script>
+		<script src="/resources/js/produce/connectManage.js"></script>
+	</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--浏览器内核控制-->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--强制让ie使用edge渲染,如果使用chrome则使用chrome内容渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <!--禁止百度进行手机转码-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--禁止浏览器从本地计算机的缓存中访问页面内容-->
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+        搜索引擎索引方式
+        all：文件将被检索，且页面上的链接可以被查询；
+        none：文件将不被检索，且页面上的链接不可以被查询；
+        index：文件将被检索；
+        follow：页面上的链接可以被查询；
+        noindex：文件将不被检索；
+        nofollow：页面上的链接不可以被查询。
+     -->
+    <meta name="robots" content="index,follow" />
+    <!--忽略数字自动识别为电话号码-->
+    <meta content="telephone=no" name="format-detection" />
+    <!--忽略识别邮箱-->
+    <meta content="email=no" name="format-detection" />
+    <title>登录</title>
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/reset.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/common.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/my/login.css" />
+</head>
+<body>
+<header>
+    <a href="javascript:window.history.back(-1);"><img src="__PUBLIC__/mobileApp/img/back.png" alt="后退" /></a>
+    <a href="register.html"><p>注册</p></a>
+    <span>登&nbsp;录</span>
+</header>
+<article>
+    <div class="accounts">
+        <div class="head">
+            <span>已登录帐号</span>
+        </div>
+        <ul id="accountInfo">
+            <!--<a href="javascript:quickLogin();">-->
+                <!--<li>-->
+                    <!--<div><img src="../../img/user.png" alt="userIcon" /></div>-->
+                    <!--<span>13672030192</span>-->
+                    <!--<div class="unSelect">-->
+                        <!--<div class="selected"></div>-->
+                    <!--</div>-->
+                <!--</li>-->
+            <!--</a>-->
+        </ul>
+        <a href="javascript:closeCover();">
+            <div class="foot">
+                <span>新账户登录</span>
+            </div>
+        </a>
+    </div>
+    <a href="javascript:showUser();">
+        <div class="logo">
+            <img src="__PUBLIC__/mobileApp/img/user.png" alt="用户头像" />
+        </div>
+    </a>
+    <section>
+        <ul>
+            <li>
+                <label for="account">账号：</label>
+                <input type="text" name="account" id="account" />
+            </li>
+            <li>
+                <label for="password">密码：</label>
+                <input type="password" name="password" id="password" />
+            </li>
+            <a href="javascript:submitLog()">
+                <li>
+                    <span>登&nbsp;录</span>
+                </li>
+            </a>
+        </ul>
+    </section>
+</article>
+<script src="__PUBLIC__/mobileApp/js/jquery-2.1.4.min.js"></script>
+<script src="__PUBLIC__/mobileApp/js/common.js"></script>
+<script src="__PUBLIC__/mobileApp/js/my/login.js"></script>
+</body>
+</html>

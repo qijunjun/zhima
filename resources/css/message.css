@@ -1,0 +1,222 @@
+/*  -- pop msg --  */
+.red {
+    color: #E26359;
+}
+.popMsg {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.popMsg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    overflow: auto;
+}
+.popMsg .operation {
+    width: 600px;
+    height: 400px;
+    /*margin: 50px auto 0;*/
+    padding: 20px;
+    background: #ffffff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-animation: popOperation 0.3s;
+    -o-animation: popOperation 0.3s;
+    animation: popOperation 0.3s;
+}
+.popMsg .tip {
+    width: 360px;
+    height: 160px;
+    /*margin: 200px auto 0;*/
+    padding: 20px;
+    background: #ffffff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-animation: popTip 0.3s;
+    -o-animation: popTip 0.3s;
+    animation: popTip 0.3s;
+}
+.popMsg .top span {
+    font-size: 20px;
+}
+.popMsg .top .img {
+    width: 24px;
+    height: 24px;
+    float: right;
+    background: url("../images/delete.png") 0 0/100% 100% no-repeat;
+}
+.popMsg .top .img:hover {
+    cursor: pointer;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+}
+.popMsg .middle {
+    width: 100%;
+    padding: 25px 0;
+    font-size: 16px;
+    text-align: center;
+}
+.popMsg .middle input[type=file] {
+    height: 20px;
+    line-height: 20px;
+    margin: 0 0 10px 0;
+}
+.popMsg .middle canvas {
+    /*width: 100%;*/
+    /*height: 100%;*/
+}
+.popMsg .middleOperation {
+    height: 350px;
+    /*overflow: auto;*/
+    padding: 10px 0;
+}
+.popMsg .middleUpload {
+    /*height: 300px;*/
+    /*overflow: auto;*/
+    padding: 10px 0;
+}
+.popMsg .middle iframe {
+    width: 100%;
+    height: 100%;
+}
+.popMsg .down {
+    text-align: center;
+}
+.popMsg .down p {
+    cursor: pointer;
+}
+.popMsg .down p:last-child {
+    float: right;
+    font-size: 12px;
+    margin: -18px 0 0 0;
+}
+.popMsg .down p:first-child {
+    width: 100px;
+    margin: 0 auto;
+    font-size: 16px;
+    padding: 5px 0;
+    color: #ffffff;
+    background-color: #E26359;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.popMsg section * {
+    opacity: 1;
+    -webkit-animation: popWord 0.6s;
+    -o-animation: popWord 0.6s;
+    animation: popWord 0.6s;
+}
+@keyframes popOperation {
+    from {
+        width: 200px;
+        height: 100px;
+        /*margin-top: 200px;*/
+    }
+    to {
+        width: 600px;
+        height: 400px;
+        /*margin-top: 50px;*/
+    }
+}
+@keyframes popTip {
+    from {
+        width: 100px;
+        height: 20px;
+        /*margin-top: 290px;*/
+    }
+    to {
+        width: 360px;
+        height: 160px;
+        /*margin-top: 200px;*/
+    }
+}
+@keyframes popWord {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/*
+before && after
+*/
+.popMsg .top:before {
+    content: '\20';
+    display: block;
+}
+.popMsg .top:after {
+    content: '\20';
+    display: block;
+    clear: both;
+}
+
+
+@media screen and (max-width: 600px) {
+    .popMsg .tip {
+        width: 270px;
+        height: 120px;
+        padding: 10px;
+    }
+    .popMsg .top span {
+        font-size: 16px;
+    }
+    .popMsg .top .img {
+        width: 12px;
+        height: 12px;
+    }
+    .popMsg .middle {
+        padding: 15px 0;
+        font-size: 12px;
+    }
+    .popMsg .down p:first-child {
+        width: 80px;
+        font-size: 12px;
+    }
+
+    @keyframes popTip {
+        from {
+            width: 90px;
+            height: 20px;
+        }
+        to {
+            width: 270px;
+            height: 120px;
+        }
+    }
+    @keyframes popWord {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+}

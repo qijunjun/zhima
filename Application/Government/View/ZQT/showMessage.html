@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>快消平台管理系统</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <link rel="stylesheet" href="/resources/css/enlarge.css" />
+    <style>
+        table{
+            width: 100%;
+            table-layout: fixed;
+        }
+        article .table .bottom th:first-child{
+            width:30%;
+        }
+        article .table .bottom th:nth-child(2){
+            width:20%;
+        }
+        article .table .bottom th:nth-child(3){
+            width:40%;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>留言信息</h3>
+            <div class="search"></div>
+            <input type="text" id="search">
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="showmessage">
+                <thead>
+                <tr>
+                    <th data-column-id="companyname">留言人</th>
+                    <th data-column-id="create_time" data-converter="date">留言时间</th>
+                    <th data-formatter="show">留言内容</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/jquery.dotdotdot.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#showmessage").bootgrid({
+            ajax:true,
+            ajaxSetting:{
+                dataType:"json"
+            },
+            url:"/Government/Message/listLeaveMessage",
+            identifier:"id",
+            responseHandler:function(response){
+                var rows;
+                rows = {
+                    total:response.result.length,
+                    current:1,
+                    rows : response.result
+                };
+                response.result = rows;
+                str = rows.length;
+                return response;
+            },
+            formatters: {
+//                show: function (column, row) {
+//                    return "<a class='cont' href='/Application/Government/View/ZQT/messageInfo.html?id="+row.id+"'>"+row.content+"</a>";
+//                }
+                show: function (column, row)
+                {
+                    if(row.hits <1){
+                        return "<a class='cont ct' style='color: #000' href='/Application/Government/View/ZQT/messageInfo.html?id=" + row.id + "'>"+row.content+"</a>";
+                    }else{
+                        return "<a class='cont' style='color: #000' href='/Application/Government/View/ZQT/messageInfo.html?id=" + row.id + "'>"+row.content+"</a>";
+                    }
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function() {
+            $('.text-left>.cont').dotdotdot({
+                ellipsis: '......',
+                after: $('<a href="javascript:void(0)" class="showcontent" style="color:#299be4"><a>'),
+                wrap: 'letter',
+                height: 30,
+                watch: true,
+                fallbackToLetter: true,
+                lastCharacter: {
+
+                    /*	Remove these characters from the end of the truncated text. */
+                    remove: [' ', ',', ';', '.', '!', '?'],
+
+                    /*	Don't add an ellipsis if this array contains
+                     the last character of the truncated text. */
+                    noEllipsis: []
+                }
+            });
+            $(".ct").parent().parent().css("font-weight","bold");
+        });
+    });
+</script>
+</body>
+</html>

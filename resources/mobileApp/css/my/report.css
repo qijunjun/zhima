@@ -1,0 +1,68 @@
+header img {
+    display: block;
+}
+#search {
+    float: right;
+    margin: 0 5% 0 0;
+}
+
+article {
+    margin-top: 44px;
+    padding: 0 0 10px 0;
+}
+article section:first-child {
+    padding: 15px 5%;
+}
+article .report span {
+    font-size: 14px;
+    line-height: 24px;
+    display: block;
+    color: #4A4A4A;
+}
+article .report span:first-child {
+    float: right;
+}
+article section:first-child .reportInfo {
+    margin: 10px 0 0 0;
+    padding: 10px 10%;
+    width: 80%;
+    background: #F5F5F5;
+}
+article .reportInfo h4, article .reportInfo p {
+    font-weight: normal;
+    color: #4A4A4A;
+}
+article .reportInfo h4 {
+    font-size: 16px;
+    text-align: center;
+    margin: 0 0 5px 0;
+}
+article .reportInfo p {
+    font-size: 14px;
+    line-height: 24px;
+    text-indent: 2em;
+}
+article .content div {
+    float: left;
+    width: 49%;
+    margin: 10px 1% 0 0;
+    text-align: center;
+}
+article .content div:nth-child(2n) {
+    margin: 10px 0 0 1%;
+}
+article .content img {
+    width: 100%;
+    max-height: 100px;
+}
+article .content span {
+    font-size: 12px;
+}
+
+article .report:after, article .content:after {
+    content: '\20';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}

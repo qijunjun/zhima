@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>修改质检报告</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>质检报告信息</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="data_name">产品</label>
+                <select name="data_name" id="data_name">
+                    <option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+                </select>
+            </div>
+            <div>
+                <label for="batchNumber">批次号</label>
+                <input type="text" disabled id="batchNumber" name="batchNumber">
+            </div>
+            <div>
+                <label for="inspectionImage"  style="width:100px;">质检报告图片</label>
+                <button class="portrait" type="button" name="inspectionImage" id="inspectionImage">点击上传</button>
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script>
+    var imgSrc = {};
+    $(document).ready(function(){
+        var id= window.location.href.split("?")[1].substring(3);
+        var select = document.getElementById('data_name');
+        select.innerHTML = null;
+        var productid;
+        methods.ajax({
+            url : "编辑接口",
+            data:{id:id},
+            callback:function(data){
+                data = data.result;
+                productid = data.productid;
+                methods.getId('batchNumber').value = data.batchNumber;
+                methods.getId('data_name').value = data.productid;
+                if (data.inspectionImage) {
+                    $("#inspectionImage").val(data.inspectionImage).addClass("getImg").html("已上传");
+                }
+                $(".portrait").click(function () {
+                    new ImgUpload({title: '上传图片', name: $(this).attr('name')}, $(this).val()).alert();
+                });
+            }
+        });
+        //产品列表显示
+        methods.ajax({
+            url: "/Product/api/fieldsList",
+            callback : function(data){
+                data = data.result;
+                var str = "<option value='0' disabled='disabled' selected='selected'>--请选择产品--</option>";
+                for(var i = 0;i < data.length;i++){
+                    str +="<option value='"+data[i].productid+"'>"+data[i].productname + "-" + data[i].guige+"</option>";
+                }
+                select.innerHTML += str;
+                $("#data_name").val(productid);
+            }
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            var data = new Data();
+            if(!data.getInput()){
+                new Inform({title:'通知',content:'数据项不完整<br><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            var _data = {
+                id:id,
+                productid:$("#data_name").val(),
+                batchNumber : $("#batchNumber").val(),
+                inspectionImage : $("#inspectionImage").val(),
+            };
+            methods.ajax({
+                url:"/修改接口",
+                data:_data,
+                callback:function(data){
+                    new Inform({title:'通知',content:'修改成功'}).alert(function(){
+                        window.location.href = "/Application/Process/View/Index/Inspection.html";
+                    })
+                }
+            })
+        })
+    });
+    var getImgUpload = function (data) {
+        for (var i in data.result) {
+            imgSrc[i] = data.result[i].savepath + data.result[i].savename;
+            $("#" + i).val(imgSrc[i]).addClass("getImg").html("已上传");
+        }
+        $(".popMsg").remove();
+    };
+</script>
+</body>
+</html>

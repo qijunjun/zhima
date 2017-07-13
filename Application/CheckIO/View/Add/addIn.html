@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>新增入库记录</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>新增入库信息</h3>
+        </div>
+        <div class="grid">
+            <div id="warehouse">
+                <label for="warehouseid">选择仓库</label>
+                <select name="warehouseid" id="warehouseid">
+                    <option value="0" disabled="disabled" selected="selected">请选择仓库</option>
+                </select>
+            </div>
+            <div>
+                <label for="start">箱码起始编号</label>
+                <input type="text" name="start" id="start" data-name="箱码起始编号" />
+            </div>
+            <div>
+                <label for="end">箱码结束编号</label>
+                <input type="text" name="end" id="end" data-name="箱码结束编号" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/checkio/addIn.js"></script>
+</body>
+</html>

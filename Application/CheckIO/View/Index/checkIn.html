@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>入库管理</title>
+    <link rel="stylesheet" href="/resources/css/reset.css">
+    <link rel="stylesheet" href="/resources/css/message.css">
+    <!--<link rel="stylesheet" href="/resources/css/table.css" />-->
+    <link rel="stylesheet" href="/resources/css/code/scancode.css" />
+    <!--<link rel="stylesheet" href="/resources/css/checkIO/checkIO.css">-->
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>入库管理</h3>
+            <input type="button" class="topButton" value="新增入库" onclick="$(window.parent.document.getElementById('article')).attr('src', '/Application/CheckIO/View/Add/addIn.html');" />
+            <input type="button" id="export" class="topButton" value="导出全部">
+            <div class="search"></div>
+            <input id="search" type="text">
+            <button  class="topButton" id="searchResult">查询</button>
+            <div class="date">
+                <label for="endDate">终止时间</label>
+                <input type="text"  onclick="laydate()" id="endDate" name="endDate">
+            </div>
+            <div  class="date">
+                <label for="startDate">起始时间</label>
+                <input type="text"  onclick="laydate()" id="startDate" name="startDate">
+            </div>
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="checkIn">
+                <thead>
+                    <tr>
+                        <th data-column-id="product_name">产品名称</th>
+                        <th data-column-id="spec">产品规格</th>
+                        <th data-column-id="p">箱码</th>
+                        <th data-column-id="destination">仓库名称</th>
+                        <th data-column-id="create_time" data-converter="datetime">入库时间</th>
+                        <th data-formatter="delete" data-sortable="false">删除</th>
+                    </tr>
+                </thead>
+            </table>
+            <table id="switchcheckIn" style="display: none">
+                <thead>
+                <tr>
+                    <th data-column-id="product_name">产品名称</th>
+                    <th data-column-id="spec">产品规格</th>
+                    <th data-column-id="p">箱码</th>
+                    <th data-column-id="destination">仓库名称</th>
+                    <th data-column-id="create_time" data-converter="datetime">入库时间</th>
+                    <th data-formatter="delete" data-sortable="false">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/laydate.dev.js"></script>
+<script src="/resources/js/checkio/checkIn.js"></script>
+</body>
+</html>

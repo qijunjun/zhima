@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>设置</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>新增仿冒质量码</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="bStart">起始质量码</label>
+                <input type="text" name="bStart" id="bStart" data-name="起始质量码" placeholder="请输入起始质量码" />
+            </div>
+            <div>
+                <label for="bEnd">结束质量码</label>
+                <input type="text" name="bEnd" id="bEnd" data-name="结束质量码" placeholder="请输入结束质量码" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>仿冒质量码黑名单管理</h3>
+            <div class="search"></div>
+            <input id="search" type="text" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="fakerManage">
+                <thead>
+                    <tr>
+                        <th data-column-id="name">产品名称</th>
+                        <th data-column-id="spec">产品规格</th>
+                        <th data-column-id="b">质量码</th>
+                        <th data-column-id="create_time" data-converter="datetime">添加时间</th>
+                        <th data-formatter="delete" data-sortable="false">删除</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#fakerManage").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: "json"
+            },
+            url: "/Faker/Authenticity/getBlacklist",
+            identifier: "id",
+            responseHandler: function (response) {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters: {
+                delete: function (column, row)
+                {
+                    return "<div class=\"delete\" data-id='" + row.id + "'>" + methods.getSvg() + "</div>"
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function() {
+            $('.delete').click(function(){
+                var id = $(this).data("id");
+                $(this).parent().parent().attr("id",id);
+                new Delete({title:'删除提示',content:'是否确认删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id,"/Faker/Authenticity/removeBlacklist");
+            });
+        });
+        methods.addEvent(document.getElementById('submit'),'click',function(){
+            var data = new Data();
+            if(!data.getInput()){
+                new Inform({title:'通知',content:'数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            methods.ajax({
+                url : "/Faker/Authenticity/addBlacklist",
+                data : data.data,
+                callback : function(data){
+                    new Inform({title:'通知',content:'新增成功'}).alert(function(){
+                        window.location.reload();
+                    })
+                }
+            })
+        })
+    });
+</script>
+</html>

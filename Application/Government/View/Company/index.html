@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link type="text/css" rel="stylesheet" href="/resources/css/reset.css" />
+		<link type="text/css" rel="stylesheet" href="/resources/css/table.css" />
+		<link type="text/css" rel="stylesheet" href="/resources/css/government/company.css" />
+		<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/resources/js/jquery.dotdotdot.min.js"></script>
+		<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=41fa5abfe33422c275fe46235093a99d"></script>
+		<script type="text/javascript" src="/resources/js/government/company.js"></script>
+	</head>
+	<body class="overflow-hidden">
+		<div id="map">
+		</div>
+		<section class="side-box hidden">
+			<div id="side-anchor">></div>
+			<div class="side-middle">
+				<div class="side-title">企业列表</div>
+				<ul id="companies-side" class="side-list">
+				</ul>
+			</div>
+		</section>
+		<section class="table" style="display:none;">
+			<div class="title top">
+				<h3>企业信息列表</h3>
+			</div>
+			<div class="bottom">
+				<table id="companies">
+					<thead>
+						<tr>
+							<th data-column-id="name">企业名称</th>
+							<th data-column-id="contact">负责人</th>
+							<th data-column-id="introduction" data-converter="introduction">企业信息</th>
+							<th data-column-id="phone">联系电话</th>
+							<th data-formatter="detail">企业详情</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</section>
+	</body>
+</html>

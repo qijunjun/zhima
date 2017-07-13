@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>物流信息</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>物流信息 </h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="logistics">物流公司</label>
+                <input type="text" name="logistics" id="logistics" />
+            </div>
+            <div>
+                <label for="expresslist">物流单号</label>
+                <input type="text" name="expresslist" id="expresslist" />
+            </div>
+            <div>
+                <label for="logistic_time">发货时间</label>
+                <input type="date" name="logistic_time" id="logistic_time" data-name="发货时间" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script>
+    $(document).ready(function(){
+        var id = getParameterByName("id");
+        methids.ajax({
+            url:"/Logistics/Logistics/find",
+            data:{id:id},
+            callback:function(data){
+                data = data.result;
+                setData(data);
+                var time = new Date(data[0].logistic_time+"000"-0);
+                methods.getId('logistic_time').value = time.getFullYear() + "-" + ((time.getMonth() + 1) < 10 ? ('0' + (time.getMonth() + 1)) : (time.getMonth() + 1)) + "-" + (time.getDate() < 10 ? ('0' + time.getDate()) : time.getDate());
+               }
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            var data = new Data();
+            if(!data.getInput()){
+                new Inform({title:'通知',content:'数据项不完整<br><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            data = data.data;
+            data['logistic_time'] = parseInt(new Date(data["logistic_time"]).getTime() / 1000);
+            methods.ajax({
+                url : '/Logistics/Logistics/update',
+                data:data,
+                callback:function(data){
+                    new Inform({title:'通知',content:'修改成功'}).alert(function(){
+                        window.location.href = "/Application/CheckIO/View/Index/Logistics.html";
+                    })
+                }
+            })
+        })
+    });
+
+    var getParameterByName = function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
+</script>
+</body>
+</html>

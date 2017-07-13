@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--浏览器内核控制-->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--强制让ie使用edge渲染,如果使用chrome则使用chrome内容渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <!--禁止百度进行手机转码-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--禁止浏览器从本地计算机的缓存中访问页面内容-->
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+        搜索引擎索引方式
+        all：文件将被检索，且页面上的链接可以被查询；
+        none：文件将不被检索，且页面上的链接不可以被查询；
+        index：文件将被检索；
+        follow：页面上的链接可以被查询；
+        noindex：文件将不被检索；
+        nofollow：页面上的链接不可以被查询。
+     -->
+    <meta name="robots" content="index,follow" />
+    <!--忽略数字自动识别为电话号码-->
+    <meta content="telephone=no" name="format-detection" />
+    <!--忽略识别邮箱-->
+    <meta content="email=no" name="format-detection" />
+    <title>产品详情</title>
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/reset.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/common.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/product/details.css" />
+</head>
+<body>
+<header>
+    <a href="javascript:window.history.back(-1);"><img src="__PUBLIC__/mobileApp/img/back.png" alt="后退" /></a>
+    <span>产品详情</span>
+</header>
+<div class="cover">
+	<div class="code">
+		<img src="../../img/Bitmap.png" alt="code" />
+	</div>
+</div>
+<article>
+	<section>
+		<!--这里的更优质做法是首先用一个div空出大小，然后用c3做一个旋转加载的效果，然后在js里当图片onload之后再将图片的透明度在1秒或者更短的时间内由0到1-->
+		<img id="productImg" />
+		<div class="top">
+			<div class="start"></div>
+			<p>产品名称</p>
+			<div></div>
+		</div>
+		<p id="productName"></p>
+		<div class="top">
+			<div class="start"></div>
+			<p>产品规格</p>
+			<div></div>
+		</div>
+		<p id="productInfo"></p>
+		<div class="top">
+			<div class="start"></div>
+			<p>产地</p>
+			<div></div>
+		</div>
+		<p id="productPlace"></p>
+		<div class="top">
+			<div class="start"></div>
+			<p>详细介绍</p>
+			<div></div>
+		</div>
+		<p id="productDetails"></p>
+		<button id="codeImg">查看产品二维码</button>
+	</section>
+</article>
+<script src="__PUBLIC__/mobileApp/js/jquery-2.1.4.min.js"></script>
+<script src="__PUBLIC__/mobileApp/js/common.js"></script>
+<script src="__PUBLIC__/mobileApp/js/product/details.js"></script>
+</body>
+</html>

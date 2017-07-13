@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>质量码生产环节关联</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>质量码生产记录关联管理</h3>
+            <div class="search"></div>
+            <input id="search" type="text" />
+            <input type="button" class="topButton" value="新增质量码生产记录关联" onclick="window.location.href='/Application/Process/View/Add/addcodeProcess.html'" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="processConnect">
+                <thead>
+                <tr>
+                    <th data-column-id="productname">产品名称</th>
+                    <th data-column-id="guige">产品规格</th>
+                    <th data-column-id="qrcode_range_s">起始码号</th>
+                    <th data-column-id="qrcode_range_e">结束码号</th>
+                    <th data-column-id="function_name">生产环节名称</th>
+                    <th data-column-id="create_time" data-converter="datetime">关联时间</th>
+                    <!--<th data-formatter="operation" data-sortable="false">操作</th>-->
+                    <th data-formatter="delete">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#processConnect").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: "json"
+            },
+            url: "/Process/Bind/listCorrRecords",
+            identifier: "id",
+            responseHandler: function (response) {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters: {
+//                operation:function(column,row){
+//                    return "<a href='/Application/Process/View/Edit/editCheck.html?id="+row.id+"'><p>修改</p></a>"
+//                },
+                delete: function (column, row)
+                {
+                    return "<div class=\"delete\" data-id='" + row.id + "'>" + methods.getSvg() + "</div>"
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function()
+        {
+            $('.delete').click(function () {
+                var id = $(this).data("id");
+                $(this).parent().parent().attr("id", id);
+                new Delete({title: '删除提示', content: '是否确认删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id, '/Process/Bind/delBind');
+            });
+        });
+    });
+</script>
+</html>

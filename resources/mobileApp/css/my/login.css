@@ -1,0 +1,137 @@
+header img {
+    display: block;
+}
+header p {
+    float: right;
+    font-size: 16px;
+    margin: 5px 5% 0 0;
+}
+
+/* cover */
+article .accounts {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.4);
+}
+article .accounts .head, article .accounts .foot, article .accounts ul {
+    background: #ffffff;
+    width: 66%;
+    margin: 0 17%;
+}
+article .accounts .head {
+    height: 50px;
+    margin-top: 150px;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+}
+article .accounts .head span, article .accounts .foot span {
+    font-size: 18px;
+    color: #4A4A4A;
+    line-height: 50px;
+}
+article .accounts ul {
+    min-height: 200px;
+	max-height: 200px;
+	overflow: auto;
+}
+article .accounts .foot {
+    height: 50px;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+}
+article .accounts li {
+    padding: 5px 0;
+    border-bottom: 1px solid #d8d8d8;
+}
+article .accounts li > div:first-child {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin: 0 0 0 5%;
+    border-radius: 50%;
+    background: #d8d8d8;
+}
+article .accounts img {
+    width: 25px;
+    height: 25px;
+    margin: 7.5px;
+}
+article .accounts li span {
+    line-height: 40px;
+    font-size: 16px;
+    margin: 0 0 0 5%;
+}
+article .accounts .unSelect, article .accounts .selected {
+    float: right;
+}
+article .accounts .unSelect {
+    width: 12px;
+    height: 12px;
+    margin: 10px 5% 10px 0;
+    border: 4px solid #c2c2c2;
+    border-radius: 50%;
+}
+article .accounts .selected {
+    display: none;
+    width: 8px;
+    height: 8px;
+    margin: 2px;
+    border-radius: 50%;
+    background: rgba(176, 206, 135, 1);
+}
+article .accounts li:after {
+    content: '\20';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}
+
+article {
+    margin: 44px 0 0;
+    padding: 40px 0 0;
+}
+article .logo {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 40px;
+    border-radius: 50%;
+    background: #D8D8D8;
+}
+article .logo img {
+    width: 60px;
+    height: 60px;
+    margin: 15px;
+}
+article section ul {
+    margin: 0 0 0 8%;
+    width: 92%;
+}
+article section ul li {
+    width: 90%;
+    margin: 0 0 10px 0;
+}
+article ul label {
+    font-size: 16px;
+}
+article ul input {
+    border: 0;
+    font-size: 16px;
+    width: 80%;
+    border-bottom: 1px solid #979797;
+}
+article section a li {
+    margin: 20px 0 0;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 5px;
+    background: rgba(176, 206, 135, 1);
+}
+article section ul li:last-child span {
+    font-size: 16px;
+}

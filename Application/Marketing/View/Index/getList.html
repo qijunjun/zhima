@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>领取红包记录</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>微信红包领取记录管理</h3>
+            <form style="display: inline-block;float:right;" action="/Exportexcel/Exportexcel/index/name/hongbaoinfo" method="post">
+                <input type="hidden" value="" name="promotionid" id="promotionid">
+                <input type="submit" name="submit" class="topButton" value="导出">
+            </form>
+                <div class="search"></div>
+                <input id="search" name="search" type="text" />
+            </div>
+        <div class="center">
+            <span id="promotionName">活动名称：</span>
+        </div>
+        <div class="bottom">
+            <table id="getlist">
+                <thead>
+                <tr>
+                    <th data-column-id="b">质量码</th>
+                    <th data-column-id="status">领取状态</th>
+                    <th data-column-id="total_amount" data-converter="currency">领取金额</th>
+                    <th data-column-id="create_time" data-converter="datetime">生成时间</th>
+                    <th data-column-id="customer">姓名</th>
+                    <th data-column-id="mobile">手机号</th>
+                    <th data-column-id="location">地址</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/marketing/getList.js"></script>
+</html>

@@ -1,0 +1,63 @@
+@charset "UTF-8";
+body	{
+	overflow: hidden;
+	background-color: rgb(244, 244, 244);
+}
+#logo	{
+	margin: 20% auto 0 auto;
+}
+#logo img	{
+	height: 10%;
+}
+#title	{
+	margin: 0 auto;
+	font-size: 48px;
+}
+#loginInput	{
+	margin: 3% auto 0 auto;
+	width: 75%;
+	background-color: #fff;
+	border-radius: 5px;
+}
+input	{
+	width: 85%;
+	line-height: 110px;
+	padding-left: 5%;
+	padding-right: 10%;
+	border: solid 2px #BEBEBE;
+	font-family: "微软雅黑";
+}
+#user	{
+	margin: 0;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	border-bottom: solid 1px #BEBEBE;
+	background:url("../images/user.png") no-repeat scroll 95% center transparent;
+}
+#password	{
+	margin: 0;
+	border-radius: 0 0 5px 5px;
+	-moz-border-radius: 0 0 5px 5px;
+	border-top: solid 1px #BEBEBE;
+	background:url("../images/password.png") no-repeat scroll 95% center transparent;
+}
+#button	{
+	margin: 14% auto 0 auto;
+}
+#button button	{
+	font-size: 48px;
+	border: 0;
+	width: 75%;
+	padding: 10px 0 10px 0;
+	margin-bottom: 30px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	font-family: "微软雅黑";
+	color: white;
+}
+#login	{
+	background-color: rgb(20, 173, 142);
+}
+#cancel	{
+	background-color: rgb(67, 71, 72);
+}

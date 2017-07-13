@@ -1,0 +1,82 @@
+.layui-layer-content *
+{
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+input
+{
+	line-height: normal;
+}
+#groups th.status, #groups td.status
+{
+	width: 100px;
+}
+#groups th.commands, #groups td.commands
+{
+	padding: 3px 5px;
+	width: 125px;
+}
+div.item
+{
+	margin: 5px 0px;
+}
+div.item span
+{
+	vertical-align: top;
+	margin-right: 10px;
+	font-family: initial;
+	cursor: default;
+}
+input#title
+{
+	width: 400px;
+}
+textarea#description
+{
+	line-height: normal;
+	resize: none;
+	width: 400px;
+	height: 75px;
+}
+div.tab_headers
+{
+	border-bottom: 1px solid black;
+}
+span.tab_header
+{
+	display: inline-block;
+	width: 50%;
+	text-align: center;
+}
+span.tab_header_selected
+{
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	padding: 2px 0px;
+	background-color: #DDD;
+}
+div#menus
+{
+	width: 600px;
+	height: 300px;
+	border: 1px solid black;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+div#rules-footer
+{
+	padding: 0px;
+}
+#rules-footer div
+{
+	margin: 0px;
+	padding: 0px;
+}
+div.tab_hide
+{
+	display: none;
+}

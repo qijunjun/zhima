@@ -1,0 +1,58 @@
+body,p,span,div,img,ul,li,h2,article,section,h3,header,table, tr, td,a{margin:0; padding:0;}
+*{font-family:"Microsoft YaHei" !important;}
+header{
+    margin:20px 10px;
+    font-size:18px;
+    text-align:center;
+}
+@font-face
+{
+    font-family: myFirstFont;
+    src: url('/resources/images/app/Sansation_Light.ttf');
+}
+article{
+    margin:50px 30px;
+}
+article > section{
+    background: url("/resources/images/app/redpocketbg2.png" )no-repeat center center/100% 100%;
+    margin-top:10px;
+    height:450px;
+}
+article section h2,article section p{
+    text-align:center;
+    color:#fff;
+    font-size:20px;
+}
+article section h2{
+    font-family:myFirstFont !important;
+    padding-top:50px;
+    font-size:36px;
+}
+article section p:nth-child(2){
+    margin-top:30px;
+    margin-bottom:20px;
+}
+article section input{
+    display:block;
+}
+article section .text{
+    width:170px;
+    height:36px;
+    font-size:26px;
+    color:#fff;
+    margin:40px auto;
+    text-align:center;
+    background:rgb(203, 76, 70);
+    border:1px solid rgba(255, 255, 255, 0.6);
+}
+article section #show{
+    font-size:16px;
+    color:#E2E224;
+}
+article section .btn{
+    margin:-12px auto;
+    border:none;
+    width:85px;
+    height:85px;
+    background: url("/resources/images/app/redpocket.png" )no-repeat center center/100% 100%;
+}

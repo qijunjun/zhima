@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>举报页面</title>
+    <link rel="stylesheet" href="/resources/css/app/report/main.css">
+    <link rel="stylesheet" href="/resources/css/message.css">
+</head>
+<body>
+    <header>举报信息</header>
+    <article>
+        <section>
+            <div class="reportContent">
+                <h2>举报内容</h2>
+                <textarea name="contentInfo" id="contentInfo" data-name="举报内容" cols="30" rows="6" placeholder="请简要描述您的问题和情况"></textarea>
+            </div>
+            <!--<div class="reportPhoto">-->
+                <!--<h2>拍照上传<span>（请提供问题截图或照片）</span></h2>-->
+                <!--<div id="localImag">-->
+                    <!--<button id="btnAdd" class="btn" onclick="selectAttachment();"></button>-->
+                    <!--<div id="attachmentList" ></div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="reportTel">
+                <h2>联系电话</h2>
+                <input type="text" id="tel" data-name="联系电话" placeholder="便于我们与您联系">
+            </div>
+            <button type="submit" class="submit" id="submit"></button>
+            <p class="phone">
+                <a id="phone">
+                    <img src="/resources/images/app/report/calling.png" alt="拨打厂家电话">
+                </a>
+            </p>
+        </section>
+    </article>
+    <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/resources/js/getData.js"></script>
+    <script type="text/javascript" src="/resources/js/methods.js"></script>
+    <script type="text/javascript" src="/resources/js/message.js"></script>
+    <script type="text/javascript" src="/resources/js/message_test.js"></script>
+    <script type="text/javascript" src="/resources/js/app/report/upload.js"></script>
+    <script type="text/javascript" src="/resources/js/app/report/addReport.js"></script>
+</body>
+</html>

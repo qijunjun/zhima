@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/reset.css" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/message.css" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/bigdata/index.css" />
+    <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/resources/js/methods.js"></script>
+    <script type="text/javascript" src="/resources/js/message_test.js"></script>
+    <script type="text/javascript" src="/resources/js/common.js"></script>
+    <script type="text/javascript" src="/resources/js/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="/resources/js/echarts/theme/shine.js"></script>
+    <title>图表分析</title>
+</head>
+<body>
+<article>
+    <section>
+        <div>
+            <div class="title">
+                <h3>用码量统计</h3>
+            </div>
+            <div id="product-num"  class="bigdata">
+            </div>
+        </div>
+        <div>
+            <div class="title">
+                <h3 class="h3">&nbsp;&nbsp;</h3>
+            </div>
+            <div id="qrcode-pie"  class="bigdata">
+            </div>
+        </div>
+    </section>
+    <section>
+        <div>
+            <div id="product-bar" class="bigdata">
+            </div>
+        </div>
+        <div>
+            <div id="product-line"  class="bigdata">
+            </div>
+        </div>
+    </section>
+    <section>
+        <div>
+            <div class="title">
+                <h3>生码量统计</h3>
+            </div>
+            <div>
+                <div id="qrcode-bar"  class="bigdata">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="title">
+                <h3 class="h3">&nbsp;&nbsp;</h3>
+            </div>
+            <div id="qrcode-line"  class="bigdata">
+            </div>
+        </div>
+    </section>
+</article>
+
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('product-num'), 'shine');
+    var myLine = echarts.init(document.getElementById('product-line'), 'shine');
+    var myBar = echarts.init(document.getElementById('product-bar'), 'shine');
+    var qrcodePie = echarts.init(document.getElementById('qrcode-pie'), 'shine');
+    var qrcodeBar = echarts.init(document.getElementById('qrcode-bar'), 'shine');
+    var qrcodeLine = echarts.init(document.getElementById('qrcode-line'), 'shine');
+    //显示loading动画
+    myChart.showLoading();
+    myLine.showLoading();
+    myBar.showLoading();
+    qrcodePie.showLoading();
+    qrcodeBar.showLoading();
+    qrcodeLine.showLoading();
+    //异步获取数据
+    getData("/Chart/Pie/index/product", null, 'GET', 5000, abc, myChart);
+    getData("/Chart/Line/index/statis/product", null, 'GET', 5000, bar, myLine);
+    getData("/Chart/Bar/index/product", null, 'GET', 5000, bar, myBar);
+    getData("/Company/Chartdata/qrcode", null, 'GET', 5000, abc, qrcodePie);
+    getData("/Chart/Bar/index/statis/qrcode", null, 'GET', 5000, bar, qrcodeBar);
+    getData("/Company/Chartdata/usedQrcode", null, 'GET', 5000, bar, qrcodeLine);
+    function abc(data, Chart) {
+        //隐藏loading动画
+        Chart.hideLoading();
+        Chart.setOption(data.result);
+    }
+    function bar(data, Bar) {
+        //隐藏loading动画
+        Bar.hideLoading();
+//        data.result.title.text = "产品总用码量趋势图";
+        data.result.title.top = "0";
+        data.result.title.left="center";
+        data.result.grid.left = "30px";
+        data.result.grid.top = "100px";
+        data.result.grid.height = "65%";
+        data.result.grid.containLabel=true;
+        data.result.legend.left = "20px";
+        data.result.legend.top = "40px";
+        data.result.toolbox.top = "0";
+        Bar.setOption(data.result);
+    }
+//    function num(data, Line) {
+//        //隐藏loading动画
+//        Line.hideLoading();
+//        data.result.title.top = "0";
+//        data.result.title.left = "20%";
+//        data.result.grid.left = "20px";
+//        data.result.grid.top = "100px";
+//        data.result.grid.height = "65%";
+//        data.result.legend.left = "20px";
+//        data.result.legend.top = "40px";
+//        data.result.toolbox.top = "0";
+//        Line.setOption(data.result);
+//    }
+    //使用ajax获取数据
+    function getData(url, senddata, type, timeout, Func, Chart) {
+        var returnstring = "";
+        $.ajax({
+            timeout: timeout,
+            type: type,
+            url: url + "?time=" + Date.parse(new Date()),
+            data: senddata,
+            success: function (data) {
+                Func(data, Chart);
+            },
+            complete: function (XMLHttpRequest, status) {   //请求完成后最终执行参数
+                if (status != "success") {
+                    if (status == 'timeout')//超时,status还有success,error等值的情况
+                    {
+                        returnstring = "err|timeout";//连接超时
+                        toast("连接超时，操作失败！");
+                    }
+                    else if (status == 'error') {
+                        returnstring = "err|error";//连接错误
+                        toast("连接错误，操作失败！");
+                    }
+                    else if (status == 'abort') {
+                        returnstring = "err|abort";//连接失败
+                        toast("连接失败，操作失败！");
+                    }
+                    else {
+                        returnstring = "err|unknown";//未知原因
+                        toast("未知原因，操作失败！");
+                    }
+                    Func(returnstring, Chart);
+                }
+            }
+        });
+    }
+
+    function toast(data) {
+        new Toast({context: $('body'), message: data}).show();
+    }
+</script>
+</body>
+</html>

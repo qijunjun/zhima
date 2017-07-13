@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>快消平台管理系统</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/inform.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>留言信息</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="content">内容</label>
+                <textarea  name="content" id="content" style="height:200px;" data-name="留言内容"></textarea>
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor();
+    editor.render("content");
+    $(document).ready(function () {
+        methods.addEvent(document.getElementById('submit'),'click',function(){
+            var content =editor.getContent();
+            if(content ==""){
+                new Inform({title: "通知", content: "内容不能为空<br><span class='red'>请检查</span>"}).alert();
+                return;
+            }
+            methods.ajax({
+                url : "/Government/Message/leaveMessage",
+                data : {
+                    content:content
+                },
+                callback : function(){
+                    new Inform({title : '通知',content : '留言成功!'}).alert(function(){
+                        window.location.href = "/Application/Company/View/ZQGT/ZQGT.html";
+                    });
+                }
+            })
+        });
+    });
+</script>
+</html>

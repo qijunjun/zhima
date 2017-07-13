@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link type="text/css" rel="stylesheet" href="../../../../resources/css/reset.css" />
+		<link type="text/css" rel="stylesheet" href="../../../../resources/css/common.css" />
+		<link type="text/css" rel="stylesheet" href="../../../../resources/css/message.css" />
+		<script type="text/javascript" src="../../../../resources/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../../resources/js/methods.js"></script>
+		<script type="text/javascript" src="../../../../resources/js/message_test.js"></script>
+		<script type="text/javascript" src="../../../../resources/js/common.js"></script>
+	</head>
+	<body>
+<include file="../../../Application/Common/Tpl/header.html" />
+<include file="../../../Application/Common/Tpl/nav.html" />
+		<article>
+			<iframe name="article" id="article" frameborder="0" src="/Welcome/Index/welcome"></iframe>
+		</article>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/home/utility/regions",
+            method: "post",
+            dataType: "json",
+            success: function (data) {
+                if (data.code !== "001") {
+                    throw new Error(data.code, data.message);
+                }
+                data = data.result;
+                data = JSON.stringify(data);
+                localStorage.setItem("area", data);
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+        //抓取企业信息
+        $.ajax({
+            url: "/Company/Basic/index",
+            method: "post",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (data.code !== "001") {
+                    throw new Error(data.code, data.message);
+                }
+                data = data.result;
+                $("#company").html(data.name);
+            },
+            error: function (err) {
+                console.error(err);
+            }
+        });
+    });
+</script>
+	</body>
+</html>

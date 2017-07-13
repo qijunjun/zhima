@@ -1,0 +1,33 @@
+.dis {
+    display: none;
+}
+#tijiao {
+    background-color: red;
+}
+input:disabled{
+    background-color: transparent;
+}
+textarea:disabled {
+    background-color: transparent;
+}
+.textareawidth {
+    width: 80% !important;
+    font-size: 18px;
+}
+.w-qiyema {
+    width: 20% !important;
+}
+#qiyema {
+    width: 51% !important;
+    padding: 0 0 0 10%;
+}
+#qiyema img {
+    width: 100% !important;
+}
+textarea {
+    padding: 10px 10px;
+    cursor: auto;
+}
+.introimage {
+    width: 33% !important;
+}

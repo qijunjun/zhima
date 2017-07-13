@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/reset.css" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/message.css" />
+    <link type="text/css" rel="stylesheet" href="/resources/css/company/chartdata.css" />
+    <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/resources/js/methods.js"></script>
+    <script type="text/javascript" src="/resources/js/message_test.js"></script>
+    <script type="text/javascript" src="/resources/js/common.js"></script>
+    <script type="text/javascript" src="/resources/js/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="/resources/js/echarts/theme/shine.js"></script>
+    <title>消费数据统计</title>
+</head>
+<body>
+<article>
+    <section>
+        <div>
+            <div class="title">
+                <h3>查询条件</h3>
+            </div>
+            <div class="grid">
+                <label for="data_name">产品</label>
+                <select name="data_name" id="data_name">
+                    <option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+                </select>
+                <label for="startDate">起始时间</label>
+                <input type="text"  onclick="laydate()" id="startDate" name="startDate">
+                <label for="endDate">终止时间</label>
+                <input type="text"  onclick="laydate()" id="endDate" name="endDate">
+                <button id="search">查找</button>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div>
+            <div class="title">
+                <h3>扫码量统计</h3>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div>
+            <div id="product-bar"  class="bigdata">
+            </div>
+        </div>
+        <div>
+            <div id="qrcode-pie"  class="bigdata">
+            </div>
+        </div>
+    </section>
+    <section>
+        <div>
+            <div class="title">
+                <h3>扫码统计</h3>
+            </div>
+            <div id="productScan"  class="bigdata">
+            </div>
+        </div>
+            <div>
+                <div class="title">
+                    <h3>举报统计</h3>
+                </div>
+                <div id="report"  class="bigdata">
+                </div>
+            </div>
+
+    </section>
+</article>
+<script src="/resources/js/laydate.dev.js"></script>
+<script type="text/javascript">
+    var product = document.getElementById('data_name');
+    product.innerHTML = null;
+    methods.ajax({
+        url: "/Product/api/fieldsList",
+        callback : function(data){
+            data = data.result;
+            var str = "<option value='0' disabled='disabled' selected='selected'>--请选择产品--</option>";
+            for(var i = 0;i < data.length;i++){
+                str +="<option value='"+data[i].productid+"'>"+data[i].productname + "-" + data[i].guige+"</option>";
+            }
+            product.innerHTML += str;
+        }
+    });
+    // 基于准备好的dom，初始化echarts实例
+    var myBar = echarts.init(document.getElementById('product-bar'), 'shine');
+    var productScan = echarts.init(document.getElementById('productScan'), 'shine');
+    var qrcodePie = echarts.init(document.getElementById('qrcode-pie'), 'shine');
+    var report = echarts.init(document.getElementById('report'), 'shine');
+    //显示loading动画
+    myBar.showLoading();
+    qrcodePie.showLoading();
+    productScan.showLoading();
+    report.showLoading();
+    getAllData("/Company/Chartdata/scanedCountsTop", null, 'GET', 5000, bar, productScan);
+    getAllData("/Company/Chartdata/scanedCountsBar", null, 'GET', 5000, bar, myBar);
+    getAllData("/Company/Chartdata/scanedCountsPie", null, 'GET', 5000, pie, qrcodePie);
+    getAllData("/Company/Chartdata/tipoffCountsBar", null, 'GET', 5000, bar, report);
+    function pie(data, Bar) {
+        //隐藏loading动画
+        Bar.hideLoading();
+        Bar.setOption(data.result);
+    }
+    function bar(data, Bar) {
+        //隐藏loading动画
+        Bar.hideLoading();
+        data.result.title.top = "0";
+//        data.result.grid.left = "30px";
+        data.result.grid.top = "70px";
+//        data.result.grid.height = "65%";
+//        data.result.grid.containLabel=true;
+        data.result.legend.left = "20px";
+        data.result.legend.top = "40px";
+//        data.result.toolbox.top = "0";
+        Bar.setOption(data.result);
+    }
+    function getAllData(url, senddata, type, timeout, Func, Chart) {
+        var returnstring = "";
+        $.ajax({
+            timeout: timeout,
+            type: type,
+            url: url,
+            data: senddata,
+            success: function (data) {
+                Func(data, Chart);
+            },
+            complete: function (XMLHttpRequest, status) {   //请求完成后最终执行参数
+                if (status != "success") {
+                    if (status == 'timeout')//超时,status还有success,error等值的情况
+                    {
+                        returnstring = "err|timeout";//连接超时
+                        toast("连接超时，操作失败！");
+                    }
+                    else if (status == 'error') {
+                        returnstring = "err|error";//连接错误
+                        toast("连接错误，操作失败！");
+                    }
+                    else if (status == 'abort') {
+                        returnstring = "err|abort";//连接失败
+                        toast("连接失败，操作失败！");
+                    }
+                    else {
+                        returnstring = "err|unknown";//未知原因
+                        toast("未知原因，操作失败！");
+                    }
+                    Func(returnstring, Chart);
+                }
+            }
+        });
+    }
+    methods.addEvent(methods.getId('search'),'click',function(){
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+    //异步获取数据
+    getData("/Company/Chartdata/scanedCountsBar/productid/"+product.value+"/startdate/"+startDate+"/enddate/"+endDate, null, 'GET', 5000, bar, myBar);
+    getData("/Company/Chartdata/scanedCountsPie/productid/"+product.value+"/startdate/"+startDate+"/enddate/"+endDate, null, 'GET', 5000, pie, qrcodePie);
+    getData("/Company/Chartdata/scanedCountsTop/productid/"+product.value+"/startdate/"+startDate+"/enddate/"+endDate, null, 'GET', 5000, bar, productScan);
+    getData("/Company/Chartdata/tipoffCountsBar/productid/"+product.value+"/startdate/"+startDate+"/enddate/"+endDate, null, 'GET', 5000, bar, report);
+        //使用ajax获取数据
+    function getData(url, senddata, type, timeout, Func, Chart) {
+        var returnstring = "";
+        Chart.clear();
+        $.ajax({
+            timeout: timeout,
+            type: type,
+            url: url,
+            data: senddata,
+            success: function (data) {
+                Func(data, Chart);
+            },
+            complete: function (XMLHttpRequest, status) {   //请求完成后最终执行参数
+                if (status != "success") {
+                    if (status == 'timeout')//超时,status还有success,error等值的情况
+                    {
+                        returnstring = "err|timeout";//连接超时
+                        toast("连接超时，操作失败！");
+                    }
+                    else if (status == 'error') {
+                        returnstring = "err|error";//连接错误
+                        toast("连接错误，操作失败！");
+                    }
+                    else if (status == 'abort') {
+                        returnstring = "err|abort";//连接失败
+                        toast("连接失败，操作失败！");
+                    }
+                    else {
+                        returnstring = "err|unknown";//未知原因
+                        toast("未知原因，操作失败！");
+                    }
+                    Func(returnstring, Chart);
+                }
+            }
+        });
+    }
+    });
+    function toast(data) {
+        new Toast({context: $('body'), message: data}).show();
+    }
+</script>
+</body>
+</html>

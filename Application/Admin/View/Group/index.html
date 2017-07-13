@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link type="text/css" rel="stylesheet" href="/resources/css/reset.css" />
+		<link type="text/css" rel="stylesheet" href="/resources/css/zTreeStyle.css" />
+		<link type="text/css" rel="stylesheet" href="/resources/css/table.css" />
+		<link type="text/css" rel="stylesheet" href="/resources/css/admin/group.css" />
+		<title>用户组管理</title>
+	</head>
+	<body>
+		<section class="table">
+			<div class="top">
+				<h3>用户组列表</h3>
+				<div class="search"></div>
+				<input id="search" type="text" />
+				<input type="button" id="add" class="topButton" value="添加用户组" />
+			</div>
+			<div class="center"></div>
+			<div class="bottom">
+				<table id="groups">
+					<thead>
+						<tr>
+							<th data-column-id="title">名称</th>
+							<th data-column-id="description" data-converter="converter">说明</th>
+							<th data-column-id="status" data-converter="status" data-header-css-class="status" data-css-class="status">状态</th>
+							<th data-column-id="commands" data-formatter="commands" data-sortable="false" data-header-css-class="commands" data-css-class="commands">操作</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</section>
+		<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/resources/js/jquery.bootgrid.min.js"></script>
+		<script type="text/javascript" src="/resources/js/layer.min.js"></script>
+		<script type="text/javascript" src="/resources/js/jquery.ztree.core.min.js"></script>
+		<script type="text/javascript" src="/resources/js/jquery.ztree.excheck.min.js"></script>
+		<script type="text/javascript" src="/resources/js/admin/group.min.js"></script>
+	</body>
+</html>

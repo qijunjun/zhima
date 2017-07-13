@@ -1,0 +1,153 @@
+<?php
+$menus = Admin\Utility\MenuManager::fetchMenus();
+$icons = F("icons");
+
+$menu_ids = Common\Utility\Auth::getMenuEntries();
+
+$nav = array();
+
+$path = array(MODULE_NAME, MODULE_NAME . "/" . CONTROLLER_NAME, MODULE_NAME . "/" . CONTROLLER_NAME . "/" . ACTION_NAME);
+
+foreach ($menu_ids as $menu_id)
+{
+	$menu = $menus[$menu_id];
+	if ($menu["status"] == 0)
+	{
+		continue;
+	}
+	$parent_id = $menu["parent_id"];
+	if ($menus[$parent_id]["status"] == 0)
+	{
+		continue;
+	}
+	if ($nav[$parent_id] == null)
+	{
+		$nav[$parent_id] = array(
+			"name"  => $menus[$parent_id]["title"],
+			"order" => $menus[$parent_id]["order"],
+			"items" => array()
+		);
+	}
+	$item = array(
+		"name"  => $menu["title"],
+		"path"  => $menu["path"],
+		"order" => $menu["order"]
+	);
+	if (in_array($menu["path"], $path))
+	{
+		$item["active"] = true;
+		$nav[$parent_id]["active"] = true;
+		$active_id = $parent_id;
+	}
+	array_push($nav[$parent_id]["items"], $item);
+}
+
+function cmp($a, $b)
+{
+	return $a["order"] < $b["order"] ? -1 : 1;
+}
+
+$indexes = array_keys($nav);
+/*
+foreach ($indexes as $index)
+{
+	uasort($nav[$index]["items"], cmp);
+}
+*/
+uasort($nav, cmp);
+$active_entry = $nav[$active_id];
+
+$count = count($nav);
+if ($count > 0)
+{
+?>
+		<div id="serves">
+			<span>技术支持：质码物联</span>
+		</div>
+		<nav>
+			<div class="slider slideUp"></div>
+			<div class="menus">
+				<section<?php if (in_array("Home", $path)) echo "  class=\"active\""; ?>>
+<?php
+	echo $icons[1];
+?>
+					<span><?php echo "首页"; ?></span>
+				</section>
+<?php
+	$keys = array_keys($nav);
+	for ($i = 0; $i < $count; $i++)
+	{
+		$entry = $nav[$keys[$i]];
+?>
+				<section<?php if ($entry["active"]) echo "  class=\"active\""; ?>>
+<?php
+		echo $icons[$keys[$i]];
+?>
+					<span><?php echo $entry["name"]; ?></span>
+<?php
+		if (count($entry) > 0)
+		{
+?>
+					<div style="display: none;">
+<?php
+			foreach ($entry["items"] as $item)
+			{
+				if ($item["active"])
+				{
+?>
+						<section class="active">
+							<span><?php echo $item["name"]; ?></span>
+						</section>
+<?php
+				}
+				else
+				{
+?>
+						<a href="/<?php echo $item["path"]; ?>" target="article">
+							<section>
+							<span><?php echo $item["name"]; ?></span>
+							</section>
+						</a>
+<?php
+				}
+			}
+?>
+					</div>
+<?php
+		}
+?>
+				</section>
+<?php
+	}
+}
+?>
+			</div>
+			<div class="slider slideDown"></div>
+		</nav>
+		<aside>
+			<div id="entries">
+<?php
+			foreach ($active_entry["items"] as $item)
+			{
+				if ($item["active"])
+				{
+?>
+				<section class="active">
+					<span><?php echo $item["name"]; ?></span>
+				</section>
+<?php
+				}
+				else
+				{
+?>
+				<a href="/<?php echo $item["path"]; ?>" target="article">
+					<section>
+						<span><?php echo $item["name"]; ?></span>
+					</section>
+				</a>
+<?php
+				}
+			}
+?>
+			</div>
+		</aside>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>企业基本信息</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/company/basic.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>企业信息</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="province">省</label>
+                <select name="province" id="province">
+                    <option value="0" selected="selected">加载中...</option>
+                </select>
+            </div>
+            <div>
+                <label for="city">市</label>
+                <select name="city" id="city">
+                    <option value="0" selected="selected">加载中...</option>
+                </select>
+            </div>
+            <div>
+                <label for="district">区/县</label>
+                <select name="district" id="district">
+                    <option value="0" selected="selected">加载中...</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="name">企业名称</label>
+                <input type="text" name="name" id="name" data-name="企业名称" />
+            </div>
+            <div>
+                <label for="logo">企业图标</label>
+                <button class="portrait" type="button" name="logo" id="logo" data-name="企业图标">点击上传</button>
+            </div>
+            <div>
+                <label for="businesslicense">营业执照号</label>
+                <input type="text" name="businesslicense" id="businesslicense"  data-name="营业执照号" data-noCheck="noCheck" />
+            </div>
+            <div>
+                <label for="businesslicense_img">营业执照</label>
+                <button class="portrait" type="button" name="businesslicense_img" id="businesslicense_img" data-name="营业执照">点击上传</button>
+            </div>
+            <div>
+                <label for="legalperson">法人</label>
+                <input type="text" name="legalperson" id="legalperson" data-name="法人" data-noCheck="noCheck" />
+            </div>
+            <div>
+                <label for="property">企业性质</label>
+                <input type="text" name="property" id="property" data-name="企业性质" data-noCheck="noCheck" />
+            </div>
+            <div>
+                <label for="address">地址</label>
+                <input type="text" name="address" id="address" data-name="地址" />
+            </div>
+            <div>
+                <label for="contact">联系人</label>
+                <input type="text" name="contact" id="contact" data-name="联系人" />
+            </div>
+            <div>
+                <label for="phone">电话</label>
+                <input type="text" name="phone" id="phone" data-name="电话" />
+            </div>
+            <div>
+                <label for="email">邮箱</label>
+                <input type="text" name="email" id="email" data-name="邮箱" />
+            </div>
+            <div>
+                <label for="wxid">联系人微信</label>
+                <input type="text" name="wxid" id="wxid"  data-name="微信" data-noCheck="noCheck" />
+            </div>
+            <div>
+                <label for="create_time">注册时间</label>
+                <input type="text" name="create_time" id="create_time" disabled="disabled" data-name="注册时间" data-noCheck="noCheck" />
+            </div>
+            <!--<div>-->
+                <!--<label for="create_time">认证时间</label>-->
+                <!--<input type="text" name="create_time" id="J-xlsh" disabled="disabled" data-name="认证时间" />-->
+            <!--</div>-->
+        </div>
+    </section>
+    <section>
+        <div class="title">
+            <h3>企业介绍</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label class="introimage" for="introimage">企业介绍图片</label>
+                <button class="portrait" name="introimage" id="introimage" data-spec="(推荐宽高比16:9)">点击上传</button>
+            </div>
+            <div>
+                <label class="introimage" for="introimage1">企业介绍图片</label>
+                <button class="portrait" name="introimage1" id="introimage1" data-spec="(推荐宽高比16:9)">点击上传</button>
+            </div>
+            <div>
+                <label class="introimage" for="introimage2">企业介绍图片</label>
+                <button class="portrait" name="introimage2" id="introimage2" data-spec="(推荐宽高比16:9)">点击上传</button>
+            </div>
+            <div>
+                <label class="introimage" for="introimage3">企业介绍图片</label>
+                <button class="portrait" name="introimage3" id="introimage3" data-spec="(推荐宽高比16:9)">点击上传</button>
+            </div>
+            <div>
+                <label class="introimage" for="introimage4">企业介绍图片</label>
+                <button class="portrait" name="introimage4" id="introimage4" data-spec="(推荐宽高比16:9)">点击上传</button>
+            </div>
+            <div class="textareawidth">
+                <label for="introduction">企业介绍</label>
+                <textarea name="introduction" id="introduction" cols="30" rows="6"></textarea>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="title">
+            <h3>企业地理位置</h3>
+        </div>
+        <div id="map" style="width: 600px; height: 600px;"></div>
+    </section>
+    <section>
+        <button class="w-w" id="submit">提交</button>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/area.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=41fa5abfe33422c275fe46235093a99d"></script>
+<script type="text/javascript">
+	var mapOptions;
+	var map;
+	var marker;
+	var longitude, latitude;
+	mapOptions = {
+		resizeEnable: true
+	};
+	map = new AMap.Map("map", mapOptions);
+	map.plugin(["AMap.ToolBar"], function ()
+	{
+		var tool = new AMap.ToolBar();
+		map.addControl(tool);
+	});
+	marker = new AMap.Marker();
+	map.on('click', function(e)
+	{
+		longitude = e.lnglat.getLng();
+		latitude = e.lnglat.getLat();
+		marker.setPosition(e.lnglat);
+		marker.setMap(map);
+	});
+    var imgSrc = {};
+    methods.addEvent(window, 'load', function () {
+        var domProvince = methods.getId('province'),
+            domCity = methods.getId('city'),
+            domDistrict = methods.getId('district'),
+            id, province, city, district;
+
+        var area = new Area(JSON.parse(localStorage.getItem('area')));
+        domProvince.innerHTML = area.getProvinceOption();
+        methods.addEvent(domProvince, 'change', function () {
+            domCity.innerHTML = area.getCityOption(domProvince.value);
+            domDistrict.innerHTML = null;
+            domDistrict.value = "";
+        });
+        methods.addEvent(domCity, 'change', function () {
+            domDistrict.innerHTML = area.getDistrictOption(domProvince.value, domCity.value);
+        });
+        var email = methods.getId('email');
+        methods.addEvent(email,'blur',function(){
+            var filter  = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+            if (filter.test(email.value)){
+                return true;
+            }
+            else {
+                new Inform({title: '通知', content: '您输入的电子邮件格式不正确<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+        });
+        methods.ajax({
+            url: '/Company/Basic/index',
+            callback: function (data) {
+                data = data.result;
+                id = data.id;
+                setData(data);
+                var time = new Date(data.create_time + "000" - 0);
+                $("#create_time").val(time.getFullYear() + "年" + (time.getMonth()+1) + "月" + time.getDate() + "日");
+
+                if (data.businesslicense_img) {
+                    $("#businesslicense_img").addClass("getImg").html("已上传");
+                    imgSrc.businesslicense_img = data.businesslicense_img;
+                }
+                if (data.logo) {
+                    $("#logo").addClass("getImg").html("已上传");
+                    imgSrc.logo = data.logo;
+                }
+                if (data.introimage) {
+                    $("#introimage").addClass("getImg").html("已上传");
+                    imgSrc.introimage = data.introimage;
+                }
+                if (data.introimage1) {
+                    $("#introimage1").addClass("getImg").html("已上传");
+                    imgSrc.introimage1 = data.introimage1;
+                }
+                if (data.introimage2) {
+                    $("#introimage2").addClass("getImg").html("已上传");
+                    imgSrc.introimage2 = data.introimage2;
+                }
+                if (data.introimage3) {
+                    $("#introimage3").addClass("getImg").html("已上传");
+                    imgSrc.introimage3 = data.introimage3;
+                }
+                if (data.introimage4) {
+                    $("#introimage4").addClass("getImg").html("已上传");
+                    imgSrc.introimage4 = data.introimage4;
+                }
+
+                var area = new Area(JSON.parse(localStorage.getItem("area")));
+                domProvince.innerHTML = area.getProvinceOption();
+                area.setValue($(domProvince), data.province);
+                domCity.innerHTML = area.getCityOption(domProvince.value);
+                area.setValue($(domCity), data.city);
+                domDistrict.innerHTML = area.getDistrictOption(domProvince.value, domCity.value);
+                area.setValue($(domDistrict), data.district);
+
+                $(".portrait").click(function () {
+                    new ImgUpload({title: '上传图片'+($(this).data('spec')==undefined?"":$(this).data('spec')), name: $(this).attr('name')}, $(this).val()).alert();
+                });
+
+		if (parseFloat(data.longitude) && parseFloat(data.latitude))
+		{
+			marker.setPosition([data.longitude, data.latitude]);
+			marker.setMap(map);
+			map.setCenter([data.longitude, data.latitude]);
+            longitude = data.longitude;
+            latitude = data.latitude;   //20160902
+		}
+		map.setFitView();
+            }
+        });
+        methods.addEvent(methods.getId('submit'), 'click', function () {
+            var data = new Data();
+            if (!data.getInput()) {
+                new Inform({title: '通知', content: '数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            data.common(
+                    {
+                        province: domProvince.value,
+                        city: domCity.value,
+                        district: domDistrict.value,
+                        id: id,
+                        introduction: $("#introduction").val()
+                    })
+                    .common(imgSrc).common({
+			longitude: longitude,
+			latitude: latitude
+		});
+
+            methods.ajax({
+                url: '/Company/Basic/update/',
+                data: data.data,
+                callback: function (data) {
+                    new Inform({title: '通知', content: '修改成功!'}).alert();
+                }
+            })
+        });
+    });
+
+//    var domProvince, domCity, domDistrict;
+//    domProvince = $("#province");
+//    domCity = $("#city");
+//    domDistrict = $("#district");
+//
+//    var imgSrc = {};
+//    var id;
+
+//    $(document).ready(function () {
+////        var province, city, district;
+////
+////        var area = new Area(JSON.parse(localStorage.getItem("area")));
+////        domProvince.html(area.getProvinceOption());
+////        domProvince.change(function () {
+////            domCity.html(area.getCityOption(domProvince.val()));
+////            domDistrict.empty();
+////            domDistrict.val("");
+////        });
+////        domCity.change(function () {
+////            domDistrict.html(area.getDistrictOption(domProvince.val(), domCity.val()));
+////        });
+////
+////        $.ajax({
+////            url: "/Company/Basic/index",
+////            method: "post",
+////            dataType: "json",
+////            success: function (data) {
+////                if (data.code === "001") {
+////                    console.log(data);
+////                    var i;
+////                    data = data.result;
+////                    id = data.id;
+////                    setData(data);
+////
+////                    var time = new Date(data.create_time + "000" - 0);
+////                    $("#create_time").val(time.getFullYear() + "年" + (time.getMonth()+1) + "月" + time.getDate() + "日");
+////
+////                    if (data.businesslicense_img)
+////                        $("#businesslicense_img").addClass("getImg").html("已上传");
+////                    if (data.logo)
+////                        $("#logo").addClass("getImg").html("已上传");
+////                    if (data.introimage) {
+////                        $("#introimage").addClass("getImg").html("已上传");
+////                        imgSrc.introimage = data.introimage;
+////                    }
+////                    if (data.introimage1) {
+////                        $("#introimage1").addClass("getImg").html("已上传");
+////                        imgSrc.introimage1 = data.introimage1;
+////                    }
+////                    if (data.introimage2) {
+////                        $("#introimage2").addClass("getImg").html("已上传");
+////                        imgSrc.introimage2 = data.introimage2;
+////                    }
+////                    if (data.introimage3) {
+////                        $("#introimage3").addClass("getImg").html("已上传");
+////                        imgSrc.introimage3 = data.introimage3;
+////                    }
+////                    if (data.introimage4) {
+////                        $("#introimage4").addClass("getImg").html("已上传");
+////                        imgSrc.introimage4 = data.introimage4;
+////                    }
+////
+////                    var area = new Area(JSON.parse(localStorage.getItem("area")));
+////                    domProvince.html(area.getProvinceOption());
+////                    area.setValue(domProvince, data.province);
+////                    domCity.html(area.getCityOption(domProvince.val()));
+////                    area.setValue(domCity, data.city);
+////                    domDistrict.html(area.getDistrictOption(domProvince.val(), domCity.val()));
+////                    area.setValue(domDistrict, data.district);
+////
+////                    var eventBind = new EventBind();
+////                    eventBind.portrait.click(function () {
+////                        customPop("图片上传", "operation", "middleUpload", $(this).attr("id"), $(this).val());
+////                    });
+////                } else {
+////                    customPop("错误", "tip", "", "", undefined, data.message);
+////                    console.error(data.code, data.message);
+////                }
+////            },
+////            error: function (err) {
+////                customPop("错误", "tip", "", "", undefined, "网络错误");
+////                console.error(err);
+////            }
+////        });
+//
+//        $("#submit").click(function () {
+//            var data = new Data();
+//            if (!data.getInput()) {
+//                return ;
+//            }
+//            data.common("logo", $("#logo").val()).common("businesslicense_img", $("#businesslicense_img").val()).common({province: domProvince.val(), city: domCity.val(), district: domDistrict.val()});
+//            if (imgSrc != undefined)
+//                data.common(imgSrc);
+//            data.common("id", id).common("introduction", $("#introduction").val());
+//            console.log(data.data);
+//            $.ajax({
+//                url: "/Company/Basic/update/",
+//                method: "post",
+//                dataType: "json",
+//                data: data.data,
+//                success: function (data) {
+//                    if (data.code !== "001") {
+//                        customPop("错误", "tip", "", "", undefined, data.message);
+//                        throw new Error(data.code, data.message);
+//                    }
+//                    customPop("提示", "tip");
+//                },
+//                error: function (err) {
+//                    customPop("错误", "tip", "", "", undefined, "网络错误");
+//                    console.error(err);
+//                }
+//            });
+//        });
+//    });
+
+
+    var getImgUpload = function (data) {
+        console.log(data);
+        for (var i in data.result) {
+            imgSrc[i] = data.result[i].savepath + data.result[i].savename;
+            $("#" + i).val(imgSrc[i]).addClass("getImg").html("已上传");
+        }
+        $(".popMsg").remove();
+    };
+
+//    var gotMsg = function() {
+//        $(".popMsg").remove();
+//    };
+</script>
+</html>

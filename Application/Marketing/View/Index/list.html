@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>红包管理</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>微信红包活动管理</h3>
+            <div class="search"></div>
+            <input id="search" name="search" type="text" />
+            <input type="button" class="topButton" value="新建红包活动" onclick="window.location.href='/Application/Marketing/View/Index/addMarketing.html'" />
+        </div>
+        <div class="center">
+            <span id="blance">当前微信红包余额：</span>
+        </div>
+        <div class="bottom">
+            <table id="marketing">
+                <thead>
+                <tr>
+                    <th data-column-id="send_name">红包发送方</th>
+                    <th data-column-id="min_value">最小金额</th>
+                    <th data-column-id="max_value">最大金额</th>
+                    <th data-column-id="start_time" data-converter="datetime">起始时间</th>
+                    <th data-column-id="end_time" data-converter="datetime">终止时间</th>
+                    <th data-column-id="qrcode_range_s">起始码</th>
+                    <th data-column-id="qrcode_range_e">终止码</th>
+                    <th data-column-id="promotion_wishing">红包祝福语</th>
+                    <th data-column-id="promotion_name">活动名称</th>
+                    <th data-column-id="promotion_remark">备注信息</th>
+                    <th data-formatter="record" data-sortable="false">领取记录</th>
+                    <th data-formatter="operation" data-sortable="false">操作</th>
+                    <th data-formatter="delete" data-sortable="false">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/marketing/marketing.js"></script>
+</html>

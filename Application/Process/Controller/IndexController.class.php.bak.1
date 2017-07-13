@@ -1,0 +1,166 @@
+<?php
+namespace Process\Controller;
+
+use Common\Controller\BaseController;
+use Process\API\ProcessAPI;
+
+class IndexController extends BaseController
+{
+    public function delete($id=null)
+    {
+        if ($id === '' || $id == null) {
+            json("002",null,'删除失败');
+            return;
+        }
+        $response=ProcessAPI::deleteProcess($id);
+        if($response){
+            json("001",$response);
+        }else{
+            json("002",null,'删除失败');
+            return;
+        }
+    }
+    /*
+     * 获得产品对应的操作
+     * $productid 产品id
+     */
+    public function getOperation($productid){
+        if ($productid === '' || $productid == null) {
+            json("001",array());
+            return;
+        }
+        $response=ProcessAPI::getOperation($productid);
+        if($response){
+            json("001",$response);
+        }else{
+            json("001",null);
+            return;
+        }
+    }
+    /*
+     * 后台上传生产过程
+     */
+    public function add(){
+        $data = [
+            'companyid' => $_SESSION["user_info"]["companyid"],
+            'productid'=>I('request.productid', null),
+            'functionid'=>I('request.functionid', null),
+            'function_name'=>I('request.function_name', null),
+            'operatorimage' => I('request.operatorimage', null),
+            'event_time' =>  date('Y-m-d H:i:s',time()),
+            'event_details'=>I('request.event_details', null),
+            'userlocation' => I('request.userlocation', null),
+            'longitude' => I('request.longitude', null),
+            'latitude' => I('request.longitude', null),
+        ];
+        if(($data['productid']==null)||($data['functionid']==null)||$data['function_name']==null){
+            json('002',null,'请检查输入是否正确');
+            return;
+        }
+
+        $result=ProcessAPI::addProcess($data);
+        if($result){
+            //后台最多上传5张图片
+            $images[0]=I('request.content_image', null);
+            $images[1]=I('request.content_image1', null);
+            $images[2]=I('request.content_image2', null);
+            $images[3]=I('request.content_image3', null);
+            $images[4]=I('request.content_image4', null);
+            for($i=0;$i<5;$i++)
+            {
+                $imagepath=$images[$i];
+                if($imagepath!=null)
+                {
+                    $data1 = [
+                        "image_path" => $imagepath,
+                        "image_time" => date('Y-m-d H:i:s',date('Y-m-d H:i:s',time())),
+                        "longitude" => I('request.longitude', null),
+                        "latitude" => I('request.longitude', null),
+                        "location" => I('request.userlocation', null),
+                        "eventid" => $result,
+                        "synch_time" => date('Y-m-d H:i:s', time()),
+                        "event_time" => date('Y-m-d H:i:s',time())
+                    ];
+                    $result1=ProcessAPI::addProcessImage($data1);
+                    if(!$result1) //如果某一条插入失败则跳出循环
+                    {
+                        break;
+                    }
+                }
+            }
+            if($result1){
+                json("001",$result1,'添加生产过程成功!');
+            }else{
+                json('002',$result,'添加图片失败!');
+                return;
+            }
+
+        }else{
+            json('002',$result,'添加生产过程失败!');
+            return;
+        }
+
+    }
+    /*
+     * 修改生产过程
+     */
+    public function edit($id){
+        if(($id==null)||!(is_numeric($id))){
+            json('002',null,'参数错误');
+            return;
+        }
+        $result=ProcessAPI::editProcess($id);
+        if($result){
+            json("001",$result[0]);
+        }else{
+            json('002',$result,'修改失败!');
+            return;
+        }
+    }
+    /*
+     * 更新生产过程
+     */
+    public function update(){
+        $id=I('request.id',null);
+        if(!is_numeric($id)){
+            json('002',null,'参数错误');
+            return;
+        }
+
+       /* $model3=M('base_product_function');
+        $cond=array(
+            'functionid'=>$funtionid
+        );
+        $function_name=$model3->where($cond)->getField('function_name');*/
+        $data1 = [
+            'id'=>$id,
+            'functionid'=> I('request.functionid', null),
+            'function_name'=>I('request.function_name', null),
+            'operatorimage' => I('request.operatorimage', null),
+            'event_time' =>  date('Y-m-d H:i:s',time()),
+            'event_details'=>I('request.event_details', null),
+            'userlocation' => I('request.userlocation', null),
+            'longitude' => I('request.longitude', null),
+            'latitude' => I('request.longitude', null),
+        ];
+        $data2 = [
+            "image_path" => I('request.content_image', null),
+            "image_time" => date('Y-m-d H:i:s',date('Y-m-d H:i:s',time())),
+            "longitude" => I('request.longitude', null),
+            "latitude" => I('request.longitude', null),
+            "location" => I('request.userlocation', null),
+            "synch_time" => date('Y-m-d H:i:s', time()),
+            "event_time" => date('Y-m-d H:i:s',time())
+        ];
+        $response=ProcessAPI::upateProcess($data1,$data2);
+        if($response){
+            json('001',$response);
+        }else{
+            json('002',null,'更新失败!');
+        }
+        
+    }
+
+}
+
+

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--浏览器内核控制-->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--强制让ie使用edge渲染,如果使用chrome则使用chrome内容渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <!--禁止百度进行手机转码-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--禁止浏览器从本地计算机的缓存中访问页面内容-->
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+        搜索引擎索引方式
+        all：文件将被检索，且页面上的链接可以被查询；
+        none：文件将不被检索，且页面上的链接不可以被查询；
+        index：文件将被检索；
+        follow：页面上的链接可以被查询；
+        noindex：文件将不被检索；
+        nofollow：页面上的链接不可以被查询。
+     -->
+    <meta name="robots" content="index,follow" />
+    <!--忽略数字自动识别为电话号码-->
+    <meta content="telephone=no" name="format-detection" />
+    <!--忽略识别邮箱-->
+    <meta content="email=no" name="format-detection" />
+    <title>首页</title>
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/reset.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/common.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/index.css" />
+    <script>
+        var index = 1;
+        onselectstart = function () { return false; }
+    </script>
+</head>
+<body>
+<header>
+    <img src="__PUBLIC__/mobileApp/img/back.png" alt="后退" />
+    <span>首&nbsp;页</span>
+</header>
+<a href="javascript:void(0);">
+    <div id="push">
+        <span>您有&nbsp;n&nbsp;条测土配肥申请已生成报告</span>
+        <p>查看</p>
+    </div>
+</a>
+<div id="infoTip">
+	<div class="infoTipTitle">
+		<p>即将上线，敬请期待^_~!</p>
+		<button onclick="closeInfoTip();">朕知道了</button>
+	</div>
+</div>
+<article>
+    <section>
+        <img src="__PUBLIC__/mobileApp/img/banner_1.jpg" alt="banner" />
+        <a href="javascript:void(0);">
+            <hgroup>
+                <h4>收获季节应该注意什么?</h4>
+                <h4>查看详情&nbsp;&gt;</h4>
+            </hgroup>
+        </a>
+    </section>
+    <section>
+        <!--<a href="{:U('Home/Agriculture/eventlite')}">-->
+        	<a href="javascript:agrCheck();">
+            <div class="func">
+                <img src="__PUBLIC__/mobileApp/img/nongshijilu.png" alt="农事记录" />
+                <span>农事记录</span>
+            </div>
+        </a>
+        <a href="{:U('MobileApp/Product/index')}">
+            <div class="func">
+                <img src="__PUBLIC__/mobileApp/img/chanpinxinxi.png" alt="产品信息" />
+                <span>产品信息</span>
+            </div>
+        </a>
+        <a href="{:U('MobileApp/SoilApply/index')}">
+            <div class="func">
+                <img src="__PUBLIC__/mobileApp/img/cetupeifei.png" alt="测土配肥" />
+                <span>测土配肥</span>
+            </div>
+        </a>
+        <a href="http://shequ.zmade.cn">
+            <div class="func">
+                <img src="__PUBLIC__/mobileApp/img/nongjizhidao.png" alt="农技指导" />
+                <span>农技社区</span>
+            </div>
+        </a>
+        <a href="javascript:unUse();">
+            <div class="func">
+                <img src="__PUBLIC__/mobileApp/img/nongyejinrong.png" alt="农业金融" />
+                <span>农业金融</span>
+            </div>
+        </a>
+        <a href="javascript:unUse();">
+            <div class="func">
+                <img src="__PUBLIC__/mobileApp/img/tudiliuzhuan.png" alt="土地流转" />
+                <span>土地流转</span>
+            </div>
+        </a>
+        <a href="javascript:unUse();">
+            <div class="func">
+                <img src="__PUBLIC__/mobileApp/img/dilibiaozhi.png" alt="地理标志" />
+                <span>地理标志</span>
+            </div>
+        </a>
+        <a href="javascript:void(0);">
+            <div class="func">
+                <img src="__PUBLIC__/mobileApp/img/gengduo.png" alt="更多" />
+                <span>更多</span>
+            </div>
+        </a>
+    </section>
+    <section id="shopInfo">
+        <div class="top">
+            <div class="start"></div>
+            <p>热销化肥</p>
+            <input name="searchProduct" id="searchProduct" type="text" placeholder="化肥名称、种类" />
+        </div>
+        <div class="content">
+            <a href="javascript:void(0);">
+                <div id="teamBuy">
+                		<img src="__PUBLIC__/mobileApp/img/tuangoushijian.png" alt="团购" />
+                		<span>团购</span>
+                		<p>错过这个时间，什么都没了</p>
+                		<div class="timeSurplus">
+                			<div class="timeHour">00</div>
+                			<span>:</span>
+                			<div class="timeMinute">00</div>
+                			<span>:</span>
+                			<div class="timeSecond">00</div>
+                		</div>
+                		<span>查看详情&gt;</span>
+                </div>
+            </a>
+            <a href="javascript:void(0);">
+                <div id="hotBuy">
+                		<img src="__PUBLIC__/mobileApp/img/hotGoods.png" alt="热门产品" />
+                		<span>热销</span>
+                		<p>一大波火热商品正在靠近</p>
+                </div>
+            </a>
+            <a href="javascript:void(0);">
+                <div id="brand">
+                		<span>品牌</span>
+                </div>
+            </a>
+            <a href="javascript:void(0);">
+                <div id="shop">
+                		<span>商城</span>
+                </div>
+            </a>
+        </div>
+    </section>
+    <section id="chatInfo">
+        <div class="top">
+            <div class="start"></div>
+            <p>交流</p>
+            <p><a href="http://shequ.zmade.cn">查看全部&nbsp;&gt;</a></p>
+        </div>
+        <div class="content">
+            <!--<a href="javascript:void(0);">
+                <div class="chatArea">
+                    <h4>
+                        <div class="isFinish"></div>
+                        <span>快过冬了啊，地里的田怎么处理啊？</span>
+                    </h4>
+                    <p>提问人:<span>种田小王子</span></p>
+                    <h5>
+                        <div class="isGet">采纳</div>
+                        <span>地里的田应该这样这样这样的处理会比较好，你不信我么？地里的田应该这样这样这样的处理会比较好，你不信我么？1231231231</span>
+                    </h5>
+                    <div class="icon">
+                        <img src="__PUBLIC__/mobileApp/img/answerNumber.png" alt="回复数" />
+                        <span>39</span>
+                    </div>
+                    <div class="icon">
+                        <img src="__PUBLIC__/mobileApp/img/badNumber.png" alt="差" />
+                        <span>39</span>
+                    </div>
+                    <div class="icon">
+                        <img src="__PUBLIC__/mobileApp/img/goodNumber.png" alt="赞" />
+                        <span>39</span>
+                    </div>
+                </div>
+            </a>
+            <a href="javascript:void(0);">
+                <div class="chatArea">
+                    <h4>
+                        <div class="isIng"></div>
+                        <span>快过冬了啊，地里的田怎么处理啊？</span>
+                    </h4>
+                    <p>提问人:<span>种田小王子</span></p>
+                    <h5>
+                        <span>到底怎么办啊?!很急在线等!</span>
+                    </h5>
+                    <div class="icon">
+                        <img src="__PUBLIC__/mobileApp/img/answerNumber.png" alt="回复数" />
+                        <span>10</span>
+                    </div>
+                    <div class="icon">
+                        <img src="__PUBLIC__/mobileApp/img/badNumber.png" alt="差" />
+                        <span>0</span>
+                    </div>
+                    <div class="icon">
+                        <img src="__PUBLIC__/mobileApp/img/goodNumber.png" alt="赞" />
+                        <span>2</span>
+                    </div>
+                </div>
+            </a>-->
+        </div>
+    </section>
+</article>
+<footer>
+    <a href="javascript:void(0);">
+        <section>
+            <img src="__PUBLIC__/mobileApp/img/homeButton.png" alt="首页" />
+            <span>首页</span>
+        </section>
+    </a>
+    <a href="../origin/index.html">
+        <section>
+            <img src="__PUBLIC__/mobileApp/img/unoriginButton.png" alt="溯源" />
+            <span>溯源</span>
+        </section>
+    </a>
+    <a href="http://shequ.zmade.cn">
+        <section>
+            <img src="__PUBLIC__/mobileApp/img/unchatButton.png" alt="社区" />
+            <span>社区</span>
+        </section>
+    </a>
+    <a href="javascript:isLogin();">
+        <section>
+            <img src="__PUBLIC__/mobileApp/img/unservesButton.png" alt="我的" />
+            <span>我的</span>
+        </section>
+    </a>
+</footer>
+<script src="__PUBLIC__/mobileApp/js/jquery-2.1.4.min.js"></script>
+<script src="__PUBLIC__/mobileApp/js/common.js"></script>
+<script src="__PUBLIC__/mobileApp/js/index/index.js"></script>
+<script src="__PUBLIC__/js/appcan/appcan.js"></script>
+<script src="__PUBLIC__/js/appcan/appcan.control.js"></script>
+<script src="__PUBLIC__/js/appcan/index_main.js"></script>
+</body>
+</html>

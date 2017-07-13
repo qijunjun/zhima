@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--浏览器内核控制-->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <!--强制让ie使用edge渲染,如果使用chrome则使用chrome内容渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <!--禁止百度进行手机转码-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--禁止浏览器从本地计算机的缓存中访问页面内容-->
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!--
+        搜索引擎索引方式
+        all：文件将被检索，且页面上的链接可以被查询；
+        none：文件将不被检索，且页面上的链接不可以被查询；
+        index：文件将被检索；
+        follow：页面上的链接可以被查询；
+        noindex：文件将不被检索；
+        nofollow：页面上的链接不可以被查询。
+     -->
+    <meta name="robots" content="index,follow" />
+    <!--忽略数字自动识别为电话号码-->
+    <meta content="telephone=no" name="format-detection" />
+    <!--忽略识别邮箱-->
+    <meta content="email=no" name="format-detection" />
+    <title>welcome</title>
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/reset.css" />
+    <link rel="stylesheet" href="__PUBLIC__/mobileApp/css/swiper.css" />
+    <style>
+        body {
+            background: rgba(177, 205, 138, 1);
+        }
+        div img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="__PUBLIC__/mobileApp/img/hsc_2.png" alt="1" />
+        </div>
+        <div class="swiper-slide">
+            <img src="__PUBLIC__/mobileApp/img/hsc_1.png" alt="2" />
+        </div>
+        <div class="swiper-slide" onclick="window.location.href='http://nongye.zmade.cn'">
+            <img src="__PUBLIC__/mobileApp/img/hsc_3.png" alt="3" />
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/mobileApp/js/jquery-2.1.4.min.js"></script>
+<script src="__PUBLIC__/mobileApp/js/swiper.js"></script>
+<script>
+    var mySwiper = new Swiper('.swiper-container');
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+.title h3{
+    margin: 20px 0 10px 20px;
+    border-left: 10px solid #72A2C5;
+    padding: 0 0 0 15px;
+    font-size: 24px;
+    text-align: left;
+}
+.title .h3 {
+   border-left:0;
+}
+.bigdata{
+    width: 90%;
+    height: 400px;
+    padding: 20px 0 0 50px;
+}
+article section > div{
+    float:left;
+    width:48%;
+}
+article section:after{
+    content:'\20';
+    clear:both;
+    display:block;
+}

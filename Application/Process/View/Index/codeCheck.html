@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>质量码检测信息关联</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+    <article>
+        <section>
+            <div class="title">
+                <h3>新增质量码与检测记录关联</h3>
+            </div>
+            <div class="grid">
+                <div>
+                    <label for="checkName" style="width: 100px;">检测记录名称</label>
+                    <select name="checkName" id="checkName">
+                        <option value="0">请选择检测记录名称</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="bStart">起始质量码</label>
+                    <input type="text" id="bStart" name="bStart" placeholder="请输入起始质量码">
+                </div>
+                <div>
+                    <label for="bEnd">结束质量码</label>
+                    <input type="text" id="bEnd" name="bEnd" placeholder="请输入结束质量码">
+                </div>
+            </div>
+        </section>
+        <section>
+            <button id="submit">关联</button>
+        </section>
+    </article>
+    <article>
+        <section class="table">
+            <div class="top">
+                <h3>质量码与检测记录关联管理</h3>
+                <div class="search"></div>
+                <input type="text" id="search">
+            </div>
+            <div class="center"></div>
+            <div class="bottom">
+                <table id="codeCheck">
+                    <thead>
+                        <tr>
+                            <th data-column-id="productname">产品名称</th>
+                            <th data-column-id="guige">产品规格</th>
+                            <th data-column-id="qrcode_range_s">起始码号</th>
+                            <th data-column-id="qrcode_range_e">终止码号</th>
+                            <th data-column-id="inspectionname">检测记录名称</th>
+                            <th data-column-id="create_time" data-converter="datetime">关联时间</th>
+                            <th data-formatter="delete" data-sortable="false">删除</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </section>
+        <section></section>
+    </article>
+    <script src="/resources/js/jquery.min.js"></script>
+    <script src="/resources/js/jquery.bootgrid.min.js"></script>
+    <script src="/resources/js/methods.js"></script>
+    <script src="/resources/js/message_test.js"></script>
+    <script src="/resources/js/getData_test.js"></script>
+    <script>
+        $(document).ready(function(){
+            var checkName = methods.getId('checkName');
+            checkName.innerHTML = null;
+            methods.ajax({
+                url:"/Process/CheckItem/listCheckItems",
+                callback:function(data){
+                    data = data.result;
+                    if(data !=null){
+                        var str = "<option value='0' disabled='disabled' selected='selected'>--请选择检测记录名称--</option>";
+                        for(var i=0;i<data.length;i++){
+                            str += "<option value='"+data[i].id+","+data[i].productid+"'>"+data[i].inspectionname+"</option>"
+                        }
+                        checkName.innerHTML += str;
+                    }else{
+                        str = "<option value='0' disabled='disabled' selected='selected'>--尚无检测记录--</option>";
+                        checkName.innerHTML += str;
+                    }
+
+                }
+            });
+            methods.addEvent(methods.getId('submit'),'click',function(){
+                var data =new Data();
+                if(!data.getInput() || methods.getId('checkName').value == "0"){
+                    new Inform({title:'通知',content:'数据项不完整<br><span class="red">请检查</span>'}).alert();
+                    return ;
+                }
+                var check = $("#checkName").val();
+                var inspection_id =check.split(",")[0];
+                var productid =check.split(",")[1];
+                var _data = {
+                    productid:productid,
+                    inspection_id:inspection_id,
+                    bStart:$("#bStart").val(),
+                    bEnd:$("#bEnd").val()
+                };
+                methods.ajax({
+                    url:"/Process/CheckItem/addCorrCheckItem",
+                    data:_data,
+                    callback:function(data){
+                        new Inform({title:'通知',content:'质量码检测记录信息关联成功'}).alert(function(){
+                            window.location.reload();
+                        })
+                    }
+                })
+            });
+            $("#codeCheck").bootgrid({
+                ajax:true,
+                ajaxSettings:{
+                    dataType:"json"
+                },
+                url:"/Process/CheckItem/listCorrAll",
+                identifier:'id',
+                responseHandler:function(response){
+                    var rows;
+                    rows = {
+                        total:response.result.length,
+                        current:1,
+                        rows:response.result
+                    };
+                    response.result = rows;
+                    return response;
+                },
+                formatters: {
+                    delete: function (column, row)
+                    {
+                        return "<div class=\"delete\" data-id='" + row.id + "'>" + methods.getSvg() + "</div>"
+                    }
+                }
+            }).on("loaded.rs.jquery.bootgrid", function()
+            {
+                $('.delete').click(function(){
+                    var id = $(this).data("id");
+                    $(this).parent().parent().attr("id",id);
+                    new Delete({title:'删除提示',content:'是否确认删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id,'/Process/CheckItem/delCorrCheck');
+                })
+            });
+        });
+    </script>
+</body>
+</html>

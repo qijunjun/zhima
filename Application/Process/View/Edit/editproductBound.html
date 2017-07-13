@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>产品生产环节绑定</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/product/addproduct.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>产品生产环节信息</h3>
+        </div>
+        <div class="grid peizhi" id="processInfo"></div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+</body>
+<script>
+    $(document).ready(function () {
+        var id = getParameterByName("id");
+
+        /**
+         * 获取生产环节,使用methods的单例方法getProcess,
+         * @param url 获取生产环节的地址(通常为"#")
+         * @param target 生产环节填充的目标(**dom对象**)
+         */
+        methods.getProduce("#", document.getElementById('processInfo'));
+        methods.ajax({
+            url: "修改接口",
+            data: {
+                id: id
+            },
+            callback: function (data) {
+                setData(data.result[0]);
+                /**
+                 * 如果生产环节已经勾选,则显示勾选
+                 */
+                var config = data.result[0].config.split(",");
+                for (var i = 0; i < config.length; i ++) {
+                    $("#processInfo" + config[i]).prop("checked", true);
+                }
+            }
+        });
+        methods.addEvent(document.getElementById('submit'), 'click', function () {
+            var data = new Data();
+            if (!data.getInput()) {
+                new Inform({title: '通知', content: '数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            data.common("id", id)
+                    .common("config", data.common("checkBox").substr(0, data.common("checkBox").length-1));
+            delete data.data.checkBox;
+            methods.ajax({
+                url: "更新接口",
+                data: data.data,
+                callback: function (data) {
+                    new Inform({title: '通知', content: '修改产品生产环节配置成功'}).alert(function () {
+                        window.location.href = '/Application/Process/View/Index/productBound.html';
+                    });
+                }
+            });
+        });
+    });
+    /**
+     * 获取url里的参数数据
+     * @param name
+     * @param url
+     * @returns {*}
+     */
+    var getParameterByName = function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    };
+</script>
+</html>

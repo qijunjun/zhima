@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>质量码生产环节关联</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <style>
+        .grid #search {
+            border: 0;
+            color: #ffffff;
+            background-color: #72A2C5;
+            margin-top: 12px;
+            /* margin-left: 10px; */
+            width: 90px;
+            height: 30px;
+            font-size: 13px;
+            margin-left: 16px;
+        }
+        input:disabled {
+            background-color: transparent;
+        }
+        .grid div  #productname{
+            border:0;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>质量码生产环节关联</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="startCode">起始质量码</label>
+                <input type="text" name="startCode" id="startCode" />
+            </div>
+            <div class="end">
+                <label for="endCode">结束质量码</label>
+                <input type="text" name="endCode" id="endCode" />
+            </div>
+            <div>
+               <button id="search">查询</button>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="productname" style="display: none;">
+                <label for="productname" style="width: 100px;">产品名称-规格</label>
+                <input type="text" name="productname" id="productname" disabled="disabled" />
+            </div>
+            <div>
+                <label for="produceInfo">生产环节</label>
+                <select name="produceInfo" id="produceInfo">
+                    <option value="0">请选择生产环节</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    <section></section>
+</article>
+<article>
+    <section class="table">
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="codeProcess">
+                <thead>
+                <tr>
+                    <th>选定</th>
+                    <th>生产环节</th>
+                    <th>操作者</th>
+                    <th>时间</th>
+                    <th>地点</th>
+                    <th>内容</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section>
+        <button id="submit">关联</button>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    $(document).ready(function () {
+        var select = document.getElementById('produceInfo');
+        var endCode = document.getElementById('endCode');
+        var product;
+        methods.addEvent(methods.getId('search'),'click',function(){
+            var startCode = $("#startCode").val();
+            var endCode = $("#endCode").val();
+            if (startCode == "" || endCode == "" || startCode == null || endCode == null) {
+                new Inform({title: '通知', content: '起始结束质量码都不能为空'}).alert();
+            } else {
+                methods.ajax({
+                    url: "/Process/Bind/isValid",
+                    data: {
+                        qrcode_range_s: startCode,
+                        qrcode_range_e: endCode
+                    },
+                    callback: function (data) {
+                        data = data.result[0];
+                        product = data.productid;
+                        productname = data.productname+"—"+data.guige;
+                        $("#productname").val(productname);
+                        $(".productname").css("display","inline-block");
+                        methods.ajax({
+                            url: '/Process/Index/getOperation/productid/' + product,
+                            callback: function (data) {
+                                select.innerHTML = null;
+                                data = data.result;
+                                if(data!=null){
+                                    var str = "";
+                                    select.innerHTML += "<option value='0' disabled='disabled' selected='selected'>请选择生产环节</option>";
+                                    for (var i = 0; i < data.length; i++) {
+                                        str += "<option value='" + data[i].functionid + "'>" + data[i].function_name + "</option>";
+                                    }
+                                    select.innerHTML += str;
+                                }else{
+                                    new Inform({title:'通知',content:'该码段对应的产品未配置生产环节'}).alert();
+                                }
+
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        methods.addEvent(select, 'change', function () {
+            $("#codeProcess tbody").remove();
+            var tr;
+            var td =[];
+            $.ajax({
+                url : "/Process/Bind/listEvents",
+                method:"post",
+                data:{
+                    qrcode_range_s: $("#startCode").val(),
+                    qrcode_range_e: $("#endCode").val(),
+                    product_id: product,
+                    function_operateid: select.value
+                },
+                dataType:"json",
+                success:function(data){
+                    if(data.result != null){
+                        data = data.result;
+                        for(var i = 0 ;i<data.length;i++){
+                            var str = "";
+                            if (data[i].image_path !=null)
+                            {
+                                for(var k = 0; k <data[i].image_path.length; k++) {
+                                    str += "<img class='magnifyImg' src='" + data[i].image_path[k] + "' />";
+                                }
+                            }else{
+                                str += "";
+                            }
+
+                            td[0] = "<td><input class='radio' type='radio' name='radio' value='"+data[i].id+"' id='"+data[i].id+"' /></td>";
+                            td[1] = "<td>"+data[i].function_name+"</td>";
+                            td[2] = "<td><img src='"+data[i].operatorimage+"' /></td>";
+                            td[3] = "<td>"+data[i].event_time+"</td>";
+                            td[4] = "<td>"+data[i].userlocation+"</td>";
+                            td[5] = "<td>"+str+"</td>";
+                            tr = $("<tr></tr>");
+                            tr.append(td[0]).append(td[1]).append(td[2]).append(td[3]).append(td[4]).append(td[5]);
+                            $("#codeProcess").append(tr);
+                        }
+                    }else{
+                        td[0] = "<td></td>";
+                        td[1] = "<td></td>";
+                        td[2] = "<td>未查到数据</td>";
+                        td[3] = "<td></td>";
+                        td[4] = "<td></td>";
+                        td[5] = "<td></td>";
+                        tr = $("<tr></tr>");
+                        tr.append(td[0]).append(td[1]).append(td[2]).append(td[3]).append(td[4]).append(td[5]);
+                        $("#codeProcess").append(tr);
+                    }
+                },
+                error:function(err){
+                    console.log(err);
+                }
+            });
+        });
+        methods.addEvent(methods.getId('submit'), 'click', function () {
+            var data = new Data();
+            if (!data.getInput()) {
+                new Inform({title: '通知', content: '数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return;
+            }
+            methods.ajax({
+                url: "/Process/Bind/bindProcessRecord",
+                data: {
+                    event_id: $(".radio").val(),
+                    product_id:product,
+                    qrcode_range_s: $("#startCode").val(),
+                    qrcode_range_e: $("#endCode").val()
+                },
+                callback: function (data) {
+                    new Inform({title: '通知', content: '关联成功'}).alert(function () {
+                        window.location.href = "/Application/Process/View/Index/codeProcess.html";
+                    })
+                }
+            })
+        });
+    });
+</script>
+</html>

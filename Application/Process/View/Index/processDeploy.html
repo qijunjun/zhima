@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>生产环节配置</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>新增企业生产环节</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="function_image">图片</label>
+                <button class="portrait" type="button" name="function_image" id="function_image">点击上传</button>
+            </div>
+            <div>
+                <label for="function_name">生产环节名称</label>
+                <input type="text" name="function_name" id="function_name" data-name="生产环节名称" />
+            </div>
+        </div>
+    </section>
+    <section>
+        <div>
+            <button id="submit">新增</button>
+        </div>
+    </section>
+</article>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>企业生产环节管理</h3>
+            <div class="search"></div>
+            <input id="search" type="text" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="processDeploy">
+                <thead>
+                <tr>
+                    <th data-formatter="function_image" data-sortable="false">生产环节图片</th>
+                    <th data-column-id="function_name">生产环节名称</th>
+                    <th data-formatter="operation" data-sortable="false">操作</th>
+                    <th data-formatter="delete" data-sortable="false">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    var imgSrc = {};
+    $(document).ready(function () {
+        $(".portrait").click(function () {
+            new ImgUpload({title: '上传图片', name: $(this).attr('name')}, $(this).val()).alert();
+        });
+        $("#processDeploy").bootgrid({
+            ajax: true,
+            ajaxSettings: {
+                dataType: "json"
+            },
+            url: "/Process/Config/listFunction",
+            identifier: "functionid",
+            responseHandler: function (response)
+            {
+                var rows;
+                rows = {
+                    total: response.result.length,
+                    current: 1,
+                    rows: response.result
+                };
+                response.result = rows;
+                return response;
+            },
+            formatters: {
+                function_image: function (column, row) {
+                    return "<img src='" + row.function_image + "' />";
+                },
+                operation: function (column, row)
+                {
+                    return "<a href='/Application/Process/View/Edit/editDeploy.html?id=" + row.functionid + "'><p class='operation'>修改</p></a>";
+                },
+                delete: function (column, row)
+                {
+                    return "<div class=\"delete\" data-id='" + row.functionid + "'>" + methods.getSvg() + "</div>"
+                }
+            }
+        }).on("loaded.rs.jquery.bootgrid", function()
+        {
+            $('.delete').click(function(){
+                var id = $(this).data("id");
+                $(this).parent().parent().attr("id",id);
+                new Delete({title:'删除提示',content:'是否确认删除?<br /><span class="red">一旦删除将不可恢复</span>'}).alert(id,'/Process/Config/delFunction');
+            })
+        });
+            methods.addEvent(document.getElementById('submit'),'click',function(){
+                var data = new Data();
+                if(!data.getInput()){
+                    new Inform({title:'通知',content:'数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                    return ;
+                }
+                data.common({function_name:$("#function_name").val()})
+                        .common(imgSrc);
+                methods.ajax({
+                    url : "/Process/Config/addFunction",
+                    data :data.data,
+                    callback :function(){
+                        new Inform({title:'通知',content:'新增生产环节成功'}).alert(function(){
+                            window.location.reload();
+                        })
+                    }
+                })
+            })
+    });
+    var getImgUpload = function (data) {
+        for (var i in data.result) {
+            imgSrc[i] = data.result[i].savepath + data.result[i].savename;
+            $("#" + i).val(imgSrc[i]).addClass("getImg").html("已上传");
+        }
+        $(".popMsg").remove();
+    };
+
+</script>
+</body>
+</html>

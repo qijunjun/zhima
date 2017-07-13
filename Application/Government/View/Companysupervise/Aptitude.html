@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <link rel="stylesheet" href="/resources/css/enlarge.css" />
+    <title>资质信息</title>
+    <style>
+        article .table .bottom td:nth-child(7){
+            /*text-align:left;*/
+            width:500px;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <section class="table">
+            <div class="top">
+                <h3>企业资质认证</h3>
+                <div class="search"></div>
+                <input type="text" id="search">
+            </div>
+            <div class="center"></div>
+            <div class="bottom">
+                <table id="Aptitude">
+                    <thead>
+                        <tr>
+                            <th data-column-id="companyname">企业名称</th>
+                            <th data-column-id="aptitudename">资质名称</th>
+                            <th data-column-id="aptitudecode">资质编号</th>
+                            <th data-column-id="authorizer">发证单位</th>
+                            <th data-column-id="create_time" data-converter="date">发证时间</th>
+                            <th data-column-id="validity_time" data-converter="date">有效期</th>
+                            <th data-formatter="range">许可范围</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </section>
+        <section></section>
+    </article>
+    <div class="module-box">
+        <section>
+            <div class="hidden" id="cover">
+                <div id="cover-content">
+                    <div class="enlarge"><svg width="14px" height="14px" viewBox="0 0 18 18"><g stroke="none" stroke-width="1"><g transform="translate(-1376.000000, -678.000000)" fill="#000000"><g transform="translate(334.000000, 486.000000)"><g transform="translate(0.000000, 86.000000)"><g transform="translate(1.000000, 64.000000)"><g transform="translate(1050.056349, 51.056349) rotate(-315.000000) translate(-1050.056349, -51.056349) translate(1039.556349, 40.556349)"><rect x="0" y="8.59090909" width="21" height="3.81818182"></rect><rect transform="translate(10.500000, 10.500000) rotate(-270.000000) translate(-10.500000, -10.500000) " x="0" y="8.59090909" width="21" height="3.81818182"></rect></g></g></g></g></g></g></svg></div>
+                    <p class="pcontent"></p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="/resources/js/jquery.min.js"></script>
+    <script src="/resources/js/jquery.bootgrid.min.js"></script>
+    <script src="/resources/js/jquery.dotdotdot.min.js"></script>
+    <script src="/resources/js/methods.js"></script>
+    <script src="/resources/js/message_test.js"></script>
+    <script src="/resources/js/getData_test.js"></script>
+    <script src="/resources/js/government/aptitude.js"></script>
+</body>
+</html>

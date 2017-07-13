@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>生码管理</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <link rel="stylesheet" href="/resources/css/code/code.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>生码</h3>
+        </div>
+        <div class="grid">
+            <div id="code">
+                <label for="wayCode">生码类型</label>
+                <select name="wayCode" id="wayCode" onchange="wayOfCode();">
+                    <option value="0" disabled="disabled" selected="selected">请选择生码类型</option>
+                    <option value="箱码">箱码</option>
+                    <option value="质量码">质量码</option>
+                    <option value="箱码-质量码">箱码-质量码</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="result">生成</button>
+    </section>
+</article>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>生码记录管理</h3>
+            <div class="search"></div>
+            <input id="search" type="text" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="codeData">
+                <thead>
+                    <tr>
+                        <th data-column-id="qrcode_s">起始码号</th>
+                        <th data-column-id="qrcode_e">结束码号</th>
+                        <th data-column-id="qrcode_counts">数量</th>
+                        <th data-column-id="operate_time" data-converter="datetime">日期</th>
+                        <th data-column-id="flag" data-converter="type">生码类型</th>
+                        <th data-formatter="cout" data-sortable="false">操作</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/message.js"></script>
+<script src="/resources/js/code/code.js"></script>
+</body>
+</html>

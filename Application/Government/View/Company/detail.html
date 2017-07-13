@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>企业详情展示页面</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <style>
+       .productDetail .table .bottom table td:nth-child(6){
+            width:60%;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3 class="basicinform">基本信息</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="name">企业名称</label>
+                <input type="text" name="name" id="name" data-name="企业名称" />
+            </div>
+            <div>
+                <label for="legalperson">法人</label>
+                <input type="text" name="legalperson" id="legalperson" data-name="法人" data-noCheck="noCheck" />
+            </div>
+            <div>
+                <label for="businesslicense_img">营业执照</label>
+                <button class="portrait" type="button" name="businesslicense_img" id="businesslicense_img" data-name="营业执照">点击查看</button>
+            </div>
+            <div>
+                <label for="address">地址</label>
+                <input type="text" name="address" id="address" data-name="地址" />
+            </div>
+            <div>
+                <label for="contact">联系人</label>
+                <input type="text" name="contact" id="contact" data-name="联系人" />
+            </div>
+            <div>
+                <label for="phone">电话</label>
+                <input type="text" name="phone" id="phone" data-name="电话" />
+            </div>
+            <div>
+                <label for="email">邮箱</label>
+                <input type="text" name="email" id="email" data-name="邮箱" />
+            </div>
+        </div>
+    </section>
+</article>
+<article class="productDetail">
+    <section class="table">
+        <div class="top">
+            <div class="search"></div>
+            <input id="search" type="text" />
+            <p class="btn2">生产过程</p>
+            <p class="btn1">企业产品</p>
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="product">
+                <thead>
+                <tr>
+                    <th data-formatter="productimage" data-sortable="false">图片</th>
+                    <th data-column-id="productname">产品名称</th>
+                    <th data-column-id="guige">规格</th>
+                    <th data-column-id="price">价格(元)</th>
+                    <th data-column-id="create_time" data-converter='datetime'>录入时间</th>
+                    <th data-column-id="productinfo" data-sortable="false">介绍</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <section></section>
+</article>
+<article  class="processDetail" style="display: none;">
+    <section class="table">
+        <div class="top">
+            <div class="search"></div>
+            <input id="search" type="text" />
+            <p class="btn2">生产过程</p>
+            <p class="btn1">企业产品</p>
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="Process">
+                <thead>
+                <tr>
+                    <th data-formatter="product_image">产品图片</th>
+                    <th data-formatter="productName_Spec">产品名称-规格</th>
+                    <th data-column-id="function_name">生产环节</th>
+                    <th data-formatter="operator_image">操作者</th>
+                    <th data-column-id="event_time">时间</th>
+                    <th data-column-id="userlocation">地点</th>
+                    <th data-formatter="content_image">内容</th>
+                    <th data-column-id="event_details">备注</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/government/message.js"></script>
+<script src="/resources/js/getData.js"></script>
+<script src="/resources/js/government/companyDetail.js"></script>
+<script>
+    $(".btn1").click(function(){
+        $(".productDetail").show();
+        $(".processDetail").hide();
+        $(".btn1").css("background","#3ea40e");
+        $(".btn2").css("background","#72A2C5");
+    });
+    $(".btn2").click(function(){
+        $(".productDetail").hide();
+        $(".processDetail").show();
+        $(".btn1").css("background","#72A2C5");
+        $(".btn2").css("background","#3ea40e");
+    });
+</script>
+</body>
+</html>

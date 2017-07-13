@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>新增生产信息</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>新增生产记录</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="data_name">产品</label>
+                <select name="data_name" id="data_name">
+                    <option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+                </select>
+            </div>
+            <div id="process">
+                <label for="functionInfo">生产环节</label>
+                <select name="functionInfo" id="functionInfo">
+                    <option value="0" disabled="disabled" selected="selected">选择生产环节</option>
+                </select>
+            </div>
+            <div style="width:345px;">
+                <label for="event_time">事件时间</label>
+                <input type="text" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" style="width:200px;" name="event_time" id="event_time" data-name="事件时间">
+            </div>
+            <div>
+                <label for="operatorimage">操作者头像</label>
+                <button class="portrait" type="button" name="operatorimage" id="operatorimage">点击上传</button>
+            </div>
+            <div>
+                <label for="userlocation">地点</label>
+                <input  type="text" name="userlocation" id="userlocation">
+            </div>
+            <div>
+                <label for="content_image">内容</label>
+                <button class="portrait" type="button" name="content_image" id="content_image">点击上传</button>
+            </div>
+            <div>
+                <label for="content_image1">内容</label>
+                <button class="portrait" type="button" name="content_image1" id="content_image1">点击上传</button>
+            </div>
+            <div>
+                <label for="content_image2">内容</label>
+                <button class="portrait" type="button" name="content_image2" id="content_image2">点击上传</button>
+            </div>
+            <div>
+                <label for="content_image3">内容</label>
+                <button class="portrait" type="button" name="content_image3" id="content_image3">点击上传</button>
+            </div>
+            <div>
+                <label for="content_image4">内容</label>
+                <button class="portrait" type="button" name="content_image4" id="content_image4">点击上传</button>
+            </div>
+            <div class="textareawidth" id="textarea">
+                <label for="event_details">备注</label>
+                <textarea name="note" id="event_details" cols="30" rows="6">这里是备注信息</textarea>
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/laydate.dev.js"></script>
+<script src="/resources/js/process/addprocess.js"></script>
+</html>

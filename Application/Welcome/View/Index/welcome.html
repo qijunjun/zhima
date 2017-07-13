@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		<title>快消平台管理系统</title>
+		<link rel="stylesheet" href="/resources/css/reset.css" />
+		<link rel="stylesheet" href="/resources/css/message.css" />
+		<!--<link rel="stylesheet" href="/resources/css/add.css" />-->
+		<link rel="stylesheet" href="/resources/css/welcome/welcome.css" />
+	</head>
+	<body>
+		<article>
+			<section>
+				<div class="basic">
+					<div>
+						<img id="companyLogo" src="" alt="LOGO图" />
+					</div>
+					<div class="companyName">
+						<h2 id="company">企业名称</h2>
+						<p>
+							<span>已生码量<br /><b id="codeNum">查询中...</b></span>
+							<span>剩余码量<br /><b id="codeNumber">查询中...</b></span>
+						</p>
+					</div>
+				</div>
+				<div class="num">
+					<div>
+						<div>
+							<img src="/resources/images/welcome/productNum.png" alt="产品数">
+							<span>企业总产品数 ：<span id="productNum"></span></span>
+						</div>
+						<span class="num-btn purpleBtn" id="addProduct" onclick="window.location.href='/Application/Product/View/Add/addProduct.html'">新增产品</span>
+						<span class="num-btn purpleBtn" id="searchProduct" onclick="window.location.href='/Application/Product/View/Index/product.html'">查看产品</span>
+					</div>
+					<div>
+						<img src="/resources/images/welcome/checkin.png" alt="入库">
+						<span>入库数量 ：<span id="checkinNum"></span></span>
+						<span class="num-btn greenBtn" onclick="window.location.href='/Application/CheckIO/View/Index/checkIn.html'">入库列表</span>
+					</div>
+					<div>
+						<img src="/resources/images/welcome/checkout.png" alt="出库">
+						<span>出库数量 ：<span id="checkoutNum"></span></span>
+						<span class="num-btn greenBtn" id="checkoutList" onclick="window.location.href='/Application/CheckIO/View/Index/checkOut.html'">出库列表</span>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="title">
+					<h3>扫码GIS分析</h3>
+				</div>
+				<div class="grid">
+					<div>
+						<label for="data_name">产品</label>
+						<select name="data_name" id="data_name">
+							<option disabled="disabled" selected="selected" value="-1">请选择产品</option>
+						</select>
+					</div>
+					<div>
+						<label for="startdate">起始时间</label>
+						<input type="text"  onclick="laydate()" id="startdate" name="startdate">
+						<label for="enddate">终止时间</label>
+						<input type="text"  onclick="laydate()" id="enddate" name="enddate">
+					</div>
+					<div>
+						<button id="search">查询</button>
+					</div>
+					<div>
+						<button id="cancel">取消</button>
+					</div>
+				</div>
+			</section>
+			<section id="map" class="map" style="height: 300px;"></section>
+		</article>
+		<script src="/resources/js/jquery.min.js"></script>
+		<script src="/resources/js/message.js"></script>
+		<script src="/resources/js/getData.js"></script>
+		<script src="/resources/js/laydate.dev.js"></script>
+		<script src="/resources/js/welcome/welcome.js"></script>
+		<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=41fa5abfe33422c275fe46235093a99d"></script>
+	</body>
+</html>

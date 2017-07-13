@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>箱码质量码关联</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/add.css" />
+    <link rel="stylesheet" href="/resources/css/table.css" />
+    <style>
+        .red{
+            color:#f00;
+            font-size:18px;
+        }
+        @media screen and (min-width: 1584px) {
+            .grid {
+                width: 1584px;
+                margin: 0 auto;
+            }
+            .grid div {
+                width: 50%;
+            }
+        }
+        @media screen and (min-width: 1272px) and (max-width: 1584px) {
+            .grid div {
+                width: 50%;
+            }
+        }
+        @media screen and (min-width: 1104px) and (max-width: 1272px) {
+            .grid div {
+                width: 50%;
+            }
+        }
+        @media screen and (min-width: 856px) and (max-width: 1104px) {
+            .grid div {
+                width: 50%;
+            }
+        }
+        article .grid label {
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>新增箱码与质量码关联</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <p>1箱装<input type="text" name="number" id="number" data-name="质量码" value="6" />质量码</p>
+            </div>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="xiang">箱码（一行一段）</label>
+                <textarea name="xiang" id="xiang" cols="30" rows="5" placeholder="例:10010000000001-10010123456789"></textarea>
+            </div>
+            <div>
+                <label for="xiangFei">箱码废标（一行一个）</label>
+                <textarea name="xiangFei" id="xiangFei" cols="30" rows="5" placeholder="例:10010000000001"></textarea>
+            </div>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="ping">质量码（一行一段）</label>
+                <textarea name="ping" id="ping" cols="30" rows="5" placeholder="例:10011000000001-10011123456789"></textarea>
+            </div>
+            <div>
+                <label for="pingFei">质量码废标（一行一个）</label>
+                <textarea name="pingFei" id="pingFei" cols="30" rows="5" placeholder="例:10011000000001"></textarea>
+            </div>
+        </div>
+    </section>
+    <!--<section>-->
+    <!--<div class="title">-->
+    <!--<h3>预览显示</h3>-->
+    <!--</div>-->
+    <!--<div class="grid">-->
+    <!--<iframe src="javascript:void(0);" frameborder="0"></iframe>-->
+    <!--</div>-->
+    <section class="table">
+        <div class="top">
+            <h3>预览显示</h3>
+            <span class="red">（请先预览，确认无误后再提交）</span>
+            <div class="search"></div>
+            <input id="search" type="text" />
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="codecon">
+                <tr>
+                    <th>箱码</th>
+                    <th>质量码</th>
+                </tr>
+            </table>
+        </div>
+    </section>
+    <section></section>
+    <!--</section>-->
+    <section>
+        <button id="yulan">预览</button>
+        <button id="guanlian">提交</button>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script>
+    var t;
+        methods.addEvent(methods.getId('yulan'),'click',function(){
+            $("#codecon tbody:not(:first)").remove();
+           var data = new Data();
+            if(!data.getInput()){
+                new Inform({title:'通知',content:'数据项不完整<br /><span class="red">请检查</span>'}).alert();
+                return ;
+            }
+            data.common({xiang:$("#xiang").val().split("\n"),ping: $("#ping").val().split("\n"),xiangFei:$("#xiangFei").val().split("\n"),pingFei:$("#pingFei").val().split("\n")});
+            methods.ajax({
+                url: "/Product/CorrelationPack/view",
+                data:data.data,
+                callback: function(data){
+                    t = data.result._t;
+                    data = data.result.data;
+                    var codecon = methods.getId('codecon');
+                    for(var i=0;i<data.length;i++){
+                        codecon.innerHTML += "<tr><td>"+data[i].x+"</td><td>"+data[i].p.join(",")+"</td></tr>";
+                        p = "";
+                    }
+                }
+            })
+        });
+        methods.addEvent(methods.getId('guanlian'),'click',function(){
+           methods.ajax({
+               url: "/Product/CorrelationPack/insert",
+               data:{
+                   t:t
+               },
+               callback: function(data){
+                   new Inform({title:'通知',content:'新增成功'}).alert(function(){
+                       window.location.href = "/Application/Produce/View/Index/connectManage.html";
+                   })
+               }
+           })
+        });
+</script>
+</html>

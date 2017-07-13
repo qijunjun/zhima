@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>假货数据</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <!--<link rel="stylesheet" href="/resources/css/table.css" />-->
+    <link rel="stylesheet" href="/resources/css/code/scancode.css" />
+    <!--<link rel="stylesheet" href="/resources/css/faker/faker.css" />-->
+</head>
+<body>
+<article>
+    <section class="table">
+        <div class="top">
+            <h3>假货数据管理</h3>
+            <input type="button" id="export" class="topButton" value="导出全部">
+            <div class="search"></div>
+            <input id="search" type="text" />
+            <!--<div class="date">-->
+                <!--<label for="endDate">终止时间</label>-->
+                <!--<input type="date" id="endDate" name="endDate">-->
+            <!--</div>-->
+            <!--<div  class="date">-->
+                <!--<label for="startDate">起始时间</label>-->
+                <!--<input type="date" id="startDate" name="startDate">-->
+            <!--</div>-->
+        </div>
+        <div class="center"></div>
+        <div class="bottom">
+            <table id="faker">
+                <thead>
+                    <tr>
+                        <th data-column-id="recent_ipaddr">IP区域</th>
+                        <th data-column-id="recent_time" data-converter="datetime">时间</th>
+                        <th data-column-id="recent_address">地点</th>
+                        <th data-column-id="b">质量码</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery.bootgrid.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/message.js"></script>
+<script src="/resources/js/faker/faker.js"></script>
+</html>

@@ -1,0 +1,73 @@
+<?php
+	$user_info = $_SESSION["user_info"];
+	$name = $user_info["name"];
+?>
+		<header>
+			<section>
+<?php
+	if ($user_info["logo"] != null)
+	{
+?>
+				<img style="height: 50px; float: left; position: relative; left: 10px; top: 5px;" src="<?php echo $user_info["logo"]; ?>" />
+<?php
+	}
+?>
+				<h4><?php echo $name; ?></h4>
+				<p class="logout">退出</p>
+				<p class="help">帮助</p>
+				<p class="setting">设置</p>
+				<p class="produce">二维码生成</p>
+				<?php
+					if ($_SESSION["user_info"]["groups"][0] ==2)
+					{
+				?>
+						<p class="inform">&nbsp;</p>
+				<?php
+					}
+				?>
+				<?php
+					if ($_SESSION["user_info"]["groups"][0] ==4)
+					{
+				?>
+						<p class="govinform">&nbsp;</p>
+				<?php
+					}
+				?>
+				<?php
+					if ($_SESSION["user_info"]["groups"][0] ==1)
+					{
+				?>
+				<p>&nbsp;</p>
+				<?php
+					}
+				?>
+			</section>
+			<section id="code-tool">
+				<div class="top">
+					<div id="code-toolbar"><span id="code-text">文&nbsp;&nbsp;本</span><span id="code-zcode">质量码</span></div>
+				</div>
+				<div class="middle">
+					<div class="left">
+						<div id="code-text-left" style="position: relative">
+							<div style="position: relative">
+								<textarea name="textContent" id="text-content" placeholder="请输入文字内容"></textarea>
+							</div>
+							<div class="tip">建议不超过140个字符</div>
+						</div>
+						<div id="code-zcode-left" style="position: relative">
+                        <div style="position: relative">
+                            <input type="text" name="zcodeContent" id="zcode-content" maxlength="17" placeholder="例：1000 0000 0000 01（14位）" />
+                        </div>
+                        <div class="tip">请输入14位质量码</div>
+                    </div>
+					</div>
+					<div class="right">
+						<div class="code-img">
+							<div id="code-box"><img src="" alt="二维码"></div>
+							<!--<div id="toolbar"><a href=""><img src="/resources/images/save.png" alt="保存"></a></div>-->
+						</div>
+						<div class="code-btn" id="code-make">生&nbsp;&nbsp;&nbsp;&nbsp;成</div>
+					</div>
+				</div>
+			</section>
+		</header>

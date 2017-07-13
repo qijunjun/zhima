@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <title>快消平台管理系统</title>
+    <link rel="stylesheet" href="/resources/css/reset.css" />
+    <link rel="stylesheet" href="/resources/css/message.css" />
+    <link rel="stylesheet" href="/resources/css/inform.css" />
+</head>
+<body>
+<article>
+    <section>
+        <div class="title">
+            <h3>公告信息</h3>
+        </div>
+        <div class="grid">
+            <div>
+                <label for="title">标题</label>
+                <input type="text" name="title" id="title" data-name="标题">
+            </div>
+            <div style="width: 1000px;">
+                <label for="content" style="width:90px;">内容</label>
+                <textarea id="content" name="content" style="height: 300px"></textarea>
+            </div>
+        </div>
+    </section>
+    <section>
+        <button id="submit">提交</button>
+    </section>
+</article>
+</body>
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/methods.js"></script>
+<script src="/resources/js/setData.js"></script>
+<script src="/resources/js/getData_test.js"></script>
+<script src="/resources/js/message_test.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor();
+    editor.render("content");
+    $(document).ready(function(){
+        var id= window.location.href.split("?")[1].substring(3);
+        methods.ajax({
+            url :"/Government/Message/editInfo",
+            data:{id:id},
+            callback:function(data){
+                data = data.result;
+                methods.getId("title").value = data.title;
+                editor.addListener("ready", function () {
+                    editor.setContent(data.content);
+                });
+            }
+        });
+        methods.addEvent(methods.getId('submit'),'click',function(){
+            var data= new Data();
+            if(!data.getInput()){
+                new Inform({title:"通知",content:"数据项不完整<br><span class='red'>请检查</span>"}).alert();
+                return ;
+            }
+            var content =editor.getContent();
+            var _data = {
+                id:id,
+                title:$("#title").val(),
+                content:content
+            };
+            methods.ajax({
+                url:"/Government/Message/updateInfo",
+                data:_data,
+                callback: function(data){
+                    new Inform({title:"通知",content:"修改成功"}).alert(function(){
+                        window.location.href="/Application/Government/View/ZQT/inform.html";
+                    })
+                }
+            })
+        });
+    });
+</script>
+</html>
